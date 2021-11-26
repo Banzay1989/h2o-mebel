@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+require_once 'api_routes/order.php';
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,4 +20,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('orders', 'Api\OrderController@index');
