@@ -1,46 +1,53 @@
 <template>
-    <v-row>
+    <v-container fluid>
+        <v-row>
+            <v-col cols="12">
+                <h1>Orders</h1>
+                <button-with-dialog
+                    title="Добавить заказ"
+                    header_text="Новый заказ"
+                    mdi_icon="mdi-plus"
+                >
+                    <h1>dsdsd</h1>
+                </button-with-dialog>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="12">
+                <v-data-table
+                    :items="orders"
+                >
 
-        <sidebar></sidebar>
-
-        <v-col md="9" class="mt-3 mb-3">
-            <v-row>
-                <v-col v-for="product in products" :key="product.id" lg="4" md="6" class="mb-4">
-                    <v-card class="h-100">
-                        <a href="#"><v-img :src="product.photo" alt=""/></a>
-                        <v-card-title>
-                            <a href="#">{{ product.name }}</a>
-                        </v-card-title>
-                        <v-card-subtitle>
-                            <h3>${{ product.price }}</h3>
-                        </v-card-subtitle>
-                        <v-card-text>{{ product.description }}</v-card-text>
-                    </v-card>
-                </v-col>
-            </v-row>
-        </v-col>
-    </v-row>
-    <!-- /.row -->
-
+                </v-data-table>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
-    import Sidebar from "../components/Sidebar";
+    import ButtonWithDialog from "../components/ButtonWithDialog";
 
     export default {
+        name: "Homepage",
+        components: {
+            ButtonWithDialog,
+        },
         data() {
             return {
-                products: {}
+                orders: []
             }
         },
         mounted() {
-            axios.get('/api/products')
+            axios.get('/api/orders')
                 .then(response => {
-                    this.products = response.data.data;
+                    this.orders = response.data.data;
                 });
         },
-        components: {
-            'sidebar': Sidebar
-        }
+
     }
 </script>
+<style scoped>
+    h1{
+        display: inline-block;
+    }
+</style>

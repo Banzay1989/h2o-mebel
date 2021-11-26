@@ -1,8 +1,70 @@
 <template>
     <v-row>
         <v-col lg="12" class="mt-3 mb-3">
-            <h1>About us</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tristique egestas cursus. Vestibulum aliquam sapien vel quam luctus, sit amet mollis risus aliquam. Proin dignissim justo magna, id rutrum neque cursus sed. Nunc malesuada molestie justo, sed lacinia lorem egestas a. Donec euismod diam non sodales tempus. Vivamus dui neque, aliquam eget imperdiet ac, feugiat eget massa. Mauris sit amet ex eget felis fringilla fringilla. Suspendisse potenti. Nunc blandit scelerisque lacinia. Morbi sed placerat orci, ut malesuada justo. Cras felis dui, cursus sit amet lectus sed, placerat bibendum metus. Proin in iaculis odio, sit amet consectetur arcu. Nunc facilisis nunc at maximus efficitur. Vestibulum bibendum ex sed tellus commodo, in pellentesque odio efficitur. Cras dignissim nisi odio, non rutrum ante rutrum sed.</p>
+            <h1>About test task</h1>
+            <h2>Тестовое Задание на должность PHP Web разработчика</h2>
+            <p>
+                Реализовать небольшое приложение «Список заявок» для организации отображения списка существующих на
+                сервере заявок пользователя. Приложение должно быть написано на языке PHP с использованием любого
+                фреймворка.
+            </p>
+            <h3>Приложение включает в себя следующие страницы:</h3>
+            <ol>
+                <li>
+                    Страница создания и редактирования заявки. Страница создания и редактирования заявки содержит следующие поля (атрибуты),
+                    задаваемые пользователем
+                    <ul>
+                        <li>Название – текстовое поле, не более 64 символов</li>
+                        <li>Изображение – возможность upload-а и прикрепления изображения к заявке</li>
+                        <li>Полнотекстовое описание – большой блок текста, с поддержкой форматирования</li>
+                        <li>Дата завершения – возможность выбора даты с помощью date-picker-а, дата не может быть меньше чем сегодня</li>
+                        <li>
+                            Статус – возможность выбора и указания статуса из списка предопределенных статусов:
+                            <ul>
+                                <li>Open</li>
+                                <li>Needs offer</li>
+                                <li>Offered</li>
+                                <li>Approved</li>
+                                <li>In progress</li>
+                                <li>Ready</li>
+                                <li>Verified</li>
+                                <li>Closed</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Страница просмотра списка заявок. На странице просмотра заявок должна отображаться таблица, содержащая все заявки. Колонки таблицы:
+                    <ul>
+                        <li>Название</li>
+                        <li>Дата создания</li>
+                        <li>Дата завершения</li>
+                        <li>Статус</li>
+                    </ul>
+                    Таблица должна поддерживать пагинацию и возможность сортировки по любой из колонок.
+                </li>
+                <li>
+                    Страница подробного просмотра заявки. На странице просмотра заявки должна отображаться полная информация по заявке, включающая все атрибуты:
+                    <ul>
+                        <li>Название</li>
+                        <li>Изображение</li>
+                        <li>Полнотекстовое описание</li>
+                        <li>Дата создания</li>
+                        <li>Дата завершения</li>
+                        <li>Статус</li>
+                    </ul>
+                </li>
+                <li>
+                    Дополнительно необходимо реализовать набор методов Rest API для:
+                    <ul>
+                        <li>Добавления новой заявки.</li>
+                        <li>Редактирования заявки.</li>
+                        <li>Получения списка заявок.</li>
+                        <li>Подробного просмотра заявки.</li>
+                    </ul>
+                    <strong>Методы Rest API реализуются отдельно и не участвуют в работе самого приложения.</strong>
+                </li>
+            </ol>
         </v-col>
     </v-row>
 </template>
