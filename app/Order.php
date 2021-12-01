@@ -23,7 +23,7 @@ class Order extends Model implements HasMedia {
         'name',
         'description',
         'completion_date',
-        'status'
+        'status',
     ];
     protected $appends = ['photos'];
 

@@ -2,11 +2,6 @@
     <v-container fluid>
         <v-row>
             <v-col cols="12">
-
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="12">
                 <v-data-table
                     :headers="table_headers"
                     :footer-props="footer_props"
@@ -27,7 +22,7 @@
                                     mdi_icon="mdi-plus"
                                     button_color="green"
                                 >
-                                    <h1>dsdsd</h1>
+                                    <order-editor/>
                                 </button-with-dialog>
                             </v-col>
                             <v-col cols="6">
@@ -39,6 +34,12 @@
                             </v-col>
                         </v-row>
                     </template>
+                    <template v-slot:item.created_at="{ item }">
+                        {{normalDate(item.created_at)}}
+                    </template>
+                    <template v-slot:item.completion_date="{ item }">
+                        {{normalDate(item.completion_date)}}
+                    </template>
                     <template v-slot:item.actions="{ item }">
                         <v-row>
                             <v-col cols="6">
@@ -48,7 +49,9 @@
                                     mdi_icon="mdi-pencil"
                                     button_color="warning"
                                 >
-                                    <h1>dsdsd</h1>
+                                    <order-editor
+                                        v-model="item"
+                                    />
                                 </button-with-dialog>
                             </v-col>
                             <v-col cols="6">
@@ -57,6 +60,9 @@
                                     small
                                     fab
                                     title="Удалить Заявку"
+                                    @click="this.$store.dispatch('removeOrder',{
+                                        id:item.id
+                                    })"
                                 >
                                     <v-icon>
                                         mdi-delete
@@ -73,12 +79,18 @@
 
 <script>
     import ButtonWithDialog from "../components/ButtonWithDialog";
+    import OrderEditor from "../components/OrderEditor";
+    import normalDate from "../mixins/normalDate";
 
     export default {
         name: "Homepage",
         components: {
             ButtonWithDialog,
+            OrderEditor,
         },
+        mixins: [
+            normalDate,
+        ],
         data() {
             return {
                 search: '',

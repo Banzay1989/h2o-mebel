@@ -26,9 +26,17 @@ class OrderController extends Controller {
 
         return response()->json([
             'orders' => [
-                'items' => OrderResource::collection($orders),
+                'items' => $orders,
                 'count' => Order::count(),
             ]
+        ]);
+    }
+
+    public function getConsts() {
+        return response()->json([
+            'order_const' => [
+                'statuses' => Order::STATUSES,
+            ],
         ]);
     }
 }
