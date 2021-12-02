@@ -22,7 +22,9 @@
                                     mdi_icon="mdi-plus"
                                     button_color="green"
                                 >
-                                    <order-editor/>
+                                    <order-editor
+                                        @refresh="getOrders(options)"
+                                    />
                                 </button-with-dialog>
                             </v-col>
                             <v-col cols="6">
@@ -35,10 +37,10 @@
                         </v-row>
                     </template>
                     <template v-slot:item.created_at="{ item }">
-                        {{normalDate(item.created_at)}}
+                        {{ normalDate(item.created_at) }}
                     </template>
                     <template v-slot:item.completion_date="{ item }">
-                        {{normalDate(item.completion_date)}}
+                        {{ normalDate(item.completion_date) }}
                     </template>
                     <template v-slot:item.actions="{ item }">
                         <v-row>
@@ -51,6 +53,7 @@
                                 >
                                     <order-editor
                                         v-model="item"
+                                        @refresh="getOrders(options)"
                                     />
                                 </button-with-dialog>
                             </v-col>
@@ -60,9 +63,7 @@
                                     small
                                     fab
                                     title="Удалить Заявку"
-                                    @click="this.$store.dispatch('removeOrder',{
-                                        id:item.id
-                                    })"
+                                    @click="destroy(item.id)"
                                 >
                                     <v-icon>
                                         mdi-delete
@@ -115,18 +116,29 @@
             },
         },
 
-        watch:{
+        watch: {
             options: {
-                handler (value) {
-                    this.$store.dispatch('getOrders', {
-                        limit: value.itemsPerPage,
-                        pagination: value.itemsPerPage*(value.page-1),
-                        orderBy: value.sortBy[0],
-                        orderDirection: value.sortDesc[0] ? 'desc' : 'asc',
-                    });
+                handler(value) {
+                    this.getOrders(value);
                 },
                 deep: true,
             },
+        },
+
+        methods: {
+            async destroy(id) {
+                await this.$store.dispatch('deleteOrder', {id: id});
+                this.getOrders(this.options);
+            },
+
+            getOrders(value){
+                this.$store.dispatch('getOrders', {
+                    limit: value.itemsPerPage,
+                    pagination: value.itemsPerPage * (value.page - 1),
+                    orderBy: value.sortBy[0],
+                    orderDirection: value.sortDesc[0] ? 'desc' : 'asc',
+                });
+            }
         },
     }
 </script>

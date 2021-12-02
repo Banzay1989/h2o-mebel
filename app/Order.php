@@ -27,6 +27,16 @@ class Order extends Model implements HasMedia {
     ];
     protected $appends = ['photos'];
 
+
+    public static function rules(): array {
+        return [
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'completion_date' => 'required|after_or_equal:date',
+            'status' => 'required|string|in:' . implode(',', self::STATUSES),
+        ];
+    }
+
     /**
      * @return array
      */

@@ -12,8 +12,7 @@ export default {
      * @return {string}
      */
     normalDate(date) {
-        console.log(Date.parse(date.substr(0,10)));
-        return date !== '' ? Date.parse(date.substr(0,10)).toISOString().split('T')[0] : actualDate;
+        return date !== '' ? new Date(date.substr(0,10)).toLocaleDateString() : 'Не удалось определить дату';
     },
   },
 };

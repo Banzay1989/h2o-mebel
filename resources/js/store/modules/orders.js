@@ -1,27 +1,43 @@
-import {commit} from "lodash/seq";
-
 export default {
     actions: {
-        async getOrders(ctx, params= {}) {
+        async getOrders(ctx, params = {}) {
             let orders = [];
-            let total_orders_count = 0;
-            await axios.get(`/api/orders`,{
-                params:params
+            await axios.get(`/api/orders`, {
+                params: params
             }).then(response => {
                 orders = response.data.orders;
+                ctx.commit('updateAllOrders', orders);
             });
 
-            ctx.commit('updateAllOrders', orders)
+
         },
 
         async getOrderConst(ctx) {
             let order_const = [];
             await axios.get('/api/orders/const').then(response => {
                 order_const = response.data.order_const;
+                ctx.commit('updateAllOrderConst', order_const)
             });
 
-            ctx.commit('updateAllOrderConst', order_const)
+
+        },
+
+        async updateOrder(ctx, order_object) {
+            await axios.put(`/api/orders/${order_object.id}`, {order: order_object}).then(response => {
+            }).catch(errors => console.log(errors));
+        },
+
+        async newOrder(ctx, order_object) {
+            await axios.post(`/api/orders`, {order: order_object}).then(response => {
+            }).catch(errors => console.log(errors));
+        },
+
+        async deleteOrder(ctx, item) {
+            console.log(item);
+            await axios.delete(`/api/orders/${item.id}`).then(response => {
+            }).catch(errors => console.log(errors));
         }
+
     },
     mutations: {
         updateAllOrders(state, orders) {

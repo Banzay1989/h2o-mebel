@@ -41,48 +41,36 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col>
-                    <v-radio-group
-                        v-model="option"
-                        row
-                    >
-                        <v-radio
-                            label="Text"
-                            value="text"
-                        ></v-radio>
-                        <v-radio
-                            label="HTMLText"
-                            value="html"
-                        ></v-radio>
-                    </v-radio-group>
-                </v-col>
-            </v-row>
-            <v-row>
                 <v-col cols="12">
-                    <v-textarea
-                        v-show="option==='text'"
-                        v-model="editable_order.description"
-                        label="Описание"
-                        :rules="nameRules"
-                    >
-                    </v-textarea>
-                    <p v-show="option==='html'">
-                        <span v-html="editable_order.description" />
-                    </p>
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                            <v-textarea
+                                v-model="editable_order.description"
+                                label="Описание"
+                                :rules="nameRules"
+                                v-on="on"
+                            />
+                        </template>
+                        <p v-if="editable_order.description !== ''">
+                            <span v-html="editable_order.description" />
+                        </p>
+                    </v-tooltip>
                 </v-col>
             </v-row>
         </v-form>
         <v-row>
-            <v-spacer/>
+            <v-spacer />
             <v-btn
                 v-if="editable_order.id === null"
                 color="green"
+                @click="save"
             >
                 Сохранить
             </v-btn>
             <v-btn
                 v-else
                 color="warning"
+                @click="update"
             >
                 Изменить
             </v-btn>
@@ -113,7 +101,6 @@
             return {
                 editable_order: this.copyValue(),
                 valid: true,
-                option: 'text',
                 nameRules: [
                     v => !!v || 'Поле обязательно для заполнения',
                 ],
@@ -121,17 +108,9 @@
         },
         computed: {
             statuses() {
-                return this.$store.getters.getAllOrderConst.statuses;
+                return this.$store.getters.getAllOrderConst.statuses ?? [];
             },
         },
-        // watch:{
-        //     value:{
-        //         handler(val){
-        //
-        //         },
-        //         deep: true,
-        //     },
-        // },
         mounted() {
             this.$store.dispatch('getOrderConst');
         },
@@ -149,7 +128,21 @@
                     completion_date: this.actualDate(),
                     status: '',
                 }
-            }
+            },
+
+            async save() {
+                if (this.$refs.form.validate()) {
+                    await this.$store.dispatch('newOrder', this.editable_order);
+                    this.$emit('refresh');
+                }
+            },
+
+            async update() {
+                if (this.$refs.form.validate()) {
+                    await this.$store.dispatch('updateOrder', this.editable_order);
+                    this.$emit('refresh');
+                }
+            },
 
         },
     };

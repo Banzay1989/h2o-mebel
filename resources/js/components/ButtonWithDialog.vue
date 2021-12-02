@@ -22,9 +22,7 @@
         </span>
             </v-btn>
         </template>
-        <v-card
-            @close-dialog="close(listen_close_event)"
-        >
+        <v-card>
             <v-card-title>
                 <h2>
                     {{ header_text }}
@@ -124,16 +122,9 @@
 
             /**
              * @description Закрыть диалоговое окно
-             * Если хотите закрывать диалоговое окно из формы, то необходимо генерировать событие this.$parent.$emit('close-dialog');
-             * @param {boolean} listen_close_event
-             * @return {Object} this (VueComponent)
              */
-            close(listen_close_event = true) {
-                if (listen_close_event) {
-                    this.dialog = false;
-                }
-
-                return this;
+            close() {
+                this.dialog = false;
             },
 
         },
