@@ -22,6 +22,14 @@ interface RestApiOrder {
     public function store(Request $request):JsonResponse;
 
     /**
+     * @description Просмотр одного Заказа
+     * @param Order $model
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function get(Order $model):JsonResponse;
+
+    /**
      * @description изменение данных Заказа на данные из запроса
      * @param Order $model
      * @param Request $request
