@@ -8,21 +8,21 @@ use Illuminate\Http\Request;
 
 interface RestApiOrder {
     /**
-     * @description загрузка данных модели
+     * @description загрузка данных Заказа на основании данных из запроса (пагинация, сортировка)
      * @param Request $request
      * @return JsonResponse
      */
     public function index(Request $request):JsonResponse;
 
     /**
-     * @description создание новой модели
+     * @description создание нового Заказа на основании данных из запроса
      * @param Request $request
      * @return JsonResponse
      */
     public function store(Request $request):JsonResponse;
 
     /**
-     * @description изменение модели
+     * @description изменение данных Заказа на данные из запроса
      * @param Order $model
      * @param Request $request
      * @return JsonResponse
@@ -30,7 +30,7 @@ interface RestApiOrder {
     public function update(Order $model, Request $request):JsonResponse;
 
     /**
-     * @description удаление модели
+     * @description удаление Заказа
      * @param Order $model
      * @return JsonResponse
      */

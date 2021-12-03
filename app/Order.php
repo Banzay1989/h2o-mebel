@@ -9,6 +9,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Order extends Model implements HasMedia {
     use InteractsWithMedia;
 
+    //Набор предопределенных статусов заказа
     const STATUSES = [
         'Open',
         'Needs offer',
@@ -19,30 +20,34 @@ class Order extends Model implements HasMedia {
         'Verified',
         'Closed',
     ];
+
+    //Заполняемые параметры
     protected $fillable = [
         'name',
         'description',
         'completion_date',
         'status',
     ];
-    protected $appends = ['photos'];
 
+    //Файлы, прикрепленные к заказу
+    protected $appends = ['files'];
 
+    //Правила заполнения данных заказа
     public static function rules(): array {
         return [
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'completion_date' => 'required|after_or_equal:date',
-            'status' => 'required|string|in:' . implode(',', self::STATUSES),
+            'name' => 'required|string', //Имя - обязательное строковое
+            'description' => 'required|string', //Описание - обязательное строковое
+            'completion_date' => 'required|after_or_equal:date', //Дата завершения - обязательное, дата больше или равная сегодня
+            'status' => 'required|string|in:' . implode(',', self::STATUSES), //Статус - обязательное, соответствовать константе статусов
         ];
     }
 
     /**
      * @return array
      */
-    public function getPhotosAttribute(): array {
+    public function getFilesAttribute(): array {
         $ar_file_links = [];
-        $files = $this->getMedia('orders_photos')->all();
+        $files = $this->getMedia('orders_files')->all();
 
         if (count($files)) {
             foreach ($files as $file) {

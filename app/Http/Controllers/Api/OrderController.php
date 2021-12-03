@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class OrderController extends Controller implements RestApiOrder {
 
     /**
+     * @description загрузка данных Заказа на основании данных из запроса (пагинация, сортировка)
      * @param Request $request
      * @return JsonResponse
      */
@@ -39,6 +40,10 @@ class OrderController extends Controller implements RestApiOrder {
         ]);
     }
 
+    /**
+     * @description Загрузка констант модели (статусов) для создания редактора Заказа
+     * @return JsonResponse
+     */
     public function getConsts():JsonResponse {
         return response()->json([
             'order_const' => [
@@ -47,6 +52,11 @@ class OrderController extends Controller implements RestApiOrder {
         ]);
     }
 
+    /**
+     * @description создание нового Заказа на основании данных из запроса
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function store(Request $request):JsonResponse {
         $order_data = $request->order;
 
@@ -68,6 +78,12 @@ class OrderController extends Controller implements RestApiOrder {
         ]);
     }
 
+    /**
+     * @description изменение данных Заказа на данные из запроса
+     * @param Order $order
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function update(Order $order, Request $request):JsonResponse {
         $order_data = $request->order;
 
@@ -89,6 +105,12 @@ class OrderController extends Controller implements RestApiOrder {
         ]);
     }
 
+    /**
+     * @description удаление Заказа
+     * @param Order $order
+     * @return JsonResponse
+     * @throws \Exception
+     */
     public function delete(Order $order):JsonResponse {
         $result = $order->delete();
         return response()->json([

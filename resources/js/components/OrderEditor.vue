@@ -13,7 +13,7 @@
                     <v-text-field
                         v-model="editable_order.name"
                         type="text"
-                        label="Название заявки"
+                        label="Название заказа"
                         :rules="nameRules"
                     />
                 </v-col>
@@ -81,7 +81,7 @@
 <script>
 
     /**
-     * Компонент - "Редактор заявки"
+     * Компонент - "Редактор заказа"
      */
     import actualDate from "../mixins/actualDate";
 
@@ -116,10 +116,18 @@
         },
 
         methods: {
+            /**
+             * @description в редактируемый объект вернет копию переданного, либо объект с пустыми полями
+             * @return {{name: string, description: string, completion_date: string, id: ?number, status: string}|any}
+             */
             copyValue() {
                 return this.value === undefined || JSON.stringify(this.value) === '{}' ? this.clearOrder() : JSON.parse(JSON.stringify(this.value));
             },
 
+            /**
+             * @description вернет объект с пустыми полями
+             * @return {{name: string, description: string, completion_date: string, id: null, status: string}}
+             */
             clearOrder() {
                 return {
                     id: null,
@@ -130,17 +138,24 @@
                 }
             },
 
+
+            /**
+             * @description сохранение нового заказа
+             * @return {Promise<void>}
+             */
             async save() {
                 if (this.$refs.form.validate()) {
                     await this.$store.dispatch('newOrder', this.editable_order);
-                    // this.$emit('refresh');
                 }
             },
 
+            /**
+             * @description изменение закза
+             * @return {Promise<void>}
+             */
             async update() {
                 if (this.$refs.form.validate()) {
                     await this.$store.dispatch('updateOrder', this.editable_order);
-                    // this.$emit('refresh');
                 }
             },
 

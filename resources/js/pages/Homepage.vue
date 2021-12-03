@@ -91,20 +91,20 @@
         ],
         data() {
             return {
-                search: '',
-                table_headers: [
+                search: '', //Переменная для поиска в загруженных данных
+                table_headers: [ //Заголовки таблицы
                     {text: 'Название', value: 'name', align: 'center'},
                     {text: 'Дата создания', value: 'created_at', align: 'center'},
                     {text: 'Дата завершения', value: 'completion_date', align: 'center'},
                     {text: 'Статус', value: 'status', align: 'center'},
                     {text: 'Управление', value: 'actions', align: 'center', sortable: false},
                 ],
-                footer_props: {
+                footer_props: { //Настройки футера Таблицы
                     'items-per-page-options': [10, 20, 50, 100],
                     'items-per-page-text': 'Заказов на странице',
                 },
-                options: {},
-                loading: false,
+                options: {}, //Опции (пагинация, сортировка) таблицы
+                loading: false, //
             }
         },
         computed: {
@@ -123,13 +123,20 @@
         },
 
         methods: {
-            getOrders(value) {
-                this.$store.dispatch('getOrders', {
+            /**
+             * @description Загрузка заказов в зависисмости от опций в табллице (пагинация, сортировка)
+             * @param value
+             * @return {Promise<void>}
+             */
+            async getOrders(value) {
+                this.loading = true;
+                await this.$store.dispatch('getOrders', {
                     limit: value.itemsPerPage,
                     pagination: value.itemsPerPage * (value.page - 1),
                     orderBy: value.sortBy[0],
                     orderDirection: value.sortDesc[0] ? 'desc' : 'asc',
                 });
+                this.loading = false;
             }
         },
     }

@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="87f00ec9-7122-42b5-bf2a-1b88968cbbdc" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/app/Interfaces/RestApi.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Interfaces/RestApiOrder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/OrderResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/OrderResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Interfaces/RestApiOrder.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Interfaces/RestApiOrder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Order.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/OrderEditor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/OrderEditor.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/Homepage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Homepage.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/modules/orders.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/orders.js" afterDir="false" />
@@ -221,7 +223,7 @@
       <workItem from="1638378363974" duration="7044000" />
       <workItem from="1638457824831" duration="1325000" />
       <workItem from="1638459437278" duration="7713000" />
-      <workItem from="1638514475419" duration="4512000" />
+      <workItem from="1638514475419" duration="5816000" />
     </task>
     <servers />
   </component>

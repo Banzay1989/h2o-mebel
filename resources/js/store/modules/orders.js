@@ -1,5 +1,11 @@
 export default {
     actions: {
+        /**
+         * @description запрос на получение данных о Заказах
+         * @param ctx
+         * @param params
+         * @return {Promise<void>}
+         */
         async getOrders(ctx, params = {}) {
             let orders = [];
             await axios.get(`/api/orders`, {
@@ -12,6 +18,11 @@ export default {
 
         },
 
+        /**
+         * @description запрос на получение данных о константах Заказа
+         * @param ctx
+         * @return {Promise<void>}
+         */
         async getOrderConst(ctx) {
             let order_const = [];
             await axios.get('/api/orders/const').then(response => {
@@ -22,6 +33,12 @@ export default {
 
         },
 
+        /**
+         * @description Запрос на редактирование данных Заказа
+         * @param ctx
+         * @param order_object
+         * @return {Promise<void>}
+         */
         async updateOrder(ctx, order_object) {
             await axios.put(`/api/orders/${order_object.id}`, {order: order_object}).then(response => {
                 ctx.commit('deleteOrder', order_object);
@@ -29,12 +46,24 @@ export default {
             }).catch(errors => console.log(errors));
         },
 
+        /**
+         * @description Запрос на создание нового Заказа
+         * @param ctx
+         * @param order_object
+         * @return {Promise<void>}
+         */
         async newOrder(ctx, order_object) {
             await axios.post(`/api/orders`, {order: order_object}).then(response => {
                 ctx.commit('newOrder', order_object);
             }).catch(errors => console.log(errors));
         },
 
+        /**
+         * @description Запрос на удаление Заказа
+         * @param ctx
+         * @param item
+         * @return {Promise<void>}
+         */
         async deleteOrder(ctx, item) {
             await axios.delete(`/api/orders/${item.id}`).then(response => {
                 ctx.commit('deleteOrder', item);
@@ -43,15 +72,31 @@ export default {
 
     },
     mutations: {
+
+        /**
+         * @description наполнение массива Заказов данными
+         * @param state
+         * @param orders
+         */
         updateAllOrders(state, orders) {
             state.orders = orders;
         },
 
+        /**
+         * @description добавление нового заказа к массиву Заказов
+         * @param state
+         * @param order_object
+         */
         newOrder(state, order_object) {
             state.orders.count++;
             state.orders.items.unshift(order_object);
         },
 
+        /**
+         * @description удаление заказа из массива Заказов
+         * @param state
+         * @param item
+         */
         deleteOrder(state, item){
             state.orders.count--;
             const deletable_order = state.orders.items.find(order => order.id === item.id);
@@ -63,19 +108,34 @@ export default {
             }
         },
 
+        /**
+         * @description наполнение массива констант Заказов данными
+         * @param state
+         * @param order_const
+         */
         updateAllOrderConst(state, order_const) {
             state.order_const = order_const;
         },
     },
     state: {
-        orders: [],
-        order_const: [],
+        orders: [], //Заказы (items,count)
+        order_const: [], //Константы (statuses)
     },
     getters: {
+        /**
+         * @description получить Заказы
+         * @param state
+         * @return {Array}
+         */
         getAllOrders(state) {
             return state.orders;
         },
 
+        /**
+         * @description получить константы
+         * @param state
+         * @return {Array}
+         */
         getAllOrderConst(state) {
             return state.order_const
         }
