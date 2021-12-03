@@ -14,8 +14,6 @@ export default {
                 orders = response.data.orders;
                 ctx.commit('updateAllOrders', orders);
             });
-
-
         },
 
         /**
@@ -29,8 +27,6 @@ export default {
                 order_const = response.data.order_const;
                 ctx.commit('updateAllOrderConst', order_const)
             });
-
-
         },
 
         /**
