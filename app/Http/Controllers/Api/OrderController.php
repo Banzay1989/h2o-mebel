@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\RestApiOrder;
 use App\Order;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class OrderController extends Controller {
+class OrderController extends Controller implements RestApiOrder {
 
-    public function index(Request $request) {
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse {
         $limit = $request->input('limit', 10);
         $orderBy = $request->input('orderBy', 'id');
         $orderDirection = $request->input('orderDirection', 'asc');
@@ -33,7 +39,7 @@ class OrderController extends Controller {
         ]);
     }
 
-    public function getConsts() {
+    public function getConsts():JsonResponse {
         return response()->json([
             'order_const' => [
                 'statuses' => Order::STATUSES,
@@ -41,7 +47,7 @@ class OrderController extends Controller {
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request):JsonResponse {
         $order_data = $request->order;
 
         $validator = Validator::make(
@@ -62,7 +68,7 @@ class OrderController extends Controller {
         ]);
     }
 
-    public function update(Order $order, Request $request){
+    public function update(Order $order, Request $request):JsonResponse {
         $order_data = $request->order;
 
         $validator = Validator::make(
@@ -83,7 +89,7 @@ class OrderController extends Controller {
         ]);
     }
 
-    public function delete(Order $order){
+    public function delete(Order $order):JsonResponse {
         $result = $order->delete();
         return response()->json([
             'result' => (bool)$result,
