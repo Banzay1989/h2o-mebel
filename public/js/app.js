@@ -2235,9 +2235,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /**
- * Компонент - "Редактор заявки"
+ * Компонент - "Редактор заказа"
  */
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2269,18 +2285,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.$store.dispatch('getOrderConst');
   },
   methods: {
+    /**
+     * @description в редактируемый объект вернет копию переданного, либо объект с пустыми полями
+     * @return {{name: string, description: string, completion_date: string, id: ?number, status: string}|any}
+     */
     copyValue: function copyValue() {
       return this.value === undefined || JSON.stringify(this.value) === '{}' ? this.clearOrder() : JSON.parse(JSON.stringify(this.value));
     },
+
+    /**
+     * @description вернет объект с пустыми полями
+     * @return {{name: string, description: string, completion_date: string, id: null, status: string}}
+     */
     clearOrder: function clearOrder() {
       return {
         id: null,
         name: '',
         description: '',
         completion_date: this.actualDate(),
-        status: ''
+        status: '',
+        files: []
       };
     },
+
+    /**
+     * @description сохранение нового заказа
+     * @return {Promise<void>}
+     */
     save: function save() {
       var _this = this;
 
@@ -2295,7 +2326,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context.next = 3;
-                return _this.$store.dispatch('newOrder', _this.editable_order);
+                return _this.$store.dispatch('newOrder', _this.createFormData(_this.editable_order));
 
               case 3:
               case "end":
@@ -2305,6 +2336,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
+
+    /**
+     * @description изменение заказа
+     * @return {Promise<void>}
+     */
     update: function update() {
       var _this2 = this;
 
@@ -2319,7 +2355,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context2.next = 3;
-                return _this2.$store.dispatch('updateOrder', _this2.editable_order);
+                return _this2.$store.dispatch('updateOrder', {
+                  id: _this2.editable_order.id,
+                  order_object: _this2.createFormData(_this2.editable_order)
+                });
 
               case 3:
               case "end":
@@ -2328,6 +2367,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
+    },
+    createFormData: function createFormData(order_object) {
+      var formData = new FormData();
+      Object.keys(order_object).forEach(function (key) {
+        if (key !== 'files') {
+          formData.append(key, order_object[key]);
+        }
+      });
+
+      if (order_object.files.length) {
+        this.uploadFiles(formData, order_object.files);
+      }
+
+      return formData;
+    },
+    uploadFiles: function uploadFiles(formData, files) {
+      files.forEach(function (value) {
+        if (value.id === undefined) {
+          formData.append('files[]', value);
+        } else {
+          formData.append('old_files[]', value.id);
+        }
+      });
     }
   }
 });
@@ -2343,9 +2405,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_ButtonWithDialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/ButtonWithDialog */ "./resources/js/components/ButtonWithDialog.vue");
-/* harmony import */ var _components_OrderEditor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/OrderEditor */ "./resources/js/components/OrderEditor.vue");
-/* harmony import */ var _mixins_normalDate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/normalDate */ "./resources/js/mixins/normalDate.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_ButtonWithDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/ButtonWithDialog */ "./resources/js/components/ButtonWithDialog.vue");
+/* harmony import */ var _components_OrderEditor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/OrderEditor */ "./resources/js/components/OrderEditor.vue");
+/* harmony import */ var _mixins_normalDate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/normalDate */ "./resources/js/mixins/normalDate.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2429,14 +2499,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Homepage",
   components: {
-    ButtonWithDialog: _components_ButtonWithDialog__WEBPACK_IMPORTED_MODULE_0__["default"],
-    OrderEditor: _components_OrderEditor__WEBPACK_IMPORTED_MODULE_1__["default"]
+    ButtonWithDialog: _components_ButtonWithDialog__WEBPACK_IMPORTED_MODULE_1__["default"],
+    OrderEditor: _components_OrderEditor__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  mixins: [_mixins_normalDate__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  mixins: [_mixins_normalDate__WEBPACK_IMPORTED_MODULE_3__["default"]],
   data: function data() {
     return {
       search: '',
-      table_headers: [{
+      //Переменная для поиска в загруженных данных
+      table_headers: [//Заголовки таблицы
+      {
         text: 'Название',
         value: 'name',
         align: 'center'
@@ -2459,11 +2531,14 @@ __webpack_require__.r(__webpack_exports__);
         sortable: false
       }],
       footer_props: {
+        //Настройки футера Таблицы
         'items-per-page-options': [10, 20, 50, 100],
         'items-per-page-text': 'Заказов на странице'
       },
       options: {},
-      loading: false
+      //Опции (пагинация, сортировка) таблицы
+      loading: false //
+
     };
   },
   computed: {
@@ -2480,13 +2555,38 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    /**
+     * @description Загрузка заказов в зависисмости от опций в табллице (пагинация, сортировка)
+     * @param value
+     * @return {Promise<void>}
+     */
     getOrders: function getOrders(value) {
-      this.$store.dispatch('getOrders', {
-        limit: value.itemsPerPage,
-        pagination: value.itemsPerPage * (value.page - 1),
-        orderBy: value.sortBy[0],
-        orderDirection: value.sortDesc[0] ? 'desc' : 'asc'
-      });
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.loading = true;
+                _context.next = 3;
+                return _this.$store.dispatch('getOrders', {
+                  limit: value.itemsPerPage,
+                  pagination: value.itemsPerPage * (value.page - 1),
+                  orderBy: value.sortBy[0],
+                  orderDirection: value.sortDesc[0] ? 'desc' : 'asc'
+                });
+
+              case 3:
+                _this.loading = false;
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 });
@@ -21955,7 +22055,7 @@ var render = function() {
                   _c("v-text-field", {
                     attrs: {
                       type: "text",
-                      label: "Название заявки",
+                      label: "Название заказа",
                       rules: _vm.nameRules
                     },
                     model: {
@@ -22077,6 +22177,37 @@ var render = function() {
                         : _vm._e()
                     ]
                   )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-row", [_c("v-col", { attrs: { cols: "12" } })], 1),
+          _vm._v(" "),
+          _c(
+            "v-row",
+            [
+              _c(
+                "v-col",
+                { attrs: { cols: "12" } },
+                [
+                  _c("v-file-input", {
+                    attrs: {
+                      "show-size": "",
+                      counter: "",
+                      multiple: "",
+                      label: "Файлы"
+                    },
+                    model: {
+                      value: _vm.editable_order.files,
+                      callback: function($$v) {
+                        _vm.$set(_vm.editable_order, "files", $$v)
+                      },
+                      expression: "editable_order.files"
+                    }
+                  })
                 ],
                 1
               )
@@ -83585,25 +83716,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   actions: {
+    /**
+     * @description запрос на получение данных о Заказах
+     * @param ctx
+     * @param params
+     * @return {Promise<void>}
+     */
     getOrders: function getOrders(ctx) {
       var _arguments = arguments;
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var params, orders;
+        var params;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 params = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : {};
-                orders = [];
-                _context.next = 4;
+                _context.next = 3;
                 return axios.get("/api/orders", {
                   params: params
                 }).then(function (response) {
-                  orders = response.data.orders;
-                  ctx.commit('updateAllOrders', orders);
+                  ctx.commit('updateAllOrders', response.data.orders);
                 });
 
-              case 4:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -83611,21 +83746,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
+
+    /**
+     * @description запрос на получение данных о константах Заказа
+     * @param ctx
+     * @return {Promise<void>}
+     */
     getOrderConst: function getOrderConst(ctx) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var order_const;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                order_const = [];
-                _context2.next = 3;
+                _context2.next = 2;
                 return axios.get('/api/orders/const').then(function (response) {
-                  order_const = response.data.order_const;
-                  ctx.commit('updateAllOrderConst', order_const);
+                  ctx.commit('updateAllOrderConst', response.data.order_const);
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context2.stop();
             }
@@ -83633,18 +83771,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    updateOrder: function updateOrder(ctx, order_object) {
+
+    /**
+     * @description Запрос на редактирование данных Заказа
+     * @param ctx
+     * @param params
+     * @return {Promise<void>}
+     */
+    updateOrder: function updateOrder(ctx, params) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return axios.put("/api/orders/".concat(order_object.id), {
-                  order: order_object
-                }).then(function (response) {
-                  ctx.commit('deleteOrder', order_object);
-                  ctx.commit('newOrder', order_object);
+                return axios.post("/api/orders/".concat(params.id), params.order_object).then(function (response) {
+                  ctx.commit('deleteOrder', response.data.order);
+                  ctx.commit('newOrder', response.data.order);
                 })["catch"](function (errors) {
                   return console.log(errors);
                 });
@@ -83657,6 +83800,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
+
+    /**
+     * @description Запрос на создание нового Заказа
+     * @param ctx
+     * @param order_object
+     * @return {Promise<void>}
+     */
     newOrder: function newOrder(ctx, order_object) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -83664,10 +83814,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return axios.post("/api/orders", {
-                  order: order_object
-                }).then(function (response) {
-                  ctx.commit('newOrder', order_object);
+                return axios.post("/api/orders", order_object).then(function (response) {
+                  ctx.commit('newOrder', response.data.new_order);
                 })["catch"](function (errors) {
                   return console.log(errors);
                 });
@@ -83680,6 +83828,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
+
+    /**
+     * @description Запрос на удаление Заказа
+     * @param ctx
+     * @param item
+     * @return {Promise<void>}
+     */
     deleteOrder: function deleteOrder(ctx, item) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
@@ -83703,13 +83858,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mutations: {
+    /**
+     * @description наполнение массива Заказов данными
+     * @param state
+     * @param orders
+     */
     updateAllOrders: function updateAllOrders(state, orders) {
       state.orders = orders;
     },
+
+    /**
+     * @description добавление нового заказа к массиву Заказов
+     * @param state
+     * @param order_object
+     */
     newOrder: function newOrder(state, order_object) {
       state.orders.count++;
       state.orders.items.unshift(order_object);
     },
+
+    /**
+     * @description удаление заказа из массива Заказов
+     * @param state
+     * @param item
+     */
     deleteOrder: function deleteOrder(state, item) {
       state.orders.count--;
       var deletable_order = state.orders.items.find(function (order) {
@@ -83724,18 +83896,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }
     },
+
+    /**
+     * @description наполнение массива констант Заказов данными
+     * @param state
+     * @param order_const
+     */
     updateAllOrderConst: function updateAllOrderConst(state, order_const) {
       state.order_const = order_const;
     }
   },
   state: {
     orders: [],
-    order_const: []
+    //Заказы (items,count)
+    order_const: [] //Константы (statuses)
+
   },
   getters: {
+    /**
+     * @description получить Заказы
+     * @param state
+     * @return {Array}
+     */
     getAllOrders: function getAllOrders(state) {
       return state.orders;
     },
+
+    /**
+     * @description получить константы
+     * @param state
+     * @return {Array}
+     */
     getAllOrderConst: function getAllOrderConst(state) {
       return state.order_const;
     }

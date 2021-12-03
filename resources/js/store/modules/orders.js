@@ -7,12 +7,10 @@ export default {
          * @return {Promise<void>}
          */
         async getOrders(ctx, params = {}) {
-            let orders = [];
             await axios.get(`/api/orders`, {
                 params: params
             }).then(response => {
-                orders = response.data.orders;
-                ctx.commit('updateAllOrders', orders);
+                ctx.commit('updateAllOrders', response.data.orders);
             });
         },
 
@@ -22,23 +20,21 @@ export default {
          * @return {Promise<void>}
          */
         async getOrderConst(ctx) {
-            let order_const = [];
             await axios.get('/api/orders/const').then(response => {
-                order_const = response.data.order_const;
-                ctx.commit('updateAllOrderConst', order_const)
+                ctx.commit('updateAllOrderConst', response.data.order_const)
             });
         },
 
         /**
          * @description Запрос на редактирование данных Заказа
          * @param ctx
-         * @param order_object
+         * @param params
          * @return {Promise<void>}
          */
-        async updateOrder(ctx, order_object) {
-            await axios.put(`/api/orders/${order_object.id}`, {order: order_object}).then(response => {
-                ctx.commit('deleteOrder', order_object);
-                ctx.commit('newOrder', order_object);
+        async updateOrder(ctx, params) {
+            await axios.post(`/api/orders/${params.id}`, params.order_object).then(response => {
+                ctx.commit('deleteOrder', response.data.order);
+                ctx.commit('newOrder', response.data.order);
             }).catch(errors => console.log(errors));
         },
 
@@ -49,8 +45,8 @@ export default {
          * @return {Promise<void>}
          */
         async newOrder(ctx, order_object) {
-            await axios.post(`/api/orders`, {order: order_object}).then(response => {
-                ctx.commit('newOrder', order_object);
+            await axios.post(`/api/orders`, order_object).then(response => {
+                ctx.commit('newOrder', response.data.new_order);
             }).catch(errors => console.log(errors));
         },
 
@@ -64,7 +60,7 @@ export default {
             await axios.delete(`/api/orders/${item.id}`).then(response => {
                 ctx.commit('deleteOrder', item);
             }).catch(errors => console.log(errors));
-        }
+        },
 
     },
     mutations: {
@@ -134,6 +130,6 @@ export default {
          */
         getAllOrderConst(state) {
             return state.order_const
-        }
+        },
     },
 }

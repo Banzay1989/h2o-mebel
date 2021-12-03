@@ -54,7 +54,7 @@ class Order extends Model implements HasMedia {
                 $ar_file_links[] = [
                     'id' => $file->id,
                     'url' => route('files.orders', [
-                        'orderId' => $this->id,
+                        'order' => $this->id,
                         'fileId' => $file->id,
                         'r' => time()
                     ], false),

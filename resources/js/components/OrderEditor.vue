@@ -57,6 +57,22 @@
                     </v-tooltip>
                 </v-col>
             </v-row>
+            <v-row>
+                <v-col cols="12">
+
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12">
+                    <v-file-input
+                        v-model="editable_order.files"
+                        show-size
+                        counter
+                        multiple
+                        label="Файлы"
+                    />
+                </v-col>
+            </v-row>
         </v-form>
         <v-row>
             <v-spacer />
@@ -79,12 +95,11 @@
 </template>
 
 <script>
+    import actualDate from "../mixins/actualDate";
 
     /**
      * Компонент - "Редактор заказа"
      */
-    import actualDate from "../mixins/actualDate";
-
     export default {
         name: 'OrderEditor',
         mixins: [
@@ -135,9 +150,9 @@
                     description: '',
                     completion_date: this.actualDate(),
                     status: '',
+                    files: [],
                 }
             },
-
 
             /**
              * @description сохранение нового заказа
@@ -145,18 +160,41 @@
              */
             async save() {
                 if (this.$refs.form.validate()) {
-                    await this.$store.dispatch('newOrder', this.editable_order);
+                    await this.$store.dispatch('newOrder', this.createFormData(this.editable_order));
                 }
             },
 
             /**
-             * @description изменение закза
+             * @description изменение заказа
              * @return {Promise<void>}
              */
             async update() {
                 if (this.$refs.form.validate()) {
-                    await this.$store.dispatch('updateOrder', this.editable_order);
+                    await this.$store.dispatch('updateOrder', {id: this.editable_order.id, order_object: this.createFormData(this.editable_order)});
                 }
+            },
+
+            createFormData(order_object) {
+                let formData = new FormData();
+                Object.keys(order_object).forEach(key => {
+                    if (key !== 'files') {
+                        formData.append(key, order_object[key]);
+                    }
+                });
+                if (order_object.files.length){
+                    this.uploadFiles(formData, order_object.files);
+                }
+                return formData;
+            },
+
+            uploadFiles(formData, files) {
+                files.forEach(value => {
+                    if (value.id === undefined) {
+                        formData.append('files[]', value);
+                    } else {
+                        formData.append('old_files[]', value.id);
+                    }
+                });
             },
 
         },

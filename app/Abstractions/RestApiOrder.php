@@ -7,6 +7,7 @@ use App\Interfaces\RestApiOrder as RestApiOrderInterface;
 use App\Order;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
 
 //Абстрактный класс реализующий RestApi функции доступа к данным Заказа
@@ -47,8 +48,7 @@ abstract class RestApiOrder extends Controller implements RestApiOrderInterface 
      * @return JsonResponse
      */
     public function store(Request $request):JsonResponse {
-        $order_data = $request->order;
-
+        $order_data = $request->all();
         $validator = Validator::make(
             $order_data,
             Order::rules()
@@ -62,8 +62,16 @@ abstract class RestApiOrder extends Controller implements RestApiOrderInterface 
         }
 
         $new_order = Order::create($order_data);
+            foreach ($request->file("files") as $file) {
+                if ($file instanceof UploadedFile) {
+                    // Сохраняем файл на сервере
+                    $new_order->addMedia($file)
+                        ->withCustomProperties(['path', $new_order->getDirectory()])
+                        ->toMediaCollection('orders_files');
+                }
+            }
         return response()->json([
-            'new_order' => $new_order
+            'new_order' => $new_order,
         ]);
     }
 
@@ -78,6 +86,7 @@ abstract class RestApiOrder extends Controller implements RestApiOrderInterface 
             'order' => $order
         ]);
     }
+
     /**
      * @description изменение данных Заказа на данные из запроса
      * @param Order $order
@@ -85,8 +94,7 @@ abstract class RestApiOrder extends Controller implements RestApiOrderInterface 
      * @return JsonResponse
      */
     public function update(Order $order, Request $request):JsonResponse {
-        $order_data = $request->order;
-
+        $order_data = $request->all();
         $validator = Validator::make(
             $order_data,
             Order::rules()
@@ -100,8 +108,16 @@ abstract class RestApiOrder extends Controller implements RestApiOrderInterface 
         }
 
         $order->update($order_data);
+        foreach ($request->file("files") as $file) {
+            if ($file instanceof UploadedFile) {
+                // Сохраняем файл на сервере
+                $order->addMedia($file)
+                    ->withCustomProperties(['path', $order->getDirectory()])
+                    ->toMediaCollection('orders_files');
+            }
+        }
         return response()->json([
-            'new_order' => $order_data
+            'new_order' => $order,
         ]);
     }
 
