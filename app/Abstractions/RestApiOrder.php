@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+//Абстрактный класс реализующий RestApi функции доступа к данным Заказа
 abstract class RestApiOrder extends Controller implements RestApiOrderInterface {
 
     /**
