@@ -133,14 +133,14 @@
             async save() {
                 if (this.$refs.form.validate()) {
                     await this.$store.dispatch('newOrder', this.editable_order);
-                    this.$emit('refresh');
+                    // this.$emit('refresh');
                 }
             },
 
             async update() {
                 if (this.$refs.form.validate()) {
                     await this.$store.dispatch('updateOrder', this.editable_order);
-                    this.$emit('refresh');
+                    // this.$emit('refresh');
                 }
             },
 

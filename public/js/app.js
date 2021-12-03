@@ -2290,7 +2290,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 if (!_this.$refs.form.validate()) {
-                  _context.next = 4;
+                  _context.next = 3;
                   break;
                 }
 
@@ -2298,9 +2298,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this.$store.dispatch('newOrder', _this.editable_order);
 
               case 3:
-                _this.$emit('refresh');
-
-              case 4:
               case "end":
                 return _context.stop();
             }
@@ -2317,7 +2314,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 if (!_this2.$refs.form.validate()) {
-                  _context2.next = 4;
+                  _context2.next = 3;
                   break;
                 }
 
@@ -2325,9 +2322,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this2.$store.dispatch('updateOrder', _this2.editable_order);
 
               case 3:
-                _this2.$emit('refresh');
-
-              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -2349,20 +2343,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_ButtonWithDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/ButtonWithDialog */ "./resources/js/components/ButtonWithDialog.vue");
-/* harmony import */ var _components_OrderEditor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/OrderEditor */ "./resources/js/components/OrderEditor.vue");
-/* harmony import */ var _mixins_normalDate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mixins/normalDate */ "./resources/js/mixins/normalDate.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
+/* harmony import */ var _components_ButtonWithDialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/ButtonWithDialog */ "./resources/js/components/ButtonWithDialog.vue");
+/* harmony import */ var _components_OrderEditor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/OrderEditor */ "./resources/js/components/OrderEditor.vue");
+/* harmony import */ var _mixins_normalDate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/normalDate */ "./resources/js/mixins/normalDate.js");
 //
 //
 //
@@ -2446,10 +2429,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Homepage",
   components: {
-    ButtonWithDialog: _components_ButtonWithDialog__WEBPACK_IMPORTED_MODULE_1__["default"],
-    OrderEditor: _components_OrderEditor__WEBPACK_IMPORTED_MODULE_2__["default"]
+    ButtonWithDialog: _components_ButtonWithDialog__WEBPACK_IMPORTED_MODULE_0__["default"],
+    OrderEditor: _components_OrderEditor__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  mixins: [_mixins_normalDate__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  mixins: [_mixins_normalDate__WEBPACK_IMPORTED_MODULE_2__["default"]],
   data: function data() {
     return {
       search: '',
@@ -2497,30 +2480,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
-    destroy: function destroy(id) {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return _this.$store.dispatch('deleteOrder', {
-                  id: id
-                });
-
-              case 2:
-                _this.getOrders(_this.options);
-
-              case 3:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
     getOrders: function getOrders(value) {
       this.$store.dispatch('getOrders', {
         limit: value.itemsPerPage,
@@ -22452,15 +22411,7 @@ var render = function() {
                                       button_color: "green"
                                     }
                                   },
-                                  [
-                                    _c("order-editor", {
-                                      on: {
-                                        refresh: function($event) {
-                                          return _vm.getOrders(_vm.options)
-                                        }
-                                      }
-                                    })
-                                  ],
+                                  [_c("order-editor")],
                                   1
                                 )
                               ],
@@ -22543,11 +22494,6 @@ var render = function() {
                                   },
                                   [
                                     _c("order-editor", {
-                                      on: {
-                                        refresh: function($event) {
-                                          return _vm.getOrders(_vm.options)
-                                        }
-                                      },
                                       model: {
                                         value: item,
                                         callback: function($$v) {
@@ -22578,7 +22524,10 @@ var render = function() {
                                     },
                                     on: {
                                       click: function($event) {
-                                        return _vm.destroy(item.id)
+                                        return _vm.$store.dispatch(
+                                          "deleteOrder",
+                                          { id: item.id }
+                                        )
                                       }
                                     }
                                   },
@@ -83693,7 +83642,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.next = 2;
                 return axios.put("/api/orders/".concat(order_object.id), {
                   order: order_object
-                }).then(function (response) {})["catch"](function (errors) {
+                }).then(function (response) {
+                  ctx.commit('deleteOrder', order_object);
+                  ctx.commit('newOrder', order_object);
+                })["catch"](function (errors) {
                   return console.log(errors);
                 });
 
@@ -83714,7 +83666,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context4.next = 2;
                 return axios.post("/api/orders", {
                   order: order_object
-                }).then(function (response) {})["catch"](function (errors) {
+                }).then(function (response) {
+                  ctx.commit('newOrder', order_object);
+                })["catch"](function (errors) {
                   return console.log(errors);
                 });
 
@@ -83732,13 +83686,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                console.log(item);
-                _context5.next = 3;
-                return axios["delete"]("/api/orders/".concat(item.id)).then(function (response) {})["catch"](function (errors) {
+                _context5.next = 2;
+                return axios["delete"]("/api/orders/".concat(item.id)).then(function (response) {
+                  ctx.commit('deleteOrder', item);
+                })["catch"](function (errors) {
                   return console.log(errors);
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context5.stop();
             }
@@ -83750,6 +83705,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mutations: {
     updateAllOrders: function updateAllOrders(state, orders) {
       state.orders = orders;
+    },
+    newOrder: function newOrder(state, order_object) {
+      state.orders.count++;
+      state.orders.items.unshift(order_object);
+    },
+    deleteOrder: function deleteOrder(state, item) {
+      state.orders.count--;
+      var deletable_order = state.orders.items.find(function (order) {
+        return order.id === item.id;
+      });
+
+      if (deletable_order !== undefined) {
+        var index = state.orders.items.indexOf(deletable_order);
+
+        if (index !== -1) {
+          state.orders.items.splice(index, 1);
+        }
+      }
     },
     updateAllOrderConst: function updateAllOrderConst(state, order_const) {
       state.order_const = order_const;

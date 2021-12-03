@@ -22,9 +22,7 @@
                                     mdi_icon="mdi-plus"
                                     button_color="green"
                                 >
-                                    <order-editor
-                                        @refresh="getOrders(options)"
-                                    />
+                                    <order-editor />
                                 </button-with-dialog>
                             </v-col>
                             <v-col cols="6">
@@ -53,7 +51,6 @@
                                 >
                                     <order-editor
                                         v-model="item"
-                                        @refresh="getOrders(options)"
                                     />
                                 </button-with-dialog>
                             </v-col>
@@ -63,7 +60,7 @@
                                     small
                                     fab
                                     title="Удалить Заявку"
-                                    @click="destroy(item.id)"
+                                    @click="$store.dispatch('deleteOrder', {id: item.id})"
                                 >
                                     <v-icon>
                                         mdi-delete
@@ -126,12 +123,7 @@
         },
 
         methods: {
-            async destroy(id) {
-                await this.$store.dispatch('deleteOrder', {id: id});
-                this.getOrders(this.options);
-            },
-
-            getOrders(value){
+            getOrders(value) {
                 this.$store.dispatch('getOrders', {
                     limit: value.itemsPerPage,
                     pagination: value.itemsPerPage * (value.page - 1),
