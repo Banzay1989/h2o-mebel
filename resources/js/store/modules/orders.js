@@ -33,8 +33,8 @@ export default {
          */
         async updateOrder(ctx, params) {
             await axios.post(`/api/orders/${params.id}`, params.order_object).then(response => {
-                ctx.commit('deleteOrder', response.data.order);
-                ctx.commit('newOrder', response.data.order);
+                ctx.commit('deleteOrder', response.data.new_order);
+                ctx.commit('newOrder', response.data.new_order);
             }).catch(errors => console.log(errors));
         },
 

@@ -66,7 +66,6 @@ abstract class RestApiOrder extends Controller implements RestApiOrderInterface 
                 if ($file instanceof UploadedFile) {
                     // Сохраняем файл на сервере
                     $new_order->addMedia($file)
-                        ->withCustomProperties(['path', $new_order->getDirectory()])
                         ->toMediaCollection('orders_files');
                 }
             }
@@ -112,7 +111,6 @@ abstract class RestApiOrder extends Controller implements RestApiOrderInterface 
             if ($file instanceof UploadedFile) {
                 // Сохраняем файл на сервере
                 $order->addMedia($file)
-                    ->withCustomProperties(['path', $order->getDirectory()])
                     ->toMediaCollection('orders_files');
             }
         }

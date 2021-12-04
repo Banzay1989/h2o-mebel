@@ -42,7 +42,19 @@
                     </template>
                     <template v-slot:item.actions="{ item }">
                         <v-row>
-                            <v-col cols="6">
+                            <v-col cols="4">
+                                <button-with-dialog
+                                    title="Просмотр заказа"
+                                    header_text="Просмотр заказа"
+                                    mdi_icon="mdi-book-open"
+                                    button_color="indigo"
+                                >
+                                    <order-reader
+                                        v-model="item"
+                                    />
+                                </button-with-dialog>
+                            </v-col>
+                            <v-col cols="4">
                                 <button-with-dialog
                                     title="Редактировать заказ"
                                     header_text="Редактировать заказ"
@@ -54,7 +66,7 @@
                                     />
                                 </button-with-dialog>
                             </v-col>
-                            <v-col cols="6">
+                            <v-col cols="4">
                                 <v-btn
                                     color="error"
                                     small
@@ -79,10 +91,12 @@
     import ButtonWithDialog from "../components/ButtonWithDialog";
     import OrderEditor from "../components/OrderEditor";
     import normalDate from "../mixins/normalDate";
+    import OrderReader from "../components/OrderReader";
 
     export default {
         name: "Homepage",
         components: {
+            OrderReader,
             ButtonWithDialog,
             OrderEditor,
         },

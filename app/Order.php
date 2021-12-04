@@ -43,34 +43,10 @@ class Order extends Model implements HasMedia {
     }
 
     /**
+     * @description получим файлы с данными
      * @return array
      */
     public function getFilesAttribute(): array {
-        $ar_file_links = [];
-        $files = $this->getMedia('orders_files')->all();
-
-        if (count($files)) {
-            foreach ($files as $file) {
-                $ar_file_links[] = [
-                    'id' => $file->id,
-                    'url' => route('files.orders', [
-                        'order' => $this->id,
-                        'fileId' => $file->id,
-                        'r' => time()
-                    ], false),
-                    'mime_type' => $file->mime_type,
-                    'name' => $file->file_name,
-                ];
-            }
-        }
-
-        return $ar_file_links;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDirectory(): string {
-        return '/orders/order-' . $this->id . '/';
+        return $this->getMedia('orders_files')->all();
     }
 }
