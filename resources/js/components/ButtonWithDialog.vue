@@ -9,8 +9,10 @@
             <v-btn
                 :disabled="disabled"
                 :title="title"
+                :small="small"
+                :x-small="x_small"
+                text
                 fab
-                small
                 :color="button_color"
                 v-on="on"
             >
@@ -18,11 +20,13 @@
                     {{ mdi_icon }}
                 </v-icon>
                 <span v-else>
-          {{ button_text }}
-        </span>
+                  {{ button_text }}
+                </span>
             </v-btn>
         </template>
-        <v-card>
+        <v-card
+          color="#282828"
+        >
             <v-card-title>
                 <h2>
                     {{ header_text }}
@@ -33,7 +37,9 @@
                     color="error"
                     @click="close"
                 >
-                    <v-icon small>
+                    <v-icon small
+                      color="white"
+                    >
                         mdi-close
                     </v-icon>
                 </v-btn>
@@ -79,7 +85,7 @@
                 default: 'BUTTON',
             },
 
-            //Подсказка на кнопке кнопки
+            //Подсказка на кнопке
             title: {
                 type: String,
                 default: '',
@@ -88,7 +94,7 @@
             //Цвет кнопки
             button_color: {
                 type: String,
-                default: 'indigo'
+                default: 'white'
             },
 
             //Название окна в шапке
@@ -107,6 +113,15 @@
                 type: Boolean,
                 default: false,
             },
+            small:{
+                type: Boolean,
+                default: false,
+            },
+
+            x_small:{
+                type: Boolean,
+                default: false,
+            }
         },
         data() {
             return {
@@ -132,6 +147,7 @@
 </script>
 <style scoped>
     button {
-        margin-bottom: 12px;
+        width: 24px !important;
+        height: 24px !important;
     }
 </style>

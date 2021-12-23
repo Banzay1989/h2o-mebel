@@ -1,13 +1,10 @@
 <template>
     <v-app id="main">
+
+        <app-header />
         <navbar ref="navbar"></navbar>
-
-        <app-header @toggle-drawer="$refs.navbar.drawer = !$refs.navbar.drawer"></app-header>
-
         <v-main>
-            <v-container>
-                <router-view></router-view>
-            </v-container>
+            <router-view></router-view>
         </v-main>
 
         <app-footer></app-footer>
@@ -29,3 +26,44 @@
         }
     }
 </script>
+<style>
+    #main {
+        background: #282828 url(../../../public/images/body-bkg.jpg) no-repeat scroll top center;
+        position: relative;
+    }
+    .v-main {
+        padding: 0 !important;
+        margin: 0;
+    }
+
+    @font-face {
+        font-family: 'Denistina';
+        src: url(/fonts/denistina_en.ttf);
+    }
+
+    a, p, h1, h2, h3, i, .v-list-item__title, .strong {
+        color: white;
+    }
+
+    .v-list {
+        background: #282828 !important;
+    }
+
+    .header_block {
+        display: flex;
+        align-items: center;
+    }
+
+    a:hover, p:hover, h1:hover, h2:hover, i:hover {
+        color: #a9a9a9 !important;
+        cursor: pointer;
+    }
+    .thin_container {
+        padding: 0;
+        width: 1200px;
+    }
+    .row, .col{
+        padding: 12px 0;
+        margin: 0;
+    }
+</style>

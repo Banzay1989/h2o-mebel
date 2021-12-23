@@ -1,17 +1,14 @@
 <template>
-    <v-container class="main_container">
-        <products
-            header="Наши продукты"
-        />
+    <v-container fluid>
+        <h1>Категории</h1>
     </v-container>
 </template>
 
 <script>
-    import Products from "../components/Products";
     export default {
-        name: "Homepage",
+        name: "Category",
         components: {
-            Products
+
         },
         mixins: [
         ],
@@ -34,9 +31,5 @@
     }
 </script>
 <style scoped>
-    .main_container{
-        margin: 0;
-        min-width: 100%;
-        padding: 0;
-    }
+
 </style>

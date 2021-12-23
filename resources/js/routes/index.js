@@ -1,6 +1,9 @@
 import Homepage from '../pages/Homepage.vue'
 import About from '../pages/About.vue'
 import Contact from '../pages/Contact.vue'
+import Category from "../pages/Category";
+import Product from "../pages/Product";
+import Brand from "../pages/Brand";
 
 export default {
     mode: 'history',
@@ -18,6 +21,22 @@ export default {
         {
             path: '/contact',
             name: 'contact',
+            component: Contact,
+        },
+        {
+            path: '/category/:slug',
+            component: Category,
+        },
+        {
+            path: '/product/:id',
+            component: Product,
+        },
+        {
+            path: '/brand/:id',
+            component: Brand,
+        },
+        {
+            path: '*',
             component: Contact,
         },
     ]

@@ -1,40 +1,152 @@
 <template>
-    <v-navigation-drawer v-model="drawer" app>
-        <v-list dense>
-            <v-list-item link exact :to="{ name: 'home' }">
-                <v-list-item-action>
-                    <v-icon>mdi-home</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                    <v-list-item-title>Home</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
-            <v-list-item link exact :to="{ name: 'about' }">
-                <v-list-item-action>
-                    <v-icon>mdi-information</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                    <v-list-item-title>About</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
-            <v-list-item link exact :to="{ name: 'contact' }">
-                <v-list-item-action>
-                    <v-icon>mdi-email</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                    <v-list-item-title>Contact</v-list-item-title>
-                </v-list-item-content>
+    <v-navigation-drawer
+        class="thin_container top_menu"
+        app
+    >
+        <template v-slot:append>
+            <button-with-dialog
+                mdi_icon="mdi-plus"
+                small
+                header_text="Добавить пункт меню"
+            >
+                <menu-editor />
+            </button-with-dialog>
+        </template>
+        <v-list class="menu">
+            <v-list-item
+                class="menu_item"
+                v-for="item in menu"
+                :key="item.id"
+            >
+                <router-link :to="'/category/'+item.category.slug">
+                    <v-menu
+                        open-on-hover
+                        bottom
+                        offset-y
+                        color="282828"
+                    >
+                        <template v-slot:activator="{ on }">
+                            <v-list-item-content
+                                v-on="on"
+                            >
+                                <v-list-item-title>
+                                    {{ item.category.name }}
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </template>
+                        <v-list
+                            v-if="item.category.children.length"
+                            class="submenu"
+                            dense
+                        >
+                            <v-list-item
+                                class="menu_item"
+                                v-for="subitem in item.category.children"
+                                :key="subitem.id"
+                                link
+                                exact
+                                :to="'/category/'+subitem.slug"
+                            >
+                                <v-list-item-title>{{ subitem.name }}</v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
+                </router-link>
+                <div class="extra_buttons">
+                    <button-with-dialog
+                        mdi_icon="mdi-pencil"
+                        x_small
+                        header_text="Редактировать пункт меню"
+                    >
+                        <menu-editor
+                            :value="item"
+                        />
+                    </button-with-dialog>
+                    <v-btn
+                        title="Удалить"
+                        icon
+                        x-small
+                        color="error"
+                        @click.exact="$store.dispatch('deleteMenuItem', item.id)"
+                    >
+                        <v-icon
+                            color="white"
+                        >
+                            mdi-close
+                        </v-icon>
+                    </v-btn>
+                </div>
             </v-list-item>
         </v-list>
     </v-navigation-drawer>
 </template>
 
 <script>
+    import ButtonWithDialog from "./ButtonWithDialog";
+    import MenuEditor from "./MenuEditor";
+
     export default {
-        data() {
-            return {
-                drawer: true
-            }
+        name: 'Navbar',
+        components: {
+            ButtonWithDialog,
+            MenuEditor,
         },
+        computed: {
+            menu() {
+                return this.$store.getters.getMenu;
+            },
+        },
+        async mounted() {
+            await this.$store.dispatch('getMenuItems');
+        },
+
+        methods:{
+            getMenuItem(id){
+                return this.menu.find(item => item.id === id);
+            },
+        }
     }
 </script>
+<style scoped>
+    .menu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        align-self: center;
+        background: transparent !important;
+        padding: 0;
+    }
+
+    .top_menu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        height: auto !important;
+        align-self: center;
+        background: transparent !important;
+    }
+
+    .submenu {
+        background: #282828;
+    }
+
+    .menu_item {
+        padding: 0 5px;
+        background: transparent !important;
+    }
+
+    .menu_item:hover {
+        box-shadow: inset 0 2px white;
+    }
+    .extra_buttons{
+        position: absolute;
+        margin: auto;
+        top: -5px;
+        right: 0px;
+        flex-direction: row;
+    }
+</style>

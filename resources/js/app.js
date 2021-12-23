@@ -14,6 +14,7 @@ import App from './components/App.vue'
 const app = new Vue({
     el: '#app',
     store,
+    theme: { dark: true },
     components: { App },
     router: new VueRouter(routes),
     vuetify: new Vuetify()
