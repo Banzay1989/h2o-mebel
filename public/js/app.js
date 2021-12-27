@@ -2723,15 +2723,21 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_Products__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Products */ "./resources/js/components/Products.vue");
 //
 //
 //
 //
 //
 //
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Category",
-  components: {},
+  components: {
+    Products: _components_Products__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   mixins: [],
   data: function data() {
     return {};
@@ -23281,9 +23287,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-container", { attrs: { fluid: "" } }, [
-    _c("h1", [_vm._v("Категории")])
-  ])
+  return _c(
+    "v-container",
+    { attrs: { fluid: "" } },
+    [_c("products", { attrs: { sidebar: "" } })],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -83729,7 +83738,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/body-bkg.jpg?f872e45d017349a7aa3fdfdc0e246ec8";
+throw new Error("Module build failed (from ./node_modules/img-loader/index.js):\nError: ENOENT: no such file or directory, open 'S:\\OpenServer\\domains\\h2o-mebel\\public\\images\\body-bkg.jpg'");
 
 /***/ }),
 
