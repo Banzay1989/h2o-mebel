@@ -9,8 +9,7 @@
                 md="4"
                 class="header_block left"
             >
-                <p>Language</p>
-                <p>Currency</p>
+<!--                Место для соцсетей-->
             </v-col>
             <v-col
                 cols="12"

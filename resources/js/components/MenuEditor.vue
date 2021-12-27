@@ -80,11 +80,11 @@
         },
         computed: {
             categories() {
-                return this.$store.getters.getCategories;
+                console.log(this.$store.getters.getCategories);
+                let categories = this.$store.getters.getCategories;
+
+                return categories.length ? this.flatDeep(categories) : [];
             },
-        },
-        async mounted() {
-            await this.$store.dispatch('getCategories');
         },
 
         methods: {
@@ -128,6 +128,17 @@
                 }
             },
 
+            flatDeep(arr) {
+                arr.forEach(item =>{
+                    if (item?.children?.length){
+                        arr.concat(this.flatDeep(item.children));
+                        delete(arr.children);
+                    } else {
+                        arr.concat(item);
+                    }
+                });
+
+            },
         },
     };
 </script>

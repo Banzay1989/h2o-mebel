@@ -1,5 +1,8 @@
 <template>
-    <v-container fluid>
+    <v-container
+        fluid
+        class="thin_container"
+    >
         <products
             sidebar
         />

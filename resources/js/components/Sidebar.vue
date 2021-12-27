@@ -1,24 +1,66 @@
 <template>
-    <v-col md="3">
-        <h1 class="my-4">Shop Name</h1>
-        <v-card>
-            <v-list dense>
-                <v-list-item link href="#">
-                    <v-list-item-content>
-                        <v-list-item-title>Category 1</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item link href="#">
-                    <v-list-item-content>
-                        <v-list-item-title>Category 2</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item link href="#">
-                    <v-list-item-content>
-                        <v-list-item-title>Category 3</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
+    <v-col cols="12">
+        <h1 class="my-4">Категории</h1>
+        <admin-buttons
+            add>
+
+        </admin-buttons>
+        <v-card
+            dark
+            elevation="0"
+        >
+            <v-treeview
+                color="white"
+                dense
+                activatable
+                :active.sync="active"
+                hoverable
+                item-key="uid"
+                :items="categories"
+            >
+                <template v-slot:append="{item}">
+                    <admin-buttons
+                        edit
+                        remove
+                    />
+                </template>
+            </v-treeview>
         </v-card>
     </v-col>
 </template>
+<script>
+    import AdminButtons from "./AdminButtons";
+
+    export default {
+        name: "Sidebar",
+        components: {
+            AdminButtons,
+        },
+        data() {
+            return {
+                active: [],
+            }
+        },
+        computed: {
+            categories() {
+                return this.$store.getters.getCategories;
+            }
+        },
+        mounted() {
+            console.log(this.$route.params.slug);
+
+        }
+
+    }
+</script>
+<style scoped>
+    h1 {
+        border-bottom: 2px solid #555;
+        border-top: 2px solid #555;
+    }
+
+    .v-card {
+        background: transparent;
+    }
+
+</style>

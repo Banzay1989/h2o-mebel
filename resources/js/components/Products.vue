@@ -28,17 +28,17 @@
                 md="3"
                 v-if="sidebar"
             >
-                <span>sidebar</span>
+                <sidebar/>
             </v-col>
             <v-col
                 cols="12"
-                class="col"
                 :md="sidebar ? 9 : 12"
+                class="col"
             >
                 <v-row pa="0" ma="0" wrap class="products">
                     <v-col
                         cols="12"
-                        :md="3"
+                        :md="4"
                         v-for="(product, index) in products"
                         :key="product.id"
                         :class="'col product_col'+isLast(index)"
@@ -75,9 +75,12 @@
 </template>
 
 <script>
+    import Sidebar from "./Sidebar";
     export default {
         name: "Products",
-        components: {},
+        components: {
+            Sidebar,
+        },
         mixins: [],
         props: {
             header: {
@@ -124,7 +127,7 @@
              * @return {string}
              */
             isLast(index) {
-                return ((index + 1) * 3 % this.product_cols) === 0 ? ' last_col' : '';
+                return ((index + 1) * 4 % this.product_cols) === 0 ? ' last_col' : '';
             }
         },
     }

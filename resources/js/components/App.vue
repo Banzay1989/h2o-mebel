@@ -23,7 +23,11 @@
             'navbar': Navbar,
             'app-header': Header,
             'app-footer': Footer
-        }
+        },
+
+        async mounted() {
+            await this.$store.dispatch('getCategories');
+        },
     }
 </script>
 <style>
