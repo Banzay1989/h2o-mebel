@@ -80,10 +80,7 @@
         },
         computed: {
             categories() {
-                console.log(this.$store.getters.getCategories);
-                let categories = this.$store.getters.getCategories;
-
-                return categories.length ? this.flatDeep(categories) : [];
+                return this.$store.getters.getFlatCategories;
             },
         },
 
@@ -126,18 +123,6 @@
                 if (this.$refs.form.validate()) {
                     await this.$store.dispatch('updateMenuItem', {menu_object: this.editable_menu});
                 }
-            },
-
-            flatDeep(arr) {
-                arr.forEach(item =>{
-                    if (item?.children?.length){
-                        arr.concat(this.flatDeep(item.children));
-                        delete(arr.children);
-                    } else {
-                        arr.concat(item);
-                    }
-                });
-
             },
         },
     };

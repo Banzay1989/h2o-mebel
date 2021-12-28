@@ -10,54 +10,44 @@ export default {
                 ctx.commit('getCategories', response.data.categories);
             });
         },
+        /**
+         * @description Запрос на редактирование данных категории
+         * @param ctx
+         * @param params
+         * @return {Promise<void>}
+         */
+        async updateCategoryItem(ctx, params) {
+            await axios.post(`/api/categories/${params.category_object.id}`, params.category_object).then(response => {
+                ctx.dispatch('getCategories');
+            }).catch(errors => console.log(errors));
+        },
 
-        // /**
-        //  * @description запрос на получение данных о константах Заказа
-        //  * @param ctx
-        //  * @return {Promise<void>}
-        //  */
-        // async getOrderConst(ctx) {
-        //     await axios.get('/api/orders/const').then(response => {
-        //         ctx.commit('updateAllOrderConst', response.data.order_const)
-        //     });
-        // },
-        //
-        // /**
-        //  * @description Запрос на редактирование данных Заказа
-        //  * @param ctx
-        //  * @param params
-        //  * @return {Promise<void>}
-        //  */
-        // async updateOrder(ctx, params) {
-        //     await axios.post(`/api/orders/${params.id}`, params.order_object).then(response => {
-        //         ctx.commit('deleteOrder', response.data.new_order);
-        //         ctx.commit('newOrder', response.data.new_order);
-        //     }).catch(errors => console.log(errors));
-        // },
-        //
-        // /**
-        //  * @description Запрос на создание нового пункта Меню
-        //  * @param ctx
-        //  * @param order_object
-        //  * @return {Promise<void>}
-        //  */
-        // async newMenuItem(ctx, menu_object) {
-        //     await axios.post(`/api/menu`, order_object).then(response => {
-        //         ctx.commit('newOrder', response.data.new_order);
-        //     }).catch(errors => console.log(errors));
-        // },
-        //
-        // /**
-        //  * @description Запрос на удаление Заказа
-        //  * @param ctx
-        //  * @param item
-        //  * @return {Promise<void>}
-        //  */
-        // async deleteOrder(ctx, item) {
-        //     await axios.delete(`/api/orders/${item.id}`).then(response => {
-        //         ctx.commit('deleteOrder', item);
-        //     }).catch(errors => console.log(errors));
-        // },
+        /**
+         * @description Запрос на создание новой категории
+         * @param ctx
+         * @param category_object
+         * @return {Promise<void>}
+         */
+        async newCategoryItem(ctx, category_object) {
+            if (confirm('Удалятся так же все подкатегории, вы уверены?')){
+                await axios.post(`/api/categories`, category_object).then(response => {
+                    ctx.dispatch('getCategories');
+                }).catch(errors => console.log(errors));
+            }
+        },
+
+        /**
+         * @description Запрос на удаление категории
+         * @param ctx
+         * @param id
+         * @return {Promise<void>}
+         */
+        async deleteCategoryItem(ctx, id) {
+            await axios.delete(`/api/categories/${id}`).then(response => {
+                ctx.dispatch('getCategories');
+            }).catch(errors => console.log(errors));
+        },
+
 
     },
     mutations: {
@@ -119,13 +109,17 @@ export default {
             return state.categories;
         },
 
-        // /**
-        //  * @description получить константы
-        //  * @param state
-        //  * @return {Array}
-        //  */
-        // getAllOrderConst(state) {
-        //     return state.order_const
-        // },
+        getFlatCategories(state) {
+            let func = (arr,d) => {
+                return d > 0 ? arr.reduce((acc, val) => acc.concat(val?.children?.length ? func(val.children, d - 1) : val), arr)
+                    : arr.slice();
+            };
+
+            return func(state.categories, Infinity);
+        },
+
     },
+
+
+
 }

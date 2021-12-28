@@ -61,10 +61,6 @@
         margin-right: 15px;
     }
 
-    a {
-        text-decoration: none;
-    }
-
     .header_container {
         border-bottom: 1px solid #37302e;
     }

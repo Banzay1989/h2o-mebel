@@ -46,7 +46,11 @@
     }
 
     a, p, h1, h2, h3, i, .v-list-item__title, .strong {
-        color: white;
+        color: white !important;
+    }
+
+    a {
+        text-decoration: none !important;
     }
 
     .v-list {

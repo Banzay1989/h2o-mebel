@@ -22,7 +22,7 @@ class CategoryResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' =>$this->updated_at,
             'parent_id' => $this->parent_id,
-            'children' => $this->children,
+            'children' => self::collection($this->children),
             'slug' => $this->slug,
             'description' => $this->description,
         ];

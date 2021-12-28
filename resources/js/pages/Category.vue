@@ -15,8 +15,7 @@
     export default {
         name: "Category",
         components: {
-            Products
-
+            Products,
         },
         mixins: [],
         data() {

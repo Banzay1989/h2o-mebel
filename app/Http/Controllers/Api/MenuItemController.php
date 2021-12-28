@@ -52,7 +52,7 @@ class MenuItemController extends Controller {
     }
 
     /**
-     * @description изменение данных Заказа на данные из запроса
+     * @description изменение данных пункта Меню на данные из запроса
      * @param MenuItem $menu_item
      * @param Request $request
      * @return JsonResponse
@@ -79,7 +79,7 @@ class MenuItemController extends Controller {
     }
 
     /**
-     * @description удаление Заказа
+     * @description удаление пункта Меню
      * @param MenuItem $menu_item
      * @return JsonResponse
      * @throws \Exception
