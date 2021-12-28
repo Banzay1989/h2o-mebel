@@ -17,7 +17,7 @@
                 class="header_block middle"
             >
                 <a href="\">
-                    <v-img src="/images/gray_logo.jpg"
+                    <v-img src="/images/gold_logo.png"
                            :aspect-ratio="278/318"
                            width="150"
                     />

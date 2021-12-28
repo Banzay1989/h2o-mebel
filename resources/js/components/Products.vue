@@ -56,7 +56,7 @@
                                         align="center"
                                         justify="center"
                                     >
-                                        <v-img src="/images/gray_logo.jpg"
+                                        <v-img src="/images/gold_logo.png"
                                                class="image"
                                                :aspect-ratio="278/318"
                                                height="318"

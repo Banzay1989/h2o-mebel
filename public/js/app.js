@@ -23290,7 +23290,7 @@ var render = function() {
                 [
                   _c("v-img", {
                     attrs: {
-                      src: "/images/gray_logo.jpg",
+                      src: "/images/gold_logo.png",
                       "aspect-ratio": 278 / 318,
                       width: "150"
                     }
@@ -23782,7 +23782,7 @@ var render = function() {
                                           _c("v-img", {
                                             staticClass: "image",
                                             attrs: {
-                                              src: "/images/gray_logo.jpg",
+                                              src: "/images/gold_logo.png",
                                               "aspect-ratio": 278 / 318,
                                               height: "318"
                                             }
@@ -24323,7 +24323,7 @@ var render = function() {
                             _c("v-img", {
                               staticClass: "image",
                               attrs: {
-                                src: "/images/gray_logo.jpg",
+                                src: "/images/gold_logo.png",
                                 "aspect-ratio": 278 / 318,
                                 height: "520"
                               }

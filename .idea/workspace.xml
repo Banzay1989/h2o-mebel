@@ -11,8 +11,10 @@
       <change beforePath="$PROJECT_DIR$/resources/js/components/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Header.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/MenuEditor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/MenuEditor.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Products.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Products.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Sidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Sidebar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/Category.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Category.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/Product.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Product.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/modules/categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/categories.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api_routes/categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api_routes/categories.php" afterDir="false" />
     </list>
@@ -247,7 +249,7 @@
       <workItem from="1640187167733" duration="7908000" />
       <workItem from="1640274996615" duration="8184000" />
       <workItem from="1640620462253" duration="9835000" />
-      <workItem from="1640707167229" duration="7577000" />
+      <workItem from="1640707167229" duration="8248000" />
     </task>
     <servers />
   </component>
