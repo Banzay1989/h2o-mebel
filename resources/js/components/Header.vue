@@ -75,10 +75,7 @@
         justify-content: left;
     }
 
-    .header_block.right {
-        justify-content: right;
 
-    }
 
     .header_block.middle {
         justify-content: center;

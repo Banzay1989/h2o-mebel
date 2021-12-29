@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import orders from './modules/orders'
 import menu from './modules/menu'
 import categories from './modules/categories'
+import products from './modules/products'
 
 Vue.use(Vuex);
 
@@ -11,5 +12,6 @@ export default new Vuex.Store({
         orders,
         menu,
         categories,
+        products,
     }
 });

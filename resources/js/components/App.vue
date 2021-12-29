@@ -7,7 +7,7 @@
             <router-view></router-view>
         </v-main>
 
-        <app-footer></app-footer>
+<!--        <app-footer></app-footer>-->
     </v-app>
 
 </template>
@@ -26,6 +26,7 @@
         },
 
         async mounted() {
+            document.title = 'h2o-mebel';
             await this.$store.dispatch('getCategories');
         },
     }
@@ -45,7 +46,7 @@
         src: url(/fonts/denistina_en.ttf);
     }
 
-    a, p, h1, h2, h3, i, .v-list-item__title, .strong {
+    a, p, h1, h2, h3, i, .v-list-item__title, .strong, span {
         color: white !important;
     }
 
@@ -73,5 +74,10 @@
     .row, .col{
         padding: 12px 0;
         margin: 0;
+    }
+    .right {
+        justify-content: right;
+        display: flex;
+        align-items: center;
     }
 </style>
