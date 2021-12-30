@@ -48,7 +48,7 @@
                     <v-col
                         cols="12"
                         md="8"
-                        class="col right"
+                        class="col top_selectors"
                     >
                         <v-autocomplete
                             dark
@@ -120,7 +120,25 @@
                 <v-row
                     v-if="sidebar"
                 >
-
+                    <v-col>
+<!--                        Тут будут кнопки пагинации-->
+                    </v-col>
+                    <v-col
+                        class="right"
+                    >
+                        <v-text-field
+                            dark
+                            class="page_selector"
+                            v-model="page"
+                            type="number"
+                            min="1"
+                            :max="pages"
+                        >
+                            <template v-slot:prepend>
+                                <span>Страница: </span>
+                            </template>
+                        </v-text-field>
+                    </v-col>
                 </v-row>
             </v-col>
         </v-row>
@@ -188,6 +206,9 @@
                     pagination: this.page - 1,
                     slug: this.slug
                 };
+            },
+            pages() {
+                return Math.ceil(this.products_count/this.number);
             }
         },
         watch: {
@@ -269,8 +290,8 @@
         padding-left: 0 !important;
     }
 
-    .right {
-        justify-content: space-between;
+    .page_selector {
+        max-width: 124px;
     }
 
     .number_selector {
@@ -288,5 +309,10 @@
     .admin_placeholder {
         align-self: center;
         justify-content: center;
+    }
+
+    .top_selectors{
+        display: flex;
+        justify-content: space-between;
     }
 </style>

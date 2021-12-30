@@ -28,6 +28,7 @@
         async mounted() {
             document.title = 'h2o-mebel';
             await this.$store.dispatch('getCategories');
+            await this.$store.dispatch('getBrands');
         },
     }
 </script>
@@ -46,7 +47,7 @@
         src: url(/fonts/denistina_en.ttf);
     }
 
-    a, p, h1, h2, h3, i, .v-list-item__title, .strong, span {
+    a, p, h1, h2, h3, i, .v-list-item__title, strong, span {
         color: white !important;
     }
 
@@ -79,5 +80,15 @@
         justify-content: right;
         display: flex;
         align-items: center;
+    }
+
+    li {
+        list-style-type: none !important;
+        margin-bottom: 12px;
+    }
+
+    ul{
+        margin-left: 0;
+        padding-left: 0 !important;
     }
 </style>

@@ -29,7 +29,7 @@ class ProductController {
 
         $count = $builder->count();
 
-        $builder->offset((int)$pagination)
+        $builder->offset((int)$pagination*(int)$limit)
             ->take((int)$limit);
         if ($orderDirection === 'asc') {
             $builder->orderBy($orderBy);
@@ -51,8 +51,7 @@ class ProductController {
      * @param Product $model
      * @return JsonResponse
      */
-    public
-    function get(Product $product): JsonResponse {
+    public function get(Product $product): JsonResponse {
         return response()->json([
             'product' => $product->load('brand')
         ]);
