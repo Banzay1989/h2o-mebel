@@ -150,8 +150,7 @@
         },
         computed: {
             image_src() {
-                return '/'+this.product?.files?.[0]?.id+'/'+this.product?.files?.[0]?.file_name;
-                // return this.product?.files?.[0]?.original_url;
+                return '/'+this.product?.files?.[0];
             },
             title() {
                 return this.product?.name;
