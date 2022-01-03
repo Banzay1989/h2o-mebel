@@ -9,8 +9,7 @@
                 md="4"
                 class="header_block left"
             >
-                <p>Language</p>
-                <p>Currency</p>
+<!--                Место для соцсетей-->
             </v-col>
             <v-col
                 cols="12"
@@ -18,7 +17,7 @@
                 class="header_block middle"
             >
                 <a href="\">
-                    <v-img src="/images/gray_logo.jpg"
+                    <v-img src="/images/gold_logo.png"
                            :aspect-ratio="278/318"
                            width="150"
                     />
@@ -62,10 +61,6 @@
         margin-right: 15px;
     }
 
-    a {
-        text-decoration: none;
-    }
-
     .header_container {
         border-bottom: 1px solid #37302e;
     }
@@ -80,10 +75,7 @@
         justify-content: left;
     }
 
-    .header_block.right {
-        justify-content: right;
 
-    }
 
     .header_block.middle {
         justify-content: center;

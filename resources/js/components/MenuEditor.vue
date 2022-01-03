@@ -80,11 +80,8 @@
         },
         computed: {
             categories() {
-                return this.$store.getters.getCategories;
+                return this.$store.getters.getFlatCategories;
             },
-        },
-        async mounted() {
-            await this.$store.dispatch('getCategories');
         },
 
         methods: {
@@ -127,7 +124,6 @@
                     await this.$store.dispatch('updateMenuItem', {menu_object: this.editable_menu});
                 }
             },
-
         },
     };
 </script>

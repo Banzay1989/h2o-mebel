@@ -4,13 +4,11 @@
         app
     >
         <template v-slot:append>
-            <button-with-dialog
-                mdi_icon="mdi-plus"
-                small
-                header_text="Добавить пункт меню"
-            >
-                <menu-editor />
-            </button-with-dialog>
+            <admin-buttons add>
+                <template v-slot:add>
+                    <menu-editor />
+                </template>
+            </admin-buttons>
         </template>
         <v-list class="menu">
             <v-list-item
@@ -53,28 +51,17 @@
                     </v-menu>
                 </router-link>
                 <div class="extra_buttons">
-                    <button-with-dialog
-                        mdi_icon="mdi-pencil"
-                        x_small
-                        header_text="Редактировать пункт меню"
+                    <admin-buttons
+                        edit
+                        remove
+                        @click_remove="$store.dispatch('deleteMenuItem', item.id)"
                     >
-                        <menu-editor
-                            :value="item"
-                        />
-                    </button-with-dialog>
-                    <v-btn
-                        title="Удалить"
-                        icon
-                        x-small
-                        color="error"
-                        @click.exact="$store.dispatch('deleteMenuItem', item.id)"
-                    >
-                        <v-icon
-                            color="white"
-                        >
-                            mdi-close
-                        </v-icon>
-                    </v-btn>
+                        <template v-slot:edit>
+                            <menu-editor
+                                :value="item"
+                            />
+                        </template>
+                    </admin-buttons>
                 </div>
             </v-list-item>
         </v-list>
@@ -84,12 +71,14 @@
 <script>
     import ButtonWithDialog from "./ButtonWithDialog";
     import MenuEditor from "./MenuEditor";
+    import AdminButtons from "./AdminButtons";
 
     export default {
         name: 'Navbar',
         components: {
             ButtonWithDialog,
             MenuEditor,
+            AdminButtons,
         },
         computed: {
             menu() {

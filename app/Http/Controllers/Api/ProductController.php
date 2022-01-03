@@ -18,8 +18,18 @@ class ProductController {
         $orderBy = $request->input('orderBy', 'id');
         $orderDirection = $request->input('orderDirection', 'asc');
         $pagination = $request->input('pagination', 0);
+        $slug = $request->input('slug', null);
 
-        $builder = Product::offset((int)$pagination)
+        $builder = Product::select('*');
+        if ($slug) {
+            $builder->whereHas('category', function ($query) use ($slug) {
+                $query->where('slug', $slug);
+            });
+        }
+
+        $count = $builder->count();
+
+        $builder->offset((int)$pagination*(int)$limit)
             ->take((int)$limit);
         if ($orderDirection === 'asc') {
             $builder->orderBy($orderBy);
@@ -30,7 +40,9 @@ class ProductController {
         $products = $builder->get();
 
         return response()->json([
-            'products' => $products,
+            'products' => [
+                'items' => $products,
+                'count' => $count],
         ]);
     }
 
@@ -39,20 +51,9 @@ class ProductController {
      * @param Product $model
      * @return JsonResponse
      */
-    public function get(Product $product):JsonResponse{
+    public function get(Product $product): JsonResponse {
         return response()->json([
             'product' => $product->load('brand')
-        ]);
-    }
-    /**
-     * @description Загрузка констант модели (статусов) для создания редактора Заказа
-     * @return JsonResponse
-     */
-    final public function getConsts():JsonResponse {
-        return response()->json([
-            'order_const' => [
-                'statuses' => Order::STATUSES,
-            ],
         ]);
     }
 }

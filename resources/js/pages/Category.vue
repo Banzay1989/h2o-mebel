@@ -1,33 +1,31 @@
 <template>
-    <v-container fluid>
-        <h1>Категории</h1>
+    <v-container
+        fluid
+        class="thin_container"
+    >
+        <products
+            sidebar
+        />
     </v-container>
 </template>
 
 <script>
+    import Products from "../components/Products";
+
     export default {
         name: "Category",
         components: {
-
+            Products,
         },
-        mixins: [
-        ],
+        mixins: [],
         data() {
-            return {
-
-            }
+            return {}
         },
-        computed: {
+        computed: {},
 
-        },
+        watch: {},
 
-        watch: {
-
-        },
-
-        methods: {
-
-        },
+        methods: {},
     }
 </script>
 <style scoped>

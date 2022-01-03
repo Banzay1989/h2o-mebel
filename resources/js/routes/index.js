@@ -4,6 +4,7 @@ import Contact from '../pages/Contact.vue'
 import Category from "../pages/Category";
 import Product from "../pages/Product";
 import Brand from "../pages/Brand";
+import Empty from "../pages/Empty";
 
 export default {
     mode: 'history',
@@ -37,7 +38,7 @@ export default {
         },
         {
             path: '*',
-            component: Contact,
+            component: Empty,
         },
     ]
 }

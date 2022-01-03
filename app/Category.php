@@ -21,7 +21,7 @@ class Category extends Model {
     public static function rules(): array {
         return [
             'name' => 'required|string', //Имя - обязательное строковое
-            'parent_id' => 'integer', //Родительская категория - целочисленное
+            'parent_id' => 'nullable|integer', //Родительская категория - целочисленное
             'slug' => 'required|string', //URL - обязательное строковое
             'description' => 'required|string', //Описание - обязательное строковое
         ];
