@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87f00ec9-7122-42b5-bf2a-1b88968cbbdc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/BannerTop.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Product.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/Homepage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Homepage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/Product.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Product.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/products.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api_routes/product.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api_routes/product.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -245,7 +249,9 @@
       <workItem from="1640620462253" duration="9835000" />
       <workItem from="1640707167229" duration="8248000" />
       <workItem from="1640870756881" duration="8979000" />
-      <workItem from="1641193837187" duration="2102000" />
+      <workItem from="1641193837187" duration="2569000" />
+      <workItem from="1641196439590" duration="456000" />
+      <workItem from="1641196916845" duration="7326000" />
     </task>
     <servers />
   </component>

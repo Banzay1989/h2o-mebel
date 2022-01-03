@@ -7,11 +7,11 @@ Route::namespace('Api')->group(static function () {
     Route::prefix('products')->group(function () {
         Route::get('', [ProductController::class, 'index']);
         // Route::get('const', [OrderController::class, 'getConsts']);
-        // Route::post('', [OrderController::class, 'store']);
+        Route::post('', [ProductController::class, 'store']);
         Route::prefix('{product}')->group(function () {
             Route::get('', [ProductController::class, 'get']);
-        //     Route::post('', [OrderController::class, 'update']);
-        //     Route::delete('', [OrderController::class, 'delete']);
+            Route::post('', [ProductController::class, 'update']);
+            Route::delete('', [ProductController::class, 'delete']);
         });
     });
 });
