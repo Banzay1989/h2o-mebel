@@ -51,7 +51,8 @@ class Product extends Model implements HasMedia {
      */
     public function getFilesAttribute(): array {
         return array_map(static function ($file){
-            return $file->getPath();
+            // dd($file);
+            return $file->getUrl();
         }, $this->getMedia(self::MEDIA_SOURCE_COLLECTION)->all());
     }
 
