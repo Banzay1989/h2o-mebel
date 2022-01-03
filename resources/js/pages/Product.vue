@@ -150,7 +150,7 @@
         },
         computed: {
             image_src() {
-                return '/'+this.product?.files?.[0];
+                return this.product?.files?.[0];
             },
             title() {
                 return this.product?.name;
