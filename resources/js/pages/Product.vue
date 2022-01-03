@@ -21,7 +21,8 @@
                             align="center"
                             justify="center"
                         >
-                            <v-img src="/images/gold_logo.png"
+                            <v-img
+                                src="/images/gold_logo.png"
                                    class="image"
                                    :aspect-ratio="278/318"
                                    height="520"
@@ -29,17 +30,25 @@
                         </v-row>
                     </template>
                 </v-img>
+                <v-file-input
+                    v-model="new_files"
+                    dark
+                    counter
+                    multiple
+                    show-size
+                    small-chips
+                />
             </v-col>
-                <v-col
-                    cols="12"
-                    md="7"
-                    class="col"
+            <v-col
+                cols="12"
+                md="7"
+                class="col"
+            >
+                <v-form
+                    ref="product_form"
+                    v-model="product_valid"
+                    lazy-validation
                 >
-                    <v-form
-                        ref="product_form"
-                        v-model="product_valid"
-                        lazy-validation
-                    >
                     <h3>{{ title }}</h3>
                     <v-text-field
                         dark
@@ -91,27 +100,27 @@
                         type="number"
                         min="1"
                     />
-                    </v-form>
-                    <v-row class="bye">
-                        <v-text-field
-                            dark
-                            class="page_selector"
-                            v-model="quatity"
-                            type="number"
-                            min="1"
-                        >
-                            <template v-slot:prepend>
-                                <span>Колич: </span>
-                            </template>
-                        </v-text-field>
-                        <v-btn
-                            dark
-                            @click="save()"
-                        >
-                            Сохранить
-                        </v-btn>
-                    </v-row>
-                </v-col>
+                </v-form>
+                <v-row class="bye">
+                    <v-text-field
+                        dark
+                        class="page_selector"
+                        v-model="quatity"
+                        type="number"
+                        min="1"
+                    >
+                        <template v-slot:prepend>
+                            <span>Колич: </span>
+                        </template>
+                    </v-text-field>
+                    <v-btn
+                        dark
+                        @click="save()"
+                    >
+                        Сохранить
+                    </v-btn>
+                </v-row>
+            </v-col>
         </v-row>
         <v-row class="description_specification">
             <v-col cols="4" class="col">
@@ -136,11 +145,13 @@
                 quatity: 1,
                 is_aviable: true,
                 product_valid: true,
+                new_files: [],
             }
         },
         computed: {
             image_src() {
-                return this.product?.files?.[0]?.src;
+                return '/'+this.product?.files?.[0]?.id+'/'+this.product?.files?.[0]?.file_name;
+                // return this.product?.files?.[0]?.original_url;
             },
             title() {
                 return this.product?.name;
@@ -160,7 +171,7 @@
             brands() {
                 return this.$store.getters.getBrands;
             },
-            categories(){
+            categories() {
                 return this.$store.getters.getFlatCategories;
             },
             in_stock() {
@@ -189,6 +200,7 @@
                     deleted_at: null,
                     description: '',
                     price: 0,
+                    new_files: [],
                 }
             },
 
@@ -200,14 +212,38 @@
                 }).catch(errors => console.log(errors));
             },
 
-            save() {
+            async save() {
                 if (this.$refs.product_form.validate()) {
                     if (this.product.id) {
-                        this.update();
+                        await this.$store.dispatch('updateProduct', {id:this.product.id, product_object: this.createFormData(this.product)});
                     } else {
                         this.store();
                     }
                 }
+            },
+
+            createFormData(product_object) {
+                let formData = new FormData();
+                Object.keys(product_object).forEach(key => {
+                    // if (key !== 'files') {
+                        formData.append(key, product_object[key]);
+                    // }
+                });
+                if (this.new_files.length){
+                    this.uploadFiles(formData, this.new_files);
+                }
+                return formData;
+            },
+
+            uploadFiles(formData, files) {
+                files.forEach(value => {
+                    if (value.id === undefined) {
+                        formData.append('new_files[]', value);
+                    }
+                    // else {
+                    //     formData.append('old_files[]', value.id);
+                    // }
+                });
             },
 
             async update() {

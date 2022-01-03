@@ -3561,6 +3561,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Product",
   components: {},
@@ -3570,39 +3579,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       product: this.clearProduct(),
       quatity: 1,
       is_aviable: true,
-      product_valid: true
+      product_valid: true,
+      new_files: []
     };
   },
   computed: {
     image_src: function image_src() {
-      var _this$product, _this$product$files, _this$product$files$;
+      var _this$product, _this$product$files, _this$product$files$, _this$product2, _this$product2$files, _this$product2$files$;
 
-      return (_this$product = this.product) === null || _this$product === void 0 ? void 0 : (_this$product$files = _this$product.files) === null || _this$product$files === void 0 ? void 0 : (_this$product$files$ = _this$product$files[0]) === null || _this$product$files$ === void 0 ? void 0 : _this$product$files$.src;
+      return '/' + ((_this$product = this.product) === null || _this$product === void 0 ? void 0 : (_this$product$files = _this$product.files) === null || _this$product$files === void 0 ? void 0 : (_this$product$files$ = _this$product$files[0]) === null || _this$product$files$ === void 0 ? void 0 : _this$product$files$.id) + '/' + ((_this$product2 = this.product) === null || _this$product2 === void 0 ? void 0 : (_this$product2$files = _this$product2.files) === null || _this$product2$files === void 0 ? void 0 : (_this$product2$files$ = _this$product2$files[0]) === null || _this$product2$files$ === void 0 ? void 0 : _this$product2$files$.file_name); // return this.product?.files?.[0]?.original_url;
     },
     title: function title() {
-      var _this$product2;
-
-      return (_this$product2 = this.product) === null || _this$product2 === void 0 ? void 0 : _this$product2.name;
-    },
-    article: function article() {
       var _this$product3;
 
-      return (_this$product3 = this.product) === null || _this$product3 === void 0 ? void 0 : _this$product3.article;
+      return (_this$product3 = this.product) === null || _this$product3 === void 0 ? void 0 : _this$product3.name;
     },
-    brand_src: function brand_src() {
+    article: function article() {
       var _this$product4;
 
-      return '/brand/' + ((_this$product4 = this.product) === null || _this$product4 === void 0 ? void 0 : _this$product4.brand_id);
+      return (_this$product4 = this.product) === null || _this$product4 === void 0 ? void 0 : _this$product4.article;
+    },
+    brand_src: function brand_src() {
+      var _this$product5;
+
+      return '/brand/' + ((_this$product5 = this.product) === null || _this$product5 === void 0 ? void 0 : _this$product5.brand_id);
     },
     brand_name: function brand_name() {
-      var _this$product5, _this$product5$brand;
+      var _this$product6, _this$product6$brand;
 
-      return (_this$product5 = this.product) === null || _this$product5 === void 0 ? void 0 : (_this$product5$brand = _this$product5.brand) === null || _this$product5$brand === void 0 ? void 0 : _this$product5$brand.name;
+      return (_this$product6 = this.product) === null || _this$product6 === void 0 ? void 0 : (_this$product6$brand = _this$product6.brand) === null || _this$product6$brand === void 0 ? void 0 : _this$product6$brand.name;
     },
     price: function price() {
-      var _this$product$price, _this$product6;
+      var _this$product$price, _this$product7;
 
-      return (_this$product$price = (_this$product6 = this.product) === null || _this$product6 === void 0 ? void 0 : _this$product6.price) !== null && _this$product$price !== void 0 ? _this$product$price : 0;
+      return (_this$product$price = (_this$product7 = this.product) === null || _this$product7 === void 0 ? void 0 : _this$product7.price) !== null && _this$product$price !== void 0 ? _this$product$price : 0;
     },
     brands: function brands() {
       return this.$store.getters.getBrands;
@@ -3611,9 +3621,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.$store.getters.getFlatCategories;
     },
     in_stock: function in_stock() {
-      var _this$product7;
+      var _this$product8;
 
-      return ((_this$product7 = this.product) === null || _this$product7 === void 0 ? void 0 : _this$product7.deleted_at) ? 'Не продаётся' : 'В продаже';
+      return ((_this$product8 = this.product) === null || _this$product8 === void 0 ? void 0 : _this$product8.deleted_at) ? 'Не продаётся' : 'В продаже';
     }
   },
   watch: {
@@ -3650,7 +3660,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         category_id: null,
         deleted_at: null,
         description: '',
-        price: 0
+        price: 0,
+        new_files: []
       };
     },
     getProduct: function getProduct() {
@@ -3680,15 +3691,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     save: function save() {
-      if (this.$refs.product_form.validate()) {
-        if (this.product.id) {
-          this.update();
-        } else {
-          this.store();
-        }
-      }
-    },
-    update: function update() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
@@ -3696,14 +3698,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
-                return axios.post("/api/products/".concat(_this3.product), _this3.product).then(function (response) {
-                  _this3.product = response.data.product;
-                })["catch"](function (errors) {
-                  return console.log(errors);
+                if (!_this3.$refs.product_form.validate()) {
+                  _context3.next = 7;
+                  break;
+                }
+
+                if (!_this3.product.id) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                _context3.next = 4;
+                return _this3.$store.dispatch('updateProduct', {
+                  id: _this3.product.id,
+                  product_object: _this3.createFormData(_this3.product)
                 });
 
-              case 2:
+              case 4:
+                _context3.next = 7;
+                break;
+
+              case 6:
+                _this3.store();
+
+              case 7:
               case "end":
                 return _context3.stop();
             }
@@ -3711,7 +3729,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    store: function store() {
+    createFormData: function createFormData(product_object) {
+      var formData = new FormData();
+      Object.keys(product_object).forEach(function (key) {
+        // if (key !== 'files') {
+        formData.append(key, product_object[key]); // }
+      });
+
+      if (this.new_files.length) {
+        this.uploadFiles(formData, this.new_files);
+      }
+
+      return formData;
+    },
+    uploadFiles: function uploadFiles(formData, files) {
+      files.forEach(function (value) {
+        if (value.id === undefined) {
+          formData.append('new_files[]', value);
+        } // else {
+        //     formData.append('old_files[]', value.id);
+        // }
+
+      });
+    },
+    update: function update() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
@@ -3720,7 +3761,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return axios.post("/api/products/", _this4.product).then(function (response) {
+                return axios.post("/api/products/".concat(_this4.product), _this4.product).then(function (response) {
                   _this4.product = response.data.product;
                 })["catch"](function (errors) {
                   return console.log(errors);
@@ -3732,6 +3773,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee4);
+      }))();
+    },
+    store: function store() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return axios.post("/api/products/", _this5.product).then(function (response) {
+                  _this5.product = response.data.product;
+                })["catch"](function (errors) {
+                  return console.log(errors);
+                });
+
+              case 2:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
       }))();
     }
   }
@@ -46582,6 +46646,23 @@ var render = function() {
                     proxy: true
                   }
                 ])
+              }),
+              _vm._v(" "),
+              _c("v-file-input", {
+                attrs: {
+                  dark: "",
+                  counter: "",
+                  multiple: "",
+                  "show-size": "",
+                  "small-chips": ""
+                },
+                model: {
+                  value: _vm.new_files,
+                  callback: function($$v) {
+                    _vm.new_files = $$v
+                  },
+                  expression: "new_files"
+                }
               })
             ],
             1
@@ -46762,7 +46843,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Сохранить\n                    "
+                        "\n                    Сохранить\n                "
                       )
                     ]
                   )
@@ -109435,6 +109516,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee2);
+      }))();
+    },
+
+    /**
+     * @description Запрос на редактирование данных Продукта
+     * @param ctx
+     * @param params
+     * @return {Promise<void>}
+     */
+    updateProduct: function updateProduct(ctx, params) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                console.log(params);
+                _context3.next = 3;
+                return axios.post("/api/products/".concat(params.id), params.product_object).then(function (response) {})["catch"](function (errors) {
+                  return console.log(errors);
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   },

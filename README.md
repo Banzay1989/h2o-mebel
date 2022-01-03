@@ -9,6 +9,7 @@
 
 ### To use photos in order:
 - Run `composer require "spatie/laravel-medialibrary"` for upload photos
+- `php artisan storage:link`
 
 ### Generate DB data:
 - Run `php artisan migrate`

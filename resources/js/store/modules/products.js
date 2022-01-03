@@ -26,6 +26,18 @@ export default {
             }).catch(errors => console.log(errors));
         },
 
+        /**
+         * @description Запрос на редактирование данных Продукта
+         * @param ctx
+         * @param params
+         * @return {Promise<void>}
+         */
+        async updateProduct(ctx, params) {
+            console.log(params);
+            await axios.post(`/api/products/${params.id}`, params.product_object).then(response => {
+            }).catch(errors => console.log(errors));
+        },
+
     },
     mutations: {
 
