@@ -1,5 +1,6 @@
 <template>
     <v-container class="main_container">
+        <banner-top/>
         <products
             header="Наши продукты"
         />
@@ -8,10 +9,12 @@
 
 <script>
     import Products from "../components/Products";
+    import BannerTop from "../components/BannerTop";
     export default {
         name: "Homepage",
         components: {
-            Products
+            Products,
+            BannerTop,
         },
         mixins: [
         ],
