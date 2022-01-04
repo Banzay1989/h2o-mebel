@@ -63,6 +63,8 @@ class ProductController {
      * @param Product $product
      * @param Request $request
      * @return JsonResponse
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig
      */
     public function update(Product $product, Request $request):JsonResponse {
         $product_data = $request->all();
@@ -79,13 +81,41 @@ class ProductController {
         }
 
         $product->update($product_data);
-        // dd(collect($request->file('new_files')));
         $product->attachFiles(collect($request->file('new_files')));
         return response()->json([
             'new_product' => $product,
         ]);
     }
 
+    /**
+     * @description новый Продукт
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig
+     */
+    public function store(Request $request):JsonResponse {
+        $product_data = $request->all();
+        $validator = Validator::make(
+            $product_data,
+            Product::rules()
+        );
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'message' => 'Данные введены некорректно',
+                    'errors' => $validator->errors()
+                ], 500);
+        }
 
-// collect($request->file('files'))
+        $product = Product::create($product_data);
+        if ($product_data['deleted_at']){
+            $product->delete();
+        }
+        $product->attachFiles(collect($request->file('new_files')));
+        return response()->json([
+            'new_product' => $product,
+        ]);
+    }
+
 }

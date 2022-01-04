@@ -21,9 +21,7 @@ export default {
          * @return {Promise<void>}
          */
         async deleteProduct(ctx, item) {
-            await axios.delete(`/api/products/${item.id}`).then(response => {
-                ctx.commit('deleteOrder', item);
-            }).catch(errors => console.log(errors));
+            await axios.delete(`/api/products/${item.id}`).catch(errors => console.log(errors));
         },
 
         /**
@@ -33,9 +31,18 @@ export default {
          * @return {Promise<void>}
          */
         async updateProduct(ctx, params) {
-            console.log(params);
             await axios.post(`/api/products/${params.id}`, params.product_object).then(response => {
             }).catch(errors => console.log(errors));
+        },
+
+        /**
+         * @description Запрос на добавление Продукта
+         * @param ctx
+         * @param params
+         * @return {Promise<void>}
+         */
+        async newProduct(ctx, params) {
+            await axios.post(`/api/products`, params).catch(errors => console.log(errors));
         },
 
     },
