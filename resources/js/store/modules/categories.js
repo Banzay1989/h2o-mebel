@@ -29,11 +29,9 @@ export default {
          * @return {Promise<void>}
          */
         async newCategoryItem(ctx, category_object) {
-            if (confirm('Удалятся так же все подкатегории, вы уверены?')){
-                await axios.post(`/api/categories`, category_object).then(response => {
-                    ctx.dispatch('getCategories');
-                }).catch(errors => console.log(errors));
-            }
+            await axios.post(`/api/categories`, category_object).then(response => {
+                ctx.dispatch('getCategories');
+            }).catch(errors => console.log(errors));
         },
 
         /**
@@ -43,9 +41,11 @@ export default {
          * @return {Promise<void>}
          */
         async deleteCategoryItem(ctx, id) {
-            await axios.delete(`/api/categories/${id}`).then(response => {
-                ctx.dispatch('getCategories');
-            }).catch(errors => console.log(errors));
+            if (confirm('Удалятся так же все подкатегории, вы уверены?')) {
+                await axios.delete(`/api/categories/${id}`).then(response => {
+                    ctx.dispatch('getCategories');
+                }).catch(errors => console.log(errors));
+            }
         },
 
 
@@ -110,7 +110,7 @@ export default {
         },
 
         getFlatCategories(state) {
-            let func = (arr,d) => {
+            let func = (arr, d) => {
                 return d > 0 ? arr.reduce((acc, val) => acc.concat(val?.children?.length ? func(val.children, d - 1) : val), arr)
                     : arr.slice();
             };
@@ -119,7 +119,6 @@ export default {
         },
 
     },
-
 
 
 }

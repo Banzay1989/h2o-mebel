@@ -82,7 +82,11 @@
                     >
                         <admin-buttons
                             add
-                        />
+                        >
+                            <template v-slot:add>
+                                <product-editor/>
+                            </template>
+                        </admin-buttons>
                     </v-col>
                     <v-col
                         cols="12"
@@ -115,6 +119,19 @@
                         </a>
                         <p>{{ item.name }}</p>
                         <p>₽{{ item.price }}</p>
+                        <p>
+                            <admin-buttons
+                                edit
+                                remove
+                                @click_remove="$store.dispatch('deleteProduct', item.id)"
+                            >
+                                <template v-slot:edit>
+                                    <product-editor
+                                        :value="item"
+                                    />
+                                </template>
+                            </admin-buttons>
+                        </p>
                     </v-col>
                 </v-row>
                 <v-row
@@ -148,12 +165,14 @@
 <script>
     import Sidebar from "./Sidebar";
     import AdminButtons from "./AdminButtons";
+    import ProductEditor from "./ProductEditor";
 
     export default {
         name: "Products",
         components: {
             AdminButtons,
             Sidebar,
+            ProductEditor,
         },
         mixins: [],
         props: {
