@@ -107,11 +107,8 @@ class ProductController {
                     'errors' => $validator->errors()
                 ], 500);
         }
-
+        dd($product_data);
         $product = Product::create($product_data);
-        if ($product_data['deleted_at']){
-            $product->delete();
-        }
         $product->attachFiles(collect($request->file('new_files')));
         return response()->json([
             'new_product' => $product,
