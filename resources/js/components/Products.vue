@@ -94,7 +94,7 @@
                         <a :href="'/product/'+item.id">
                             <v-img
                                 class="image"
-                                :src="item.file"
+                                :src="getImage(item)"
                                 :aspect-ratio="278/318"
                                 height="318"
                             >
@@ -244,7 +244,11 @@
             isFirst(index) {
                 // return ((index+3) * 3 % this.product_cols) === 0 ? ' first_col' : '';
                 return ((index + 4) * 3 % this.product_cols) === 0 ? ' first_col' : '';
-            }
+            },
+
+            getImage(item){
+                return item?.files?.[0] ?? null;
+            },
         },
     }
 </script>
