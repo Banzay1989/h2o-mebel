@@ -128,6 +128,7 @@
                             <v-checkbox
                                 dark
                                 label="В продаже"
+                                :disabled="editable_product.id"
                                 v-model="is_aviable"
                             />
                         </v-col>

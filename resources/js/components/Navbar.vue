@@ -110,6 +110,7 @@
 
     .top_menu {
         display: flex;
+        width: 100% !important;
         flex-direction: row;
         align-items: center;
         justify-content: center;
