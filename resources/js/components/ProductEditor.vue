@@ -10,18 +10,34 @@
                     cols="12"
                     md="3"
                 >
-                    <v-row wrap>
+                    <v-row
+                        v-if="editable_product.id"
+                        wrap
+                    >
                         <v-col
-                            v-for="(image,i) in editable_product.files"
+                            v-for="(image,i) in editable_product.images"
                             :key="i"
                             cols="3"
                         >
                             <v-img
                                 class="image"
-                                :src="image"
+                                :src="image.url"
                                 :aspect-ratio="1"
                                 height="100"
                             >
+                                <v-btn
+                                    title="Удалить"
+                                    icon
+                                    x-small
+                                    color="error"
+                                    @click="remove(image.id, i)"
+                                >
+                                    <v-icon
+                                        color="white"
+                                    >
+                                        mdi-close
+                                    </v-icon>
+                                </v-btn>
                                 <template v-slot:placeholder>
                                     <v-row
                                         class="fill-height ma-0"
@@ -128,7 +144,7 @@
                             <v-checkbox
                                 dark
                                 label="В продаже"
-                                :disabled="editable_product.id"
+                                :disabled="!editable_product.id"
                                 v-model="is_aviable"
                             />
                         </v-col>
@@ -190,6 +206,7 @@
                 ],
                 is_aviable: true,
                 new_files: [],
+                deletable_files: [],
             };
         },
         computed: {
@@ -270,20 +287,28 @@
                     // }
                 });
                 if (this.new_files.length) {
-                    this.uploadFiles(formData, this.new_files);
+                    this.uploadFiles(formData, this.new_files, 'new_files');
+                }
+                if (this.deletable_files.length) {
+                    this.uploadFiles(formData, this.deletable_files, 'deletable_files');
                 }
                 return formData;
             },
 
-            uploadFiles(formData, files) {
+            uploadFiles(formData, files, array_name) {
                 files.forEach(value => {
-                    if (value.id === undefined) {
-                        formData.append('new_files[]', value);
-                    }
+                    // if (value.id === undefined) {
+                        formData.append(`${array_name}[]`, value);
+                    // }
                     // else {
                     //     formData.append('old_files[]', value.id);
                     // }
                 });
+            },
+
+            remove(id, i) {
+                this.deletable_files.push(id);
+                this.editable_product.images.splice(i,1);
             },
 
         },

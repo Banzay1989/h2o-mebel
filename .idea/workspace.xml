@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87f00ec9-7122-42b5-bf2a-1b88968cbbdc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/ProductEditor.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/RestApi/ApiOrder.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/ProductEditor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ProductEditor.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Products.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Products.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/Product.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Product.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/categories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/products.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,7 +254,8 @@
       <workItem from="1641223768472" duration="7130000" />
       <workItem from="1641231885949" duration="710000" />
       <workItem from="1641292204074" duration="4668000" />
-      <workItem from="1641302038658" duration="4005000" />
+      <workItem from="1641302038658" duration="4293000" />
+      <workItem from="1641555545766" duration="3397000" />
     </task>
     <servers />
   </component>

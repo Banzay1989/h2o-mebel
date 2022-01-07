@@ -123,7 +123,7 @@
         },
         computed: {
             image_src(){
-              return this.product?.files?.[this.active_img];
+              return this.product?.images?.[this.active_img]?.url;
             },
 
             in_stock() {

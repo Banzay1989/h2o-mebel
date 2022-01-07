@@ -123,7 +123,7 @@
                             <admin-buttons
                                 edit
                                 remove
-                                @click_remove="$store.dispatch('deleteProduct', item.id)"
+                                @click_remove="$store.dispatch('deleteProduct', item)"
                             >
                                 <template v-slot:edit>
                                     <product-editor
@@ -266,7 +266,7 @@
             },
 
             getImage(item){
-                return item?.files?.[0] ?? null;
+                return item?.images?.[0]?.url ?? null;
             },
         },
     }

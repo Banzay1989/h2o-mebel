@@ -30,7 +30,7 @@ class Product extends Model implements HasMedia {
 
 
     //Файлы, прикрепленные к заказу
-    protected $appends = ['files'];
+    protected $appends = ['images'];
 
     //Правила заполнения данных заказа
     public static function rules(): array {
@@ -49,10 +49,12 @@ class Product extends Model implements HasMedia {
      * @description получим файлы с данными
      * @return array
      */
-    public function getFilesAttribute(): array {
+    public function getImagesAttribute(): array {
         return array_map(static function ($file){
-            // dd($file);
-            return $file->getUrl();
+            return [
+                'id' => $file->id,
+                'url' => $file->getUrl(),
+            ];
         }, $this->getMedia(self::MEDIA_SOURCE_COLLECTION)->all());
     }
 
