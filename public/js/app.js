@@ -3932,6 +3932,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Product",
   components: {},
@@ -4013,9 +4064,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         deleted_at: null,
         description: '',
         price: 0,
-        files: [],
+        images: [],
         brand: []
       };
+    },
+    isSelected: function isSelected(image) {
+      var _this$product3, _this$product3$images, _this$product3$images2;
+
+      return ((_this$product3 = this.product) === null || _this$product3 === void 0 ? void 0 : (_this$product3$images = _this$product3.images) === null || _this$product3$images === void 0 ? void 0 : (_this$product3$images2 = _this$product3$images[this.active_img]) === null || _this$product3$images2 === void 0 ? void 0 : _this$product3$images2.id) === image.id ? 'selected' : '';
+    },
+    isShown: function isShown(i) {
+      var last_index = this.product.images.length - 1;
+      var max_on_view = 4;
+      var is_shown = false;
+
+      if (i >= this.active_img && i <= this.active_img + max_on_view) {
+        is_shown = true;
+      } else if (this.active_img + max_on_view > last_index) {
+        if (i <= this.active_img + max_on_view - last_index) {
+          is_shown = true;
+        }
+      }
+
+      return is_shown;
     },
     buy: function buy() {}
   }
@@ -4207,7 +4278,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.image_col[data-v-b8645414] {\n    padding-right: 32px;\n}\nh3[data-v-b8645414] {\n    color: #a9a9a9;\n    border-bottom: 1px solid #37302e;\n}\n.page_selector[data-v-b8645414] {\n    max-width: 96px;\n}\n.description_specification[data-v-b8645414] {\n    justify-content: center;\n}\n.description_specification > .col[data-v-b8645414] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-evenly;\n}\n.description_specification p[data-v-b8645414] {\n    margin: 0 auto;\n}\n.buy[data-v-b8645414] {\n    align-items: baseline;\n}\n", ""]);
+exports.push([module.i, "\n.image_col[data-v-b8645414] {\n    padding-right: 32px;\n}\nh3[data-v-b8645414] {\n    color: #a9a9a9;\n    border-bottom: 1px solid #37302e;\n}\n.page_selector[data-v-b8645414] {\n    max-width: 96px;\n}\n.description_specification[data-v-b8645414] {\n    justify-content: center;\n}\n.description_specification > .col[data-v-b8645414] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-evenly;\n}\n.description_specification p[data-v-b8645414] {\n    margin: 0 auto;\n}\n.selected[data-v-b8645414] {\n    box-shadow: 0px 0px 10px 10px white inset;\n}\n.prev_carousel[data-v-b8645414], .next_carousel[data-v-b8645414] {\n    cursor: pointer;\n    font-size: 42px;\n}\n.arrow_carousel[data-v-b8645414] {\n    display: flex;\n    align-self: center;\n    justify-content: center;\n}\n.buy[data-v-b8645414] {\n    align-items: baseline;\n}\n", ""]);
 
 // exports
 
@@ -47272,42 +47343,168 @@ var render = function() {
             "v-col",
             { staticClass: "col image_col", attrs: { cols: "12", md: "5" } },
             [
-              _c("v-img", {
-                staticClass: "image",
-                attrs: {
-                  src: _vm.image_src,
-                  "aspect-ratio": 278 / 318,
-                  height: "520"
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "placeholder",
-                    fn: function() {
-                      return [
-                        _c(
-                          "v-row",
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "12" } },
+                    [
+                      _c("v-img", {
+                        staticClass: "image",
+                        attrs: {
+                          src: _vm.image_src,
+                          "aspect-ratio": 278 / 318,
+                          height: "520"
+                        },
+                        scopedSlots: _vm._u([
                           {
-                            staticClass: "fill-height ma-0",
-                            attrs: { align: "center", justify: "center" }
+                            key: "placeholder",
+                            fn: function() {
+                              return [
+                                _c(
+                                  "v-row",
+                                  {
+                                    staticClass: "fill-height ma-0",
+                                    attrs: {
+                                      align: "center",
+                                      justify: "center"
+                                    }
+                                  },
+                                  [
+                                    _c("v-img", {
+                                      staticClass: "image",
+                                      attrs: {
+                                        src: "/images/gold_logo.png",
+                                        "aspect-ratio": 278 / 318,
+                                        height: "520"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ]
+                            },
+                            proxy: true
+                          }
+                        ])
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { staticClass: "arrow_carousel", attrs: { cols: "1" } },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "prev_carousel",
+                          on: {
+                            click: function($event) {
+                              _vm.active_img === 0 ? 0 : _vm.active_img--
+                            }
+                          }
+                        },
+                        [_vm._v("<")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.product.images, function(image, i) {
+                    return _c(
+                      "v-col",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.isShown(i),
+                            expression: "isShown(i)"
+                          }
+                        ],
+                        key: image.id,
+                        attrs: { cols: "2" }
+                      },
+                      [
+                        _c("v-img", {
+                          class: _vm.isSelected(image),
+                          attrs: { src: _vm.image_src, "aspect-ratio": 1 },
+                          on: {
+                            click: function($event) {
+                              _vm.active_img = i
+                            }
                           },
-                          [
-                            _c("v-img", {
-                              staticClass: "image",
-                              attrs: {
-                                src: "/images/gold_logo.png",
-                                "aspect-ratio": 278 / 318,
-                                height: "520"
+                          scopedSlots: _vm._u(
+                            [
+                              {
+                                key: "placeholder",
+                                fn: function() {
+                                  return [
+                                    _c(
+                                      "v-row",
+                                      {
+                                        staticClass: "fill-height ma-0",
+                                        attrs: {
+                                          align: "center",
+                                          justify: "center"
+                                        }
+                                      },
+                                      [
+                                        _c("v-img", {
+                                          staticClass: "image",
+                                          attrs: {
+                                            src: "/images/gold_logo.png",
+                                            "aspect-ratio": 1
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                },
+                                proxy: true
                               }
-                            })
-                          ],
-                          1
-                        )
-                      ]
-                    },
-                    proxy: true
-                  }
-                ])
-              })
+                            ],
+                            null,
+                            true
+                          )
+                        })
+                      ],
+                      1
+                    )
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "arrow_carousel", attrs: { cols: "1" } },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "next_carousel",
+                          on: {
+                            click: function($event) {
+                              _vm.active_img === _vm.product.images.length - 1
+                                ? _vm.product.images.length - 1
+                                : _vm.active_img++
+                            }
+                          }
+                        },
+                        [_vm._v(">")]
+                      )
+                    ]
+                  )
+                ],
+                2
+              )
             ],
             1
           ),
@@ -47376,11 +47573,7 @@ var render = function() {
                         }
                       }
                     },
-                    [
-                      _vm._v(
-                        "\n                        Купить\n                    "
-                      )
-                    ]
+                    [_vm._v("\n                    Купить\n                ")]
                   )
                 ],
                 1
@@ -47406,7 +47599,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n                    Описание\n                ")]
+              [_vm._v("\n                Описание\n            ")]
             ),
             _vm._v(" "),
             _c("p", [_vm._v("-")]),
@@ -47420,7 +47613,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n                    Параметры\n                ")]
+              [_vm._v("\n                Параметры\n            ")]
             )
           ]),
           _vm._v(" "),
@@ -47431,17 +47624,17 @@ var render = function() {
               _vm.block === "description"
                 ? _c("v-sheet", { attrs: { dark: "" } }, [
                     _vm._v(
-                      "\n                    " +
+                      "\n                " +
                         _vm._s(_vm.product.description) +
-                        "\n                "
+                        "\n            "
                     )
                   ])
                 : _vm.block === "parameters"
                 ? _c("v-sheet", { attrs: { dark: "" } }, [
                     _vm._v(
-                      "\n                    " +
+                      "\n                " +
                         _vm._s("Тут будут параметры") +
-                        "\n                "
+                        "\n            "
                     )
                   ])
                 : _vm._e()

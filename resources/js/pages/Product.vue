@@ -9,27 +9,78 @@
                 md="5"
                 class="col image_col"
             >
-                <v-img
-                    class="image"
-                    :src="image_src"
-                    :aspect-ratio="278/318"
-                    height="520"
-                >
-                    <template v-slot:placeholder>
-                        <v-row
-                            class="fill-height ma-0"
-                            align="center"
-                            justify="center"
+                <v-row>
+                    <v-col cols="12">
+                        <v-img
+                            class="image"
+                            :src="image_src"
+                            :aspect-ratio="278/318"
+                            height="520"
                         >
-                            <v-img
-                                src="/images/gold_logo.png"
-                                class="image"
-                                :aspect-ratio="278/318"
-                                height="520"
-                            />
-                        </v-row>
-                    </template>
-                </v-img>
+                            <template v-slot:placeholder>
+                                <v-row
+                                    class="fill-height ma-0"
+                                    align="center"
+                                    justify="center"
+                                >
+                                    <v-img
+                                        src="/images/gold_logo.png"
+                                        class="image"
+                                        :aspect-ratio="278/318"
+                                        height="520"
+                                    />
+                                </v-row>
+                            </template>
+                        </v-img>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col
+                        cols="1"
+                        class="arrow_carousel"
+                    >
+                        <span
+                            class="prev_carousel"
+                            @click="active_img === 0 ? 0 : active_img--"
+                        >&lt;</span>
+                    </v-col>
+                    <v-col
+                        cols="2"
+                        v-for="(image,i) in product.images"
+                        v-show="isShown(i)"
+                        :key="image.id"
+                    >
+                        <v-img
+                            :src="image_src"
+                            :aspect-ratio="1"
+                            :class="isSelected(image)"
+                            @click="active_img = i"
+                        >
+                            <template v-slot:placeholder>
+                                <v-row
+                                    class="fill-height ma-0"
+                                    align="center"
+                                    justify="center"
+                                >
+                                    <v-img
+                                        src="/images/gold_logo.png"
+                                        class="image"
+                                        :aspect-ratio="1"
+                                    />
+                                </v-row>
+                            </template>
+                        </v-img>
+                    </v-col>
+                    <v-col
+                        cols="1"
+                        class="arrow_carousel"
+                    >
+                        <span
+                            class="next_carousel"
+                            @click="active_img === product.images.length-1 ? product.images.length-1 : active_img++"
+                        >&gt;</span>
+                    </v-col>
+                </v-row>
             </v-col>
             <v-col
                 cols="12"
@@ -39,7 +90,7 @@
                 <h3>{{ product.name }}</h3>
                 <ul>
                     <li>
-<!--                        <strong>Бренд: </strong><a :href="brand_src">{{ product.brand.name }}</a>-->
+                        <!--                        <strong>Бренд: </strong><a :href="brand_src">{{ product.brand.name }}</a>-->
                         <strong>Бренд: </strong><span>{{ product.brand.name }}</span>
                     </li>
                     <li>
@@ -94,13 +145,13 @@
                     dark
                     v-if="block==='description'"
                 >
-                    {{product.description}}
+                    {{ product.description }}
                 </v-sheet>
                 <v-sheet
                     dark
                     v-else-if="block==='parameters'"
                 >
-                    {{'Тут будут параметры'}}
+                    {{ 'Тут будут параметры' }}
                 </v-sheet>
             </v-col>
         </v-row>
@@ -118,12 +169,12 @@
                 quantity: 1,
                 is_aviable: true,
                 active_img: 0,
-                block:'description',
+                block: 'description',
             }
         },
         computed: {
-            image_src(){
-              return this.product?.images?.[this.active_img]?.url;
+            image_src() {
+                return this.product?.images?.[this.active_img]?.url;
             },
 
             in_stock() {
@@ -152,9 +203,25 @@
                     deleted_at: null,
                     description: '',
                     price: 0,
-                    files: [],
+                    images: [],
                     brand: [],
                 }
+            },
+            isSelected(image) {
+                return this.product?.images?.[this.active_img]?.id === image.id ? 'selected' : '';
+            },
+            isShown(i) {
+                const last_index = this.product.images.length - 1;
+                const max_on_view = 4;
+                let is_shown = false;
+                if (i >= this.active_img && i <= this.active_img + max_on_view) {
+                    is_shown = true;
+                } else if (this.active_img + max_on_view > last_index) {
+                    if (i <= ((this.active_img + max_on_view) - last_index)) {
+                        is_shown = true;
+                    }
+                }
+                return is_shown;
             },
             buy() {
 
@@ -188,6 +255,21 @@
 
     .description_specification p {
         margin: 0 auto;
+    }
+
+    .selected {
+        box-shadow: 0px 0px 10px 10px white inset;
+    }
+
+    .prev_carousel, .next_carousel {
+        cursor: pointer;
+        font-size: 42px;
+    }
+
+    .arrow_carousel {
+        display: flex;
+        align-self: center;
+        justify-content: center;
     }
 
     .buy {
