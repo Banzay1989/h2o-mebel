@@ -34,7 +34,9 @@
                         </v-img>
                     </v-col>
                 </v-row>
-                <v-row>
+                <v-row
+                    v-if="product.images.length"
+                >
                     <v-col
                         cols="1"
                         class="arrow_carousel"

@@ -4,6 +4,7 @@ import Contact from '../pages/Contact.vue'
 import Category from "../pages/Category";
 import Product from "../pages/Product";
 import Brand from "../pages/Brand";
+import Account from "../pages/Account";
 import Empty from "../pages/Empty";
 
 export default {
@@ -35,6 +36,10 @@ export default {
         {
             path: '/brand/:id',
             component: Brand,
+        },
+        {
+            path: '/account',
+            component: Account,
         },
         {
             path: '*',

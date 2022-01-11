@@ -38,6 +38,7 @@
                 <v-icon
                     class="header_icon"
                     color="white"
+                    @click="$router.push('/account')"
                 >
                     mdi-account-outline
                 </v-icon>
