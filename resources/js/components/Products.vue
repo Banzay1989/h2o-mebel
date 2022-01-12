@@ -257,8 +257,7 @@
              * @return {string}
              */
             isLast(index) {
-                // return ((index + 1) * 3 % this.product_cols) === 0 ? ' last_col' : '';
-                return ((index + 2) * 3 % this.product_cols) === 0 ? ' last_col' : '';
+                return this.isAdmin() ? (((index + 2) * 3 % this.product_cols) === 0 ? ' last_col' : '') : (((index + 1) * 3 % this.product_cols) === 0 ? ' last_col' : '');
             },
 
             /**
@@ -267,8 +266,8 @@
              * @return {string}
              */
             isFirst(index) {
-                // return ((index+3) * 3 % this.product_cols) === 0 ? ' first_col' : '';
-                return ((index + 4) * 3 % this.product_cols) === 0 ? ' first_col' : '';
+                // ;
+                return this.isAdmin() ? (((index + 4) * 3 % this.product_cols) === 0 ? ' first_col' : '') : (((index+3) * 3 % this.product_cols) === 0 ? ' first_col' : '');
             },
 
             getImage(item){

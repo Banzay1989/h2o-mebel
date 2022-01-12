@@ -3680,8 +3680,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * @return {string}
      */
     isLast: function isLast(index) {
-      // return ((index + 1) * 3 % this.product_cols) === 0 ? ' last_col' : '';
-      return (index + 2) * 3 % this.product_cols === 0 ? ' last_col' : '';
+      return this.isAdmin() ? (index + 2) * 3 % this.product_cols === 0 ? ' last_col' : '' : (index + 1) * 3 % this.product_cols === 0 ? ' last_col' : '';
     },
 
     /**
@@ -3690,8 +3689,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * @return {string}
      */
     isFirst: function isFirst(index) {
-      // return ((index+3) * 3 % this.product_cols) === 0 ? ' first_col' : '';
-      return (index + 4) * 3 % this.product_cols === 0 ? ' first_col' : '';
+      // ;
+      return this.isAdmin() ? (index + 4) * 3 % this.product_cols === 0 ? ' first_col' : '' : (index + 3) * 3 % this.product_cols === 0 ? ' first_col' : '';
     },
     getImage: function getImage(item) {
       var _item$images$0$url, _item$images, _item$images$;
@@ -109625,7 +109624,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     isAdmin: function isAdmin() {
-      console.log(this.$store.getters.getRole === 'administrator');
       return this.$store.getters.getRole === 'administrator';
     }
   }
