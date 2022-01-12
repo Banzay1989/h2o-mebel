@@ -1921,6 +1921,9 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ButtonWithDialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ButtonWithDialog */ "./resources/js/components/ButtonWithDialog.vue");
+/* harmony import */ var _mixins_isAdmin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mixins/isAdmin */ "./resources/js/mixins/isAdmin.js");
+//
+//
 //
 //
 //
@@ -1958,11 +1961,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AdminButtons",
   components: {
     ButtonWithDialog: _ButtonWithDialog__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  mixins: [_mixins_isAdmin__WEBPACK_IMPORTED_MODULE_1__["default"]],
   props: {
     add: {
       type: Boolean,
@@ -2029,19 +2034,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var token;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              document.title = 'h2o-mebel';
-              _context.next = 3;
+              // document.title = 'h2o-mebel';
+              token = localStorage.getItem('token');
+
+              if (!_.isNil(token)) {
+                axios.defaults.headers.common.Authorization = localStorage.getItem('token');
+
+                _this.$store.dispatch('getRole');
+              } else {
+                axios.defaults.headers.common.Authorization = undefined;
+              }
+
+              _context.next = 4;
               return _this.$store.dispatch('getCategories');
 
-            case 3:
-              _context.next = 5;
+            case 4:
+              _context.next = 6;
               return _this.$store.dispatch('getBrands');
 
-            case 5:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -2610,11 +2626,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Login',
   data: function data() {
     return {
-      login: '',
+      email: '',
       password: '',
       is_shown: false,
       rules: {
@@ -2626,6 +2644,32 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     };
+  },
+  methods: {
+    login: function login() {
+      var _this = this;
+
+      axios.post('api/auth/login', {
+        email: this.email,
+        password: this.password
+      }).then(function (response) {
+        if (response.data.status === 'Success') {
+          // console.log(response.data.data.token.match(/\|(.*)$/));
+          localStorage.setItem('is_logged', 'true');
+          localStorage.setItem('token', "Bearer ".concat(response.data.data.token));
+          axios.defaults.headers.common.Authorization = "Bearer ".concat(response.data.data.token);
+
+          _this.$store.dispatch('getRole');
+        }
+      })["catch"](function (error) {
+        localStorage.setItem('is_logged', 'false');
+        localStorage.removeItem('token');
+
+        _this.$store.dispatch('logout');
+
+        axios.defaults.headers.common.Authorization = undefined;
+      });
+    }
   }
 });
 
@@ -2830,6 +2874,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ButtonWithDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ButtonWithDialog */ "./resources/js/components/ButtonWithDialog.vue");
 /* harmony import */ var _MenuEditor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MenuEditor */ "./resources/js/components/MenuEditor.vue");
 /* harmony import */ var _AdminButtons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AdminButtons */ "./resources/js/components/AdminButtons.vue");
+/* harmony import */ var _mixins_isAdmin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../mixins/isAdmin */ "./resources/js/mixins/isAdmin.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2906,6 +2951,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -2916,6 +2966,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     MenuEditor: _MenuEditor__WEBPACK_IMPORTED_MODULE_2__["default"],
     AdminButtons: _AdminButtons__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
+  mixins: [_mixins_isAdmin__WEBPACK_IMPORTED_MODULE_4__["default"]],
   computed: {
     menu: function menu() {
       return this.$store.getters.getMenu;
@@ -3329,6 +3380,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Sidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Sidebar */ "./resources/js/components/Sidebar.vue");
 /* harmony import */ var _AdminButtons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminButtons */ "./resources/js/components/AdminButtons.vue");
 /* harmony import */ var _ProductEditor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProductEditor */ "./resources/js/components/ProductEditor.vue");
+/* harmony import */ var _mixins_isAdmin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../mixins/isAdmin */ "./resources/js/mixins/isAdmin.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3499,6 +3551,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -3509,7 +3565,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     Sidebar: _Sidebar__WEBPACK_IMPORTED_MODULE_1__["default"],
     ProductEditor: _ProductEditor__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  mixins: [],
+  mixins: [_mixins_isAdmin__WEBPACK_IMPORTED_MODULE_4__["default"]],
   props: {
     header: {
       type: String,
@@ -3658,6 +3714,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminButtons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminButtons */ "./resources/js/components/AdminButtons.vue");
 /* harmony import */ var _CategoryEditor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CategoryEditor */ "./resources/js/components/CategoryEditor.vue");
+/* harmony import */ var _mixins_isAdmin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/isAdmin */ "./resources/js/mixins/isAdmin.js");
 //
 //
 //
@@ -3709,6 +3766,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3717,6 +3778,7 @@ __webpack_require__.r(__webpack_exports__);
     CategoryEditor: _CategoryEditor__WEBPACK_IMPORTED_MODULE_1__["default"],
     AdminButtons: _AdminButtons__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  mixins: [_mixins_isAdmin__WEBPACK_IMPORTED_MODULE_2__["default"]],
   data: function data() {
     return {
       active: [],
@@ -45496,75 +45558,77 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-col",
-    { attrs: { cols: "12" } },
-    [
-      _vm.add
-        ? _c(
-            "button-with-dialog",
-            {
-              attrs: {
-                mdi_icon: "mdi-plus",
-                small: "",
-                header_text: "Добавить"
-              }
-            },
-            [_vm._t("add")],
-            2
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.edit
-        ? _c(
-            "button-with-dialog",
-            {
-              attrs: {
-                mdi_icon: "mdi-pencil",
-                x_small: "",
-                header_text: "Редактировать"
-              }
-            },
-            [_vm._t("edit")],
-            2
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.remove
-        ? _c(
-            "v-btn",
-            {
-              attrs: {
-                title: "Удалить",
-                icon: "",
-                "x-small": "",
-                color: "error"
-              },
-              on: {
-                click: function($event) {
-                  if (
-                    $event.ctrlKey ||
-                    $event.shiftKey ||
-                    $event.altKey ||
-                    $event.metaKey
-                  ) {
-                    return null
+  return _vm.isAdmin()
+    ? _c(
+        "v-col",
+        { attrs: { cols: "12" } },
+        [
+          _vm.add
+            ? _c(
+                "button-with-dialog",
+                {
+                  attrs: {
+                    mdi_icon: "mdi-plus",
+                    small: "",
+                    header_text: "Добавить"
                   }
-                  return _vm.$emit("click_remove")
-                }
-              }
-            },
-            [
-              _c("v-icon", { attrs: { color: "white" } }, [
-                _vm._v("\n            mdi-close\n        ")
-              ])
-            ],
-            1
-          )
-        : _vm._e()
-    ],
-    1
-  )
+                },
+                [_vm._t("add")],
+                2
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.edit
+            ? _c(
+                "button-with-dialog",
+                {
+                  attrs: {
+                    mdi_icon: "mdi-pencil",
+                    x_small: "",
+                    header_text: "Редактировать"
+                  }
+                },
+                [_vm._t("edit")],
+                2
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.remove
+            ? _c(
+                "v-btn",
+                {
+                  attrs: {
+                    title: "Удалить",
+                    icon: "",
+                    "x-small": "",
+                    color: "error"
+                  },
+                  on: {
+                    click: function($event) {
+                      if (
+                        $event.ctrlKey ||
+                        $event.shiftKey ||
+                        $event.altKey ||
+                        $event.metaKey
+                      ) {
+                        return null
+                      }
+                      return _vm.$emit("click_remove")
+                    }
+                  }
+                },
+                [
+                  _c("v-icon", { attrs: { color: "white" } }, [
+                    _vm._v("\n            mdi-close\n        ")
+                  ])
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -46162,13 +46226,13 @@ var render = function() {
                 { staticClass: "col", attrs: { cols: "8" } },
                 [
                   _c("v-text-field", {
-                    attrs: { label: "Логин", rules: [_vm.rules.required] },
+                    attrs: { label: "E-mail", rules: [_vm.rules.required] },
                     model: {
-                      value: _vm.login,
+                      value: _vm.email,
                       callback: function($$v) {
-                        _vm.login = $$v
+                        _vm.email = $$v
                       },
-                      expression: "login"
+                      expression: "email"
                     }
                   })
                 ],
@@ -46219,7 +46283,11 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-card-actions",
-        [_c("v-btn", [_vm._v("\n            Авторизоваться\n        ")])],
+        [
+          _c("v-btn", { on: { click: _vm.login } }, [
+            _vm._v("\n            Авторизоваться\n        ")
+          ])
+        ],
         1
       )
     ],
@@ -46374,28 +46442,39 @@ var render = function() {
     {
       staticClass: "thin_container top_menu",
       attrs: { app: "" },
-      scopedSlots: _vm._u([
-        {
-          key: "append",
-          fn: function() {
-            return [
-              _c("admin-buttons", {
-                attrs: { add: "" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "add",
-                    fn: function() {
-                      return [_c("menu-editor")]
-                    },
-                    proxy: true
-                  }
-                ])
-              })
-            ]
-          },
-          proxy: true
-        }
-      ])
+      scopedSlots: _vm._u(
+        [
+          _vm.isAdmin()
+            ? {
+                key: "append",
+                fn: function() {
+                  return [
+                    _c("admin-buttons", {
+                      attrs: { add: "" },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "add",
+                            fn: function() {
+                              return [_c("menu-editor")]
+                            },
+                            proxy: true
+                          }
+                        ],
+                        null,
+                        false,
+                        3929586070
+                      )
+                    })
+                  ]
+                },
+                proxy: true
+              }
+            : null
+        ],
+        null,
+        true
+      )
     },
     [
       _vm._v(" "),
@@ -46485,36 +46564,41 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "extra_buttons" },
-                [
-                  _c("admin-buttons", {
-                    attrs: { edit: "", remove: "" },
-                    on: {
-                      click_remove: function($event) {
-                        return _vm.$store.dispatch("deleteMenuItem", item.id)
-                      }
-                    },
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "edit",
-                          fn: function() {
-                            return [
-                              _c("menu-editor", { attrs: { value: item } })
-                            ]
-                          },
-                          proxy: true
-                        }
-                      ],
-                      null,
-                      true
-                    )
-                  })
-                ],
-                1
-              )
+              _vm.isAdmin()
+                ? _c(
+                    "div",
+                    { staticClass: "extra_buttons" },
+                    [
+                      _c("admin-buttons", {
+                        attrs: { edit: "", remove: "" },
+                        on: {
+                          click_remove: function($event) {
+                            return _vm.$store.dispatch(
+                              "deleteMenuItem",
+                              item.id
+                            )
+                          }
+                        },
+                        scopedSlots: _vm._u(
+                          [
+                            {
+                              key: "edit",
+                              fn: function() {
+                                return [
+                                  _c("menu-editor", { attrs: { value: item } })
+                                ]
+                              },
+                              proxy: true
+                            }
+                          ],
+                          null,
+                          true
+                        )
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e()
             ],
             1
           )
@@ -47068,28 +47152,35 @@ var render = function() {
                   attrs: { pa: "0", ma: "0", wrap: "" }
                 },
                 [
-                  _c(
-                    "v-col",
-                    {
-                      staticClass: "col admin_placeholder first_col",
-                      attrs: { cols: "12", md: _vm.sidebar ? 4 : 3 }
-                    },
-                    [
-                      _c("admin-buttons", {
-                        attrs: { add: "" },
-                        scopedSlots: _vm._u([
-                          {
-                            key: "add",
-                            fn: function() {
-                              return [_c("product-editor")]
-                            },
-                            proxy: true
-                          }
-                        ])
-                      })
-                    ],
-                    1
-                  ),
+                  _vm.isAdmin()
+                    ? _c(
+                        "v-col",
+                        {
+                          staticClass: "col admin_placeholder first_col",
+                          attrs: { cols: "12", md: _vm.sidebar ? 4 : 3 }
+                        },
+                        [
+                          _c("admin-buttons", {
+                            attrs: { add: "" },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "add",
+                                  fn: function() {
+                                    return [_c("product-editor")]
+                                  },
+                                  proxy: true
+                                }
+                              ],
+                              null,
+                              false,
+                              201757902
+                            )
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
                   _vm._l(_vm.products, function(item, index) {
                     return _c(
@@ -47158,40 +47249,42 @@ var render = function() {
                         _vm._v(" "),
                         _c("p", [_vm._v("₽" + _vm._s(item.price))]),
                         _vm._v(" "),
-                        _c(
-                          "p",
-                          [
-                            _c("admin-buttons", {
-                              attrs: { edit: "", remove: "" },
-                              on: {
-                                click_remove: function($event) {
-                                  return _vm.$store.dispatch(
-                                    "deleteProduct",
-                                    item
+                        _vm.isAdmin()
+                          ? _c(
+                              "p",
+                              [
+                                _c("admin-buttons", {
+                                  attrs: { edit: "", remove: "" },
+                                  on: {
+                                    click_remove: function($event) {
+                                      return _vm.$store.dispatch(
+                                        "deleteProduct",
+                                        item
+                                      )
+                                    }
+                                  },
+                                  scopedSlots: _vm._u(
+                                    [
+                                      {
+                                        key: "edit",
+                                        fn: function() {
+                                          return [
+                                            _c("product-editor", {
+                                              attrs: { value: item }
+                                            })
+                                          ]
+                                        },
+                                        proxy: true
+                                      }
+                                    ],
+                                    null,
+                                    true
                                   )
-                                }
-                              },
-                              scopedSlots: _vm._u(
-                                [
-                                  {
-                                    key: "edit",
-                                    fn: function() {
-                                      return [
-                                        _c("product-editor", {
-                                          attrs: { value: item }
-                                        })
-                                      ]
-                                    },
-                                    proxy: true
-                                  }
-                                ],
-                                null,
-                                true
-                              )
-                            })
-                          ],
-                          1
-                        )
+                                })
+                              ],
+                              1
+                            )
+                          : _vm._e()
                       ]
                     )
                   })
@@ -47284,18 +47377,25 @@ var render = function() {
     [
       _c("h1", { staticClass: "my-4" }, [_vm._v("Категории")]),
       _vm._v(" "),
-      _c("admin-buttons", {
-        attrs: { add: "" },
-        scopedSlots: _vm._u([
-          {
-            key: "add",
-            fn: function() {
-              return [_c("category-editor")]
-            },
-            proxy: true
-          }
-        ])
-      }),
+      _vm.isAdmin()
+        ? _c("admin-buttons", {
+            attrs: { add: "" },
+            scopedSlots: _vm._u(
+              [
+                {
+                  key: "add",
+                  fn: function() {
+                    return [_c("category-editor")]
+                  },
+                  proxy: true
+                }
+              ],
+              null,
+              false,
+              1911772853
+            )
+          })
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "v-card",
@@ -47325,64 +47425,70 @@ var render = function() {
                 _vm.open = $event
               }
             },
-            scopedSlots: _vm._u([
-              {
-                key: "append",
-                fn: function(ref) {
-                  var item = ref.item
-                  return [
-                    _c("admin-buttons", {
-                      attrs: { edit: "", remove: "" },
-                      on: {
-                        click_remove: function($event) {
-                          return _vm.$store.dispatch(
-                            "deleteCategoryItem",
-                            item.id
-                          )
-                        }
-                      },
-                      scopedSlots: _vm._u(
-                        [
-                          {
-                            key: "edit",
-                            fn: function() {
-                              return [
-                                _c("category-editor", {
-                                  attrs: { value: item }
-                                })
-                              ]
+            scopedSlots: _vm._u(
+              [
+                _vm.isAdmin()
+                  ? {
+                      key: "append",
+                      fn: function(ref) {
+                        var item = ref.item
+                        return [
+                          _c("admin-buttons", {
+                            attrs: { edit: "", remove: "" },
+                            on: {
+                              click_remove: function($event) {
+                                return _vm.$store.dispatch(
+                                  "deleteCategoryItem",
+                                  item.id
+                                )
+                              }
                             },
-                            proxy: true
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "edit",
+                                  fn: function() {
+                                    return [
+                                      _c("category-editor", {
+                                        attrs: { value: item }
+                                      })
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          })
+                        ]
+                      }
+                    }
+                  : null,
+                {
+                  key: "label",
+                  fn: function(ref) {
+                    var item = ref.item
+                    return [
+                      _c(
+                        "v-list-item",
+                        {
+                          attrs: {
+                            link: "",
+                            exact: "",
+                            to: "/category/" + item.slug
                           }
-                        ],
-                        null,
-                        true
+                        },
+                        [_c("v-list-item-title", [_vm._v(_vm._s(item.name))])],
+                        1
                       )
-                    })
-                  ]
+                    ]
+                  }
                 }
-              },
-              {
-                key: "label",
-                fn: function(ref) {
-                  var item = ref.item
-                  return [
-                    _c(
-                      "v-list-item",
-                      {
-                        attrs: {
-                          link: "",
-                          exact: "",
-                          to: "/category/" + item.slug
-                        }
-                      },
-                      [_c("v-list-item-title", [_vm._v(_vm._s(item.name))])],
-                      1
-                    )
-                  ]
-                }
-              }
-            ])
+              ],
+              null,
+              true
+            )
           })
         ],
         1
@@ -109507,6 +109613,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/mixins/isAdmin.js":
+/*!****************************************!*\
+  !*** ./resources/js/mixins/isAdmin.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    isAdmin: function isAdmin() {
+      console.log(this.$store.getters.getRole === 'administrator');
+      return this.$store.getters.getRole === 'administrator';
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/pages/About.vue":
 /*!**************************************!*\
   !*** ./resources/js/pages/About.vue ***!
@@ -110157,6 +110283,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_categories__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/categories */ "./resources/js/store/modules/categories.js");
 /* harmony import */ var _modules_products__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/products */ "./resources/js/store/modules/products.js");
 /* harmony import */ var _modules_brands__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/brands */ "./resources/js/store/modules/brands.js");
+/* harmony import */ var _modules_role__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/role */ "./resources/js/store/modules/role.js");
+
 
 
 
@@ -110171,7 +110299,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     menu: _modules_menu__WEBPACK_IMPORTED_MODULE_3__["default"],
     categories: _modules_categories__WEBPACK_IMPORTED_MODULE_4__["default"],
     products: _modules_products__WEBPACK_IMPORTED_MODULE_5__["default"],
-    brands: _modules_brands__WEBPACK_IMPORTED_MODULE_6__["default"]
+    brands: _modules_brands__WEBPACK_IMPORTED_MODULE_6__["default"],
+    role: _modules_role__WEBPACK_IMPORTED_MODULE_7__["default"]
   }
 }));
 
@@ -111107,6 +111236,85 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      */
     getAllProducts: function getAllProducts(state) {
       return state.products;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/role.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/modules/role.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  actions: {
+    /**
+     * @description запрос на получение данных о роли пользователя
+     * @param ctx
+     * @return {Promise<void>}
+     */
+    getRole: function getRole(ctx) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get("/api/role").then(function (response) {
+                  ctx.commit('getRole', response.data.role);
+                  localStorage.setItem('is_logged', 'true');
+                })["catch"](function () {
+                  ctx.commit('getRole', 'user');
+                  localStorage.setItem('is_logged', 'false');
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    logout: function logout(ctx) {
+      ctx.commit('getRole', 'user');
+    }
+  },
+  mutations: {
+    /**
+     * @description Определение роли
+     * @param state
+     * @param {String} role
+     */
+    getRole: function getRole(state, role) {
+      state.role = role;
+    }
+  },
+  state: {
+    role: 'user' //Роль
+
+  },
+  getters: {
+    /**
+     * @description получить Роль
+     * @param state
+     * @return {String}
+     */
+    getRole: function getRole(state) {
+      return state.role;
     }
   }
 });

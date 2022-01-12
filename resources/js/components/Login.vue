@@ -14,8 +14,8 @@
                     class="col"
                 >
                     <v-text-field
-                        v-model="login"
-                        label="Логин"
+                        v-model="email"
+                        label="E-mail"
                         :rules="[rules.required]"
                     />
                 </v-col>
@@ -39,7 +39,9 @@
             </v-row>
         </v-card-text>
         <v-card-actions>
-            <v-btn>
+            <v-btn
+                @click="login"
+            >
                 Авторизоваться
             </v-btn>
         </v-card-actions>
@@ -52,7 +54,7 @@
         name: 'Login',
         data() {
             return {
-                login: '',
+                email: '',
                 password: '',
                 is_shown: false,
                 rules: {
@@ -61,6 +63,28 @@
                 },
             }
         },
+
+        methods:{
+            login(){
+                axios.post('api/auth/login',{
+                    email: this.email,
+                    password: this.password,
+                }).then(response=>{
+                    if (response.data.status === 'Success'){
+                        // console.log(response.data.data.token.match(/\|(.*)$/));
+                        localStorage.setItem('is_logged', 'true');
+                        localStorage.setItem('token', `Bearer ${response.data.data.token}`);
+                        axios.defaults.headers.common.Authorization = `Bearer ${response.data.data.token}`
+                        this.$store.dispatch('getRole');
+                    }
+                }).catch(error => {
+                    localStorage.setItem('is_logged', 'false');
+                    localStorage.removeItem('token');
+                    this.$store.dispatch('logout');
+                    axios.defaults.headers.common.Authorization = undefined;
+                })
+            }
+        }
     }
 </script>
 <style scoped>

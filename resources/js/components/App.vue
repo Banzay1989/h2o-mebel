@@ -26,9 +26,18 @@
         },
 
         async mounted() {
-            document.title = 'h2o-mebel';
+            // document.title = 'h2o-mebel';
+            const token = localStorage.getItem('token');
+            if (!_.isNil(token)){
+                axios.defaults.headers.common.Authorization = localStorage.getItem('token');
+                this.$store.dispatch('getRole');
+            } else {
+                axios.defaults.headers.common.Authorization = undefined;
+            }
+
             await this.$store.dispatch('getCategories');
             await this.$store.dispatch('getBrands');
+
         },
     }
 </script>

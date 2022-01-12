@@ -76,6 +76,7 @@
                 </v-row>
                 <v-row pa="0" ma="0" wrap class="products">
                     <v-col
+                        v-if="isAdmin()"
                         cols="12"
                         :md="sidebar ? 4 : 3"
                         class="col admin_placeholder first_col"
@@ -119,7 +120,9 @@
                         </a>
                         <p>{{ item.name }}</p>
                         <p>₽{{ item.price }}</p>
-                        <p>
+                        <p
+                            v-if="isAdmin()"
+                        >
                             <admin-buttons
                                 edit
                                 remove
@@ -166,6 +169,7 @@
     import Sidebar from "./Sidebar";
     import AdminButtons from "./AdminButtons";
     import ProductEditor from "./ProductEditor";
+    import isAdmin from "../mixins/isAdmin";
 
     export default {
         name: "Products",
@@ -174,7 +178,9 @@
             Sidebar,
             ProductEditor,
         },
-        mixins: [],
+        mixins: [
+            isAdmin,
+        ],
         props: {
             header: {
                 type: String,

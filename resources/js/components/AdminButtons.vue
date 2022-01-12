@@ -1,5 +1,7 @@
 <template>
-    <v-col cols="12">
+    <v-col cols="12"
+        v-if="isAdmin()"
+    >
         <button-with-dialog
             v-if="add"
             mdi_icon="mdi-plus"
@@ -36,11 +38,16 @@
 
 <script>
     import ButtonWithDialog from "./ButtonWithDialog";
+    import isAdmin from "../mixins/isAdmin";
     export default {
         name: "AdminButtons",
         components:{
             ButtonWithDialog,
         },
+        mixins: [
+          isAdmin,
+        ],
+
         props:{
             add:{
                 type: Boolean,

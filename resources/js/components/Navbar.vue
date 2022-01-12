@@ -3,7 +3,9 @@
         class="thin_container top_menu"
         app
     >
-        <template v-slot:append>
+        <template v-slot:append
+            v-if="isAdmin()"
+        >
             <admin-buttons add>
                 <template v-slot:add>
                     <menu-editor />
@@ -50,7 +52,9 @@
                         </v-list>
                     </v-menu>
                 </router-link>
-                <div class="extra_buttons">
+                <div class="extra_buttons"
+                     v-if="isAdmin()"
+                >
                     <admin-buttons
                         edit
                         remove
@@ -72,6 +76,7 @@
     import ButtonWithDialog from "./ButtonWithDialog";
     import MenuEditor from "./MenuEditor";
     import AdminButtons from "./AdminButtons";
+    import isAdmin from "../mixins/isAdmin";
 
     export default {
         name: 'Navbar',
@@ -80,6 +85,9 @@
             MenuEditor,
             AdminButtons,
         },
+        mixins:[
+            isAdmin,
+        ],
         computed: {
             menu() {
                 return this.$store.getters.getMenu;
