@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87f00ec9-7122-42b5-bf2a-1b88968cbbdc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Exceptions/UnauthorizedException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/AdminMiddleware.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/RoleMiddleware.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Products.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Products.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/mixins/isAdmin.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/mixins/isAdmin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/MenuItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/MenuItemController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api_routes/categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api_routes/categories.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api_routes/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api_routes/menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api_routes/product.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api_routes/product.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +177,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/mixins" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Middleware" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -185,11 +191,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="S:\OpenServer\domains\h2o-mebel\app\Http\Middleware" />
       <recent name="S:\OpenServer\domains\h2o-mebel\resources\js\mixins" />
       <recent name="S:\OpenServer\domains\h2o-mebel\resources\js\store\modules" />
       <recent name="S:\OpenServer\domains\h2o-mebel\app" />
       <recent name="S:\OpenServer\domains\h2o-mebel\database\migrations" />
-      <recent name="S:\OpenServer\domains\h2o-mebel\app\Http\Controllers\Api" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="S:\OpenServer\domains\orders\resources\js" />
@@ -255,7 +261,11 @@
       <workItem from="1641555545766" duration="3397000" />
       <workItem from="1641915681725" duration="6645000" />
       <workItem from="1642001255508" duration="6708000" />
-      <workItem from="1642008123485" duration="89000" />
+      <workItem from="1642008123485" duration="128000" />
+      <workItem from="1642077817291" duration="950000" />
+      <workItem from="1642078788426" duration="186000" />
+      <workItem from="1642078988176" duration="230000" />
+      <workItem from="1642079233743" duration="2323000" />
     </task>
     <servers />
   </component>

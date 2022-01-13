@@ -85,6 +85,7 @@ class MenuItemController extends Controller {
      * @throws \Exception
      */
     public function delete(MenuItem $menu_item):JsonResponse {
+        dd('delete');
         $result = $menu_item->delete();
         return response()->json([
             'result' => (bool)$result,
