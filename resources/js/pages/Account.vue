@@ -11,10 +11,39 @@
             >
                 <v-list>
                     <v-list-item>
-                        <v-list-item-title>Аккаунт</v-list-item-title>
+                        <v-list-item-title>
+                            <h3>
+                                Аккаунт
+                            </h3>
+                        </v-list-item-title>
                     </v-list-item>
                     <v-list-item>
-                        <v-list-item-content dark>Авторизация</v-list-item-content>
+                        <v-list-item-content
+                            dark
+                            @click="active_block='login'"
+                        >
+                            <span>Авторизация</span>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item
+                        v-if="!isLogged()"
+                    >
+                        <v-list-item-content
+                            dark
+                            @click="active_block='register'"
+                        >
+                            <span>Регистрация</span>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item
+                        v-if="isAdmin()"
+                    >
+                        <v-list-item-content
+                            dark
+                            @click="active_block='orders'"
+                        >
+                            <span>Заказы</span>
+                        </v-list-item-content>
                     </v-list-item>
                 </v-list>
             </v-col>
@@ -23,7 +52,16 @@
                 md="9"
                 class="col"
             >
-                <login/>
+                <login
+                    v-if="active_block==='login'"
+                />
+                <register
+                    v-else-if="active_block==='register'"
+                    @registred="active_block='login'"
+                />
+                <orders
+                    v-else-if="active_block==='orders'"
+                />
             </v-col>
         </v-row>
     </v-container>
@@ -31,21 +69,27 @@
 
 <script>
     import Login from "../components/Login";
+    import Register from "../components/Register";
+    import Orders from "../components/Orders"
+    import isAdmin from "../mixins/isAdmin";
+    import isLogged from "../mixins/isLogged";
+
     export default {
         name: "Account",
         components: {
             Login,
+            Register,
+            Orders,
         },
-        mixins: [],
-        // data() {
-            // return {
-            //     product: this.clearProduct(),
-            //     quantity: 1,
-            //     is_aviable: true,
-            //     active_img: 0,
-            //     block: 'description',
-            // }
-        // },
+        mixins: [
+            isAdmin,
+            isLogged,
+        ],
+        data() {
+            return {
+                active_block: 'login'
+            }
+        },
         computed: {
             // image_src() {
             //     return this.product?.images?.[this.active_img]?.url;
@@ -108,66 +152,9 @@
         justify-content: center;
     }
 
-    h2 {
-        font-family: 'Denistina';
-        font-size: 3em;
+    .v-list-item__content:hover {
+        cursor: pointer;
     }
 
-    .subheader, .products {
-        justify-content: center;
-    }
 
-    .subheader > .col, .products > .col {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-    }
-
-    .products > .col {
-        flex-direction: column;
-        justify-content: center;
-        padding-left: 4px;
-        padding-right: 4px;
-    }
-
-    .products > .col > .col {
-        display: flex;
-        justify-content: center;
-    }
-
-    .last_col {
-        padding-right: 0 !important;
-        padding-left: 8px !important;
-    }
-
-    .first_col {
-        padding-right: 8px !important;
-        padding-left: 0 !important;
-    }
-
-    .page_selector {
-        max-width: 124px;
-    }
-
-    .number_selector {
-        max-width: 174px;
-    }
-
-    .order_selector {
-        max-width: 372px;
-    }
-
-    .subheader p, .products p {
-        margin: 0 auto;
-    }
-
-    .admin_placeholder {
-        align-self: center;
-        justify-content: center;
-    }
-
-    .top_selectors{
-        display: flex;
-        justify-content: space-between;
-    }
 </style>

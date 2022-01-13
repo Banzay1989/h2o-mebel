@@ -15,6 +15,10 @@ export default {
             });
         },
 
+        godMode () {
+            ctx.commit('godMode');
+        },
+
         logout (ctx) {
             ctx.commit('getRole', 'user');
         }
@@ -29,9 +33,17 @@ export default {
         getRole(state, role) {
             state.role = role;
         },
+
+        /**
+         * @description Включение админа
+         */
+        godMode(state) {
+            state.godmode = !godmode;
+        },
     },
     state: {
         role: 'user', //Роль
+        godmode: true, //Кнопка
     },
     getters: {
         /**

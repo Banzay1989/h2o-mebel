@@ -6,6 +6,7 @@ import Product from "../pages/Product";
 import Brand from "../pages/Brand";
 import Account from "../pages/Account";
 import Empty from "../pages/Empty";
+import Cart from "../pages/Cart"
 
 export default {
     mode: 'history',
@@ -40,6 +41,10 @@ export default {
         {
             path: '/account',
             component: Account,
+        },
+        {
+            path: '/cart',
+            component: Cart,
         },
         {
             path: '*',

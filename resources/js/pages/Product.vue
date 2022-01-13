@@ -118,8 +118,7 @@
                     </v-text-field>
                     <v-btn
                         dark
-                        disabled
-                        @click="buy()"
+                        @click="addToCart()"
                     >
                         Купить
                     </v-btn>
@@ -225,8 +224,12 @@
                 }
                 return is_shown;
             },
-            buy() {
-
+            addToCart() {
+                console.log('buy');
+                this.$store.dispatch('addToCart', {
+                    product: this.product,
+                    quantity: this.quantity,
+                })
             },
         },
     }

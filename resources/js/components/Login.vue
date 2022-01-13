@@ -7,11 +7,13 @@
         <v-card-title>
             <h2>Авторизация</h2>
         </v-card-title>
-        <v-card-text>
+        <v-card-text
+            v-if="isLogged()"
+        >
             <v-row>
                 <v-col
                     cols="8"
-                    class="col"
+                    class="col pa-0"
                 >
                     <v-text-field
                         v-model="email"
@@ -23,7 +25,7 @@
             <v-row>
                 <v-col
                     cols="8"
-                    class="col"
+                    class="col pa-0"
                 >
                     <v-text-field
                         v-model="password"
@@ -40,6 +42,12 @@
         </v-card-text>
         <v-card-actions>
             <v-btn
+                v-if="isLogged()"
+                @click="logout"
+            >
+                Выйти
+            </v-btn>
+            <v-btn
                 @click="login"
             >
                 Авторизоваться
@@ -49,9 +57,13 @@
 </template>
 
 <script>
+    import isLogged from "../mixins/isLogged";
 
     export default {
         name: 'Login',
+        mixins: [
+            isLogged,
+        ],
         data() {
             return {
                 email: '',
@@ -64,13 +76,13 @@
             }
         },
 
-        methods:{
-            login(){
-                axios.post('api/auth/login',{
+        methods: {
+            login() {
+                axios.post('api/auth/login', {
                     email: this.email,
                     password: this.password,
-                }).then(response=>{
-                    if (response.data.status === 'Success'){
+                }).then(response => {
+                    if (response.data.status === 'Success') {
                         // console.log(response.data.data.token.match(/\|(.*)$/));
                         localStorage.setItem('is_logged', 'true');
                         localStorage.setItem('token', `Bearer ${response.data.data.token}`);
@@ -83,6 +95,16 @@
                     this.$store.dispatch('logout');
                     axios.defaults.headers.common.Authorization = undefined;
                 })
+            },
+
+            logout() {
+                axios.get('api/auth/logout')
+                    .finally(() => {
+                        localStorage.setItem('is_logged', 'false');
+                        localStorage.removeItem('token');
+                        this.$store.dispatch('logout');
+                        axios.defaults.headers.common.Authorization = undefined;
+                    });
             }
         }
     }
