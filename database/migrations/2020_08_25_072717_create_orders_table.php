@@ -16,9 +16,11 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id()->comment('Уникальный ключ таблицы');
-            $table->string('name')->comment('Название заявки');
-            $table->text('description')->comment('Полнотекстовое описание с HTML тэгами');
-            $table->date('completion_date')->comment('Дата завершения заявки');
+            $table->string('name')->comment('Имя заказчика заявки');
+            $table->string('phone')->comment('Телефон заказчика');
+            $table->string('email')->comment('Email заказчика');
+            $table->string('address')->comment('Aдрес заказчика');
+            $table->text('comment')->comment('Комментарий');
             $table->set('status', Order::STATUSES)->comment('Статус заявки'); //Статусы лучше вынести в отдельную morph таблицу, чтоб при смене статусов у нас оставался постоянный id заявки, но при этом статусы менялись и оставались в истории
             $table->timestamps();
         });

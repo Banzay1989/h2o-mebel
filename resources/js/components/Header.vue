@@ -44,8 +44,8 @@
                     </v-icon>
 
                 <v-badge
-                    dot
                     overlap
+                    :content="buying_products.length"
                 >
                     <v-icon
                         class="header_icon"
@@ -62,6 +62,11 @@
 <script>
     export default {
         name: 'Header',
+        computed:{
+            buying_products() {
+                return this.$store.getters.getBuyingProducts;
+            },
+        },
     }
 </script>
 <style scoped>

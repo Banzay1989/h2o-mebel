@@ -8,7 +8,7 @@
             <h2>Авторизация</h2>
         </v-card-title>
         <v-card-text
-            v-if="isLogged()"
+            v-if="!isLogged()"
         >
             <v-row>
                 <v-col
@@ -48,6 +48,7 @@
                 Выйти
             </v-btn>
             <v-btn
+                v-if="!isLogged()"
                 @click="login"
             >
                 Авторизоваться
@@ -83,7 +84,6 @@
                     password: this.password,
                 }).then(response => {
                     if (response.data.status === 'Success') {
-                        // console.log(response.data.data.token.match(/\|(.*)$/));
                         localStorage.setItem('is_logged', 'true');
                         localStorage.setItem('token', `Bearer ${response.data.data.token}`);
                         axios.defaults.headers.common.Authorization = `Bearer ${response.data.data.token}`

@@ -85,7 +85,7 @@
                             add
                         >
                             <template v-slot:add>
-                                <product-editor/>
+                                <product-editor />
                             </template>
                         </admin-buttons>
                     </v-col>
@@ -96,28 +96,27 @@
                         :key="item.id"
                         :class="'col product_col'+isLast(index)+isFirst(index)"
                     >
-                        <a :href="'/product/'+item.id">
-                            <v-img
-                                class="image"
-                                :src="getImage(item)"
-                                :aspect-ratio="278/318"
-                                height="318"
-                            >
-                                <template v-slot:placeholder>
-                                    <v-row
-                                        class="fill-height ma-0"
-                                        align="center"
-                                        justify="center"
-                                    >
-                                        <v-img src="/images/gold_logo.png"
-                                               class="image"
-                                               :aspect-ratio="278/318"
-                                               height="318"
-                                        />
-                                    </v-row>
-                                </template>
-                            </v-img>
-                        </a>
+                        <v-img
+                            class="image"
+                            :src="getImage(item)"
+                            :aspect-ratio="278/318"
+                            height="318"
+                            @click="$router.push(`/product/${item.id}`)"
+                        >
+                            <template v-slot:placeholder>
+                                <v-row
+                                    class="fill-height ma-0"
+                                    align="center"
+                                    justify="center"
+                                >
+                                    <v-img src="/images/gold_logo.png"
+                                           class="image"
+                                           :aspect-ratio="278/318"
+                                           height="318"
+                                    />
+                                </v-row>
+                            </template>
+                        </v-img>
                         <p>{{ item.name }}</p>
                         <p>₽{{ item.price }}</p>
                         <p
@@ -141,7 +140,7 @@
                     v-if="sidebar"
                 >
                     <v-col>
-<!--                        Тут будут кнопки пагинации-->
+                        <!--                        Тут будут кнопки пагинации-->
                     </v-col>
                     <v-col
                         class="right"
@@ -233,7 +232,7 @@
                 };
             },
             pages() {
-                return Math.ceil(this.products_count/this.number);
+                return Math.ceil(this.products_count / this.number);
             }
         },
         watch: {
@@ -267,10 +266,10 @@
              */
             isFirst(index) {
                 // ;
-                return this.isAdmin() ? (((index + 4) * 3 % this.product_cols) === 0 ? ' first_col' : '') : (((index+3) * 3 % this.product_cols) === 0 ? ' first_col' : '');
+                return this.isAdmin() ? (((index + 4) * 3 % this.product_cols) === 0 ? ' first_col' : '') : (((index + 3) * 3 % this.product_cols) === 0 ? ' first_col' : '');
             },
 
-            getImage(item){
+            getImage(item) {
                 return item?.images?.[0]?.url ?? null;
             },
         },
@@ -339,7 +338,7 @@
         justify-content: center;
     }
 
-    .top_selectors{
+    .top_selectors {
         display: flex;
         justify-content: space-between;
     }

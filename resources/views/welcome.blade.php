@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>h2o-mebel</title>
+    <title>h2o-ravak</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>

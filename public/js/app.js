@@ -2571,7 +2571,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Header'
+  name: 'Header',
+  computed: {
+    buying_products: function buying_products() {
+      return this.$store.getters.getBuyingProducts;
+    }
+  }
 });
 
 /***/ }),
@@ -2586,6 +2591,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_isLogged__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../mixins/isLogged */ "./resources/js/mixins/isLogged.js");
+//
 //
 //
 //
@@ -2672,7 +2678,6 @@ __webpack_require__.r(__webpack_exports__);
         password: this.password
       }).then(function (response) {
         if (response.data.status === 'Success') {
-          // console.log(response.data.data.token.match(/\|(.*)$/));
           localStorage.setItem('is_logged', 'true');
           localStorage.setItem('token', "Bearer ".concat(response.data.data.token));
           axios.defaults.headers.common.Authorization = "Bearer ".concat(response.data.data.token);
@@ -3616,7 +3621,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -4330,11 +4334,162 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Cart",
   data: function data() {
+    var _this = this;
+
     return {
-      stepper: 1
+      stepper: 1,
+      valid: true,
+      rules: {
+        required: function required(value) {
+          return !!value || 'Обязательное.';
+        },
+        min_10: function min_10(v) {
+          return v.length >= 10 || 'Минимум 10 символов';
+        },
+        min_12: function min_12(v) {
+          return v.length >= 12 || 'Минимум 12 символов';
+        },
+        email: function email(v) {
+          return _this.validEmail(_this.credential.email) || 'Некорректный email';
+        }
+      }
     };
   },
   computed: {
@@ -4343,6 +4498,22 @@ __webpack_require__.r(__webpack_exports__);
     },
     credential: function credential() {
       return this.$store.getters.getCredential;
+    },
+    total_price: function total_price() {
+      return this.buying_products.reduce(function (acc, item) {
+        return acc += Number(item.quantity) * Number(item.product.price);
+      }, 0);
+    }
+  },
+  methods: {
+    validEmail: function validEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+    checkAndGo: function checkAndGo() {
+      if (this.$refs.credentials.validate()) {
+        this.stepper = 3;
+      }
     }
   }
 });
@@ -4728,7 +4899,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return is_shown;
     },
     addToCart: function addToCart() {
-      console.log('buy');
       this.$store.dispatch('addToCart', {
         product: this.product,
         quantity: this.quantity
@@ -4904,7 +5074,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.header_block[data-v-57b394cf] {\n    justify-content: center;\n}\nh2[data-v-57b394cf] {\n    font-family: 'Denistina';\n    font-size: 3em;\n}\n.subheader[data-v-57b394cf], .products[data-v-57b394cf] {\n    justify-content: center;\n}\n.subheader > .col[data-v-57b394cf], .products > .col[data-v-57b394cf] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-evenly;\n}\n.products > .col[data-v-57b394cf] {\n    flex-direction: column;\n    justify-content: center;\n    padding-left: 4px;\n    padding-right: 4px;\n}\n.products > .col > .col[data-v-57b394cf] {\n    display: flex;\n    justify-content: center;\n}\n.last_col[data-v-57b394cf] {\n    padding-right: 0 !important;\n    padding-left: 8px !important;\n}\n.first_col[data-v-57b394cf] {\n    padding-right: 8px !important;\n    padding-left: 0 !important;\n}\n.page_selector[data-v-57b394cf] {\n    max-width: 124px;\n}\n.number_selector[data-v-57b394cf] {\n    max-width: 174px;\n}\n.order_selector[data-v-57b394cf] {\n    max-width: 372px;\n}\n.subheader p[data-v-57b394cf], .products p[data-v-57b394cf] {\n    margin: 0 auto;\n}\n.admin_placeholder[data-v-57b394cf] {\n    align-self: center;\n    justify-content: center;\n}\n.top_selectors[data-v-57b394cf]{\n    display: flex;\n    justify-content: space-between;\n}\n", ""]);
+exports.push([module.i, "\n.header_block[data-v-57b394cf] {\n    justify-content: center;\n}\nh2[data-v-57b394cf] {\n    font-family: 'Denistina';\n    font-size: 3em;\n}\n.subheader[data-v-57b394cf], .products[data-v-57b394cf] {\n    justify-content: center;\n}\n.subheader > .col[data-v-57b394cf], .products > .col[data-v-57b394cf] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-evenly;\n}\n.products > .col[data-v-57b394cf] {\n    flex-direction: column;\n    justify-content: center;\n    padding-left: 4px;\n    padding-right: 4px;\n}\n.products > .col > .col[data-v-57b394cf] {\n    display: flex;\n    justify-content: center;\n}\n.last_col[data-v-57b394cf] {\n    padding-right: 0 !important;\n    padding-left: 8px !important;\n}\n.first_col[data-v-57b394cf] {\n    padding-right: 8px !important;\n    padding-left: 0 !important;\n}\n.page_selector[data-v-57b394cf] {\n    max-width: 124px;\n}\n.number_selector[data-v-57b394cf] {\n    max-width: 174px;\n}\n.order_selector[data-v-57b394cf] {\n    max-width: 372px;\n}\n.subheader p[data-v-57b394cf], .products p[data-v-57b394cf] {\n    margin: 0 auto;\n}\n.admin_placeholder[data-v-57b394cf] {\n    align-self: center;\n    justify-content: center;\n}\n.top_selectors[data-v-57b394cf] {\n    display: flex;\n    justify-content: space-between;\n}\n", ""]);
 
 // exports
 
@@ -46633,7 +46803,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-badge",
-                { attrs: { dot: "", overlap: "" } },
+                { attrs: { overlap: "", content: _vm.buying_products.length } },
                 [
                   _c(
                     "v-icon",
@@ -46693,7 +46863,7 @@ var render = function() {
     [
       _c("v-card-title", [_c("h2", [_vm._v("Авторизация")])]),
       _vm._v(" "),
-      _vm.isLogged()
+      !_vm.isLogged()
         ? _c(
             "v-card-text",
             [
@@ -46772,9 +46942,11 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("v-btn", { on: { click: _vm.login } }, [
-            _vm._v("\n            Авторизоваться\n        ")
-          ])
+          !_vm.isLogged()
+            ? _c("v-btn", { on: { click: _vm.login } }, [
+                _vm._v("\n            Авторизоваться\n        ")
+              ])
+            : _vm._e()
         ],
         1
       )
@@ -47708,56 +47880,54 @@ var render = function() {
                         attrs: { cols: "12", md: _vm.sidebar ? 4 : 3 }
                       },
                       [
-                        _c(
-                          "a",
-                          { attrs: { href: "/product/" + item.id } },
-                          [
-                            _c("v-img", {
-                              staticClass: "image",
-                              attrs: {
-                                src: _vm.getImage(item),
-                                "aspect-ratio": 278 / 318,
-                                height: "318"
-                              },
-                              scopedSlots: _vm._u(
-                                [
-                                  {
-                                    key: "placeholder",
-                                    fn: function() {
-                                      return [
-                                        _c(
-                                          "v-row",
-                                          {
-                                            staticClass: "fill-height ma-0",
-                                            attrs: {
-                                              align: "center",
-                                              justify: "center"
-                                            }
-                                          },
-                                          [
-                                            _c("v-img", {
-                                              staticClass: "image",
-                                              attrs: {
-                                                src: "/images/gold_logo.png",
-                                                "aspect-ratio": 278 / 318,
-                                                height: "318"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        )
-                                      ]
-                                    },
-                                    proxy: true
-                                  }
-                                ],
-                                null,
-                                true
-                              )
-                            })
-                          ],
-                          1
-                        ),
+                        _c("v-img", {
+                          staticClass: "image",
+                          attrs: {
+                            src: _vm.getImage(item),
+                            "aspect-ratio": 278 / 318,
+                            height: "318"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.$router.push("/product/" + item.id)
+                            }
+                          },
+                          scopedSlots: _vm._u(
+                            [
+                              {
+                                key: "placeholder",
+                                fn: function() {
+                                  return [
+                                    _c(
+                                      "v-row",
+                                      {
+                                        staticClass: "fill-height ma-0",
+                                        attrs: {
+                                          align: "center",
+                                          justify: "center"
+                                        }
+                                      },
+                                      [
+                                        _c("v-img", {
+                                          staticClass: "image",
+                                          attrs: {
+                                            src: "/images/gold_logo.png",
+                                            "aspect-ratio": 278 / 318,
+                                            height: "318"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                },
+                                proxy: true
+                              }
+                            ],
+                            null,
+                            true
+                          )
+                        }),
                         _vm._v(" "),
                         _c("p", [_vm._v(_vm._s(item.name))]),
                         _vm._v(" "),
@@ -47799,7 +47969,8 @@ var render = function() {
                               1
                             )
                           : _vm._e()
-                      ]
+                      ],
+                      1
                     )
                   })
                 ],
@@ -48558,20 +48729,212 @@ var render = function() {
             "v-stepper-content",
             { attrs: { step: "1" } },
             [
-              _c("v-card", { staticClass: "mb-12", attrs: { dark: "" } }),
-              _vm._v(" "),
               _c(
-                "v-btn",
-                {
-                  attrs: { dark: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.stepper = 2
-                    }
-                  }
-                },
-                [_vm._v("\n                Продолжить\n            ")]
+                "v-card",
+                { staticClass: "mb-12", attrs: { dark: "" } },
+                [
+                  _c(
+                    "v-card-text",
+                    [
+                      _c("v-data-table", {
+                        attrs: {
+                          dark: "",
+                          "hide-default-footer": "",
+                          "hide-default-header": "",
+                          items: _vm.buying_products
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "no-data",
+                            fn: function() {
+                              return [
+                                _vm._v(
+                                  "\n                            Вы еще ничего не заказали\n                        "
+                                )
+                              ]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "item",
+                            fn: function(ref) {
+                              var item = ref.item
+                              var index = ref.index
+                              return [
+                                _c("tr", [
+                                  _c(
+                                    "td",
+                                    { staticStyle: { width: "50px" } },
+                                    [
+                                      item.product.images.length
+                                        ? _c("v-img", {
+                                            attrs: {
+                                              src: item.product.images[0].url,
+                                              "aspect-ratio": 1,
+                                              height: "50",
+                                              width: "50"
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "placeholder",
+                                                  fn: function() {
+                                                    return [
+                                                      _c(
+                                                        "v-row",
+                                                        {
+                                                          staticClass:
+                                                            "fill-height ma-0",
+                                                          attrs: {
+                                                            align: "center",
+                                                            justify: "center"
+                                                          }
+                                                        },
+                                                        [
+                                                          _c("v-img", {
+                                                            staticClass:
+                                                              "image",
+                                                            attrs: {
+                                                              src:
+                                                                "/images/gold_logo.png",
+                                                              "aspect-ratio": 1
+                                                            }
+                                                          })
+                                                        ],
+                                                        1
+                                                      )
+                                                    ]
+                                                  },
+                                                  proxy: true
+                                                }
+                                              ],
+                                              null,
+                                              true
+                                            )
+                                          })
+                                        : _vm._e()
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", { staticStyle: { width: "70%" } }, [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(item.product.name) +
+                                        "\n                                "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          dark: "",
+                                          type: "number",
+                                          min: "1"
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            return _vm.$store.dispatch(
+                                              "changeQuantity",
+                                              {
+                                                index: index,
+                                                quantity: item.quantity
+                                              }
+                                            )
+                                          }
+                                        },
+                                        model: {
+                                          value: item.quantity,
+                                          callback: function($$v) {
+                                            _vm.$set(item, "quantity", $$v)
+                                          },
+                                          expression: "item.quantity"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(
+                                          item.quantity * item.product.price
+                                        ) +
+                                        " ₽\n                                "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            title: "Удалить",
+                                            icon: "",
+                                            "x-small": "",
+                                            color: "error"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.$store.dispatch(
+                                                "removeItem",
+                                                index
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "v-icon",
+                                            { attrs: { color: "white" } },
+                                            [
+                                              _vm._v(
+                                                "\n                                            mdi-close\n                                        "
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ])
+                              ]
+                            }
+                          }
+                        ])
+                      }),
+                      _vm._v(" "),
+                      _c("strong", [
+                        _vm._v("Итоговая стоимость: " + _vm._s(_vm.total_price))
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
               ),
+              _vm._v(" "),
+              _vm.buying_products.length
+                ? _c(
+                    "v-btn",
+                    {
+                      attrs: { dark: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.stepper = 2
+                        }
+                      }
+                    },
+                    [_vm._v("\n                Продолжить\n            ")]
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "v-btn",
@@ -48604,18 +48967,147 @@ var render = function() {
             "v-stepper-content",
             { attrs: { step: "2" } },
             [
-              _c("v-card", { staticClass: "mb-12", attrs: { dark: "" } }),
+              _c(
+                "v-card",
+                { staticClass: "mb-12", attrs: { dark: "" } },
+                [
+                  _c(
+                    "v-form",
+                    {
+                      ref: "credentials",
+                      attrs: { "lazy-validation": "" },
+                      model: {
+                        value: _vm.valid,
+                        callback: function($$v) {
+                          _vm.valid = $$v
+                        },
+                        expression: "valid"
+                      }
+                    },
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          rules: [_vm.rules.required, _vm.rules.min_10],
+                          label: "ФИО",
+                          hint: "Не менее 10 символов",
+                          counter: ""
+                        },
+                        on: {
+                          change: function($event) {
+                            return _vm.$store.dispatch("changeCredentials", {
+                              index: "name",
+                              value: _vm.credential.name
+                            })
+                          }
+                        },
+                        model: {
+                          value: _vm.credential.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.credential, "name", $$v)
+                          },
+                          expression: "credential.name"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          rules: [_vm.rules.required, _vm.rules.min_12],
+                          label: "Номер телефона",
+                          hint: "Не менее 10 символов",
+                          counter: ""
+                        },
+                        on: {
+                          change: function($event) {
+                            return _vm.$store.dispatch("changeCredentials", {
+                              index: "phone",
+                              value: _vm.credential.phone
+                            })
+                          }
+                        },
+                        model: {
+                          value: _vm.credential.phone,
+                          callback: function($$v) {
+                            _vm.$set(_vm.credential, "phone", $$v)
+                          },
+                          expression: "credential.phone"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          rules: [_vm.rules.required, _vm.rules.email],
+                          label: "E-mail",
+                          counter: ""
+                        },
+                        on: {
+                          change: function($event) {
+                            return _vm.$store.dispatch("changeCredentials", {
+                              index: "email",
+                              value: _vm.credential.email
+                            })
+                          }
+                        },
+                        model: {
+                          value: _vm.credential.email,
+                          callback: function($$v) {
+                            _vm.$set(_vm.credential, "email", $$v)
+                          },
+                          expression: "credential.email"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-textarea", {
+                        attrs: {
+                          rules: [_vm.rules.required, _vm.rules.min_10],
+                          label: "Адрес",
+                          hint: "Не менее 10 символов",
+                          counter: ""
+                        },
+                        on: {
+                          change: function($event) {
+                            return _vm.$store.dispatch("changeCredentials", {
+                              index: "address",
+                              value: _vm.credential.address
+                            })
+                          }
+                        },
+                        model: {
+                          value: _vm.credential.address,
+                          callback: function($$v) {
+                            _vm.$set(_vm.credential, "address", $$v)
+                          },
+                          expression: "credential.address"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-textarea", {
+                        attrs: { label: "Комментарий к заказу" },
+                        on: {
+                          change: function($event) {
+                            return _vm.$store.dispatch("changeCredentials", {
+                              index: "comment",
+                              value: _vm.credential.comment
+                            })
+                          }
+                        },
+                        model: {
+                          value: _vm.credential.comment,
+                          callback: function($$v) {
+                            _vm.$set(_vm.credential, "comment", $$v)
+                          },
+                          expression: "credential.comment"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
                 "v-btn",
-                {
-                  attrs: { dark: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.stepper = 3
-                    }
-                  }
-                },
+                { attrs: { dark: "" }, on: { click: _vm.checkAndGo } },
                 [_vm._v("\n                Продолжить\n            ")]
               ),
               _vm._v(" "),
@@ -111675,13 +112167,46 @@ __webpack_require__.r(__webpack_exports__);
   actions: {
     addToCart: function addToCart(ctx) {
       var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      console.log(params);
       ctx.commit('addToCart', params);
+    },
+
+    /**
+     * @description Запрос на удаление Продукта
+     * @param ctx
+     * @param {Number} index
+     * @return {Promise<void>}
+     */
+    removeItem: function removeItem(ctx, index) {
+      ctx.commit('removeItem', index);
+    },
+    changeQuantity: function changeQuantity(ctx, params) {
+      ctx.commit('changeQuantity', params);
+    },
+    changeCredentials: function changeCredentials(ctx, params) {
+      ctx.commit('changeCredentials', params);
     }
   },
   mutations: {
     addToCart: function addToCart(state, params) {
-      state.products.push(params);
+      state.products.forEach(function (product) {
+        if (product.product.id === params.product.id) {
+          product.quantity += params.quantity;
+          params = null;
+        }
+      });
+
+      if (!_.isNil(params)) {
+        state.products.push(params);
+      }
+    },
+    removeItem: function removeItem(state, index) {
+      state.products.splice(index, 1);
+    },
+    changeQuantity: function changeQuantity(state, params) {
+      state.products[params.index].quantity = params.quantity;
+    },
+    changeCredentials: function changeCredentials(state, params) {
+      state.credential[params.index] = params.value;
     }
   },
   state: {

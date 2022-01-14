@@ -2,27 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87f00ec9-7122-42b5-bf2a-1b88968cbbdc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Exceptions/UnauthorizedException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/AdminMiddleware.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/RoleMiddleware.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Orders.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Register.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/mixins/isLogged.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/pages/Cart.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/store/modules/buying.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/OrderProduct.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_08_25_072717_create_orders_products_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/MenuItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/MenuItemController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_08_25_072717_create_orders_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_08_25_072717_create_orders_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Header.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/Account.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Account.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Products.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Products.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/Cart.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Cart.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/Product.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Product.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/role.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/role.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api_routes/categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api_routes/categories.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api_routes/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api_routes/menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api_routes/product.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api_routes/product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/buying.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/buying.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +180,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/pages" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -203,11 +194,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="S:\OpenServer\domains\h2o-mebel\app" />
+      <recent name="S:\OpenServer\domains\h2o-mebel\database\migrations" />
       <recent name="S:\OpenServer\domains\h2o-mebel\resources\js\pages" />
       <recent name="S:\OpenServer\domains\h2o-mebel\resources\js\store\modules" />
       <recent name="S:\OpenServer\domains\h2o-mebel\resources\js\components" />
-      <recent name="S:\OpenServer\domains\h2o-mebel\resources\js\mixins" />
-      <recent name="S:\OpenServer\domains\h2o-mebel\app\Http\Middleware" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="S:\OpenServer\domains\orders\resources\js" />
@@ -277,7 +268,8 @@
       <workItem from="1642077817291" duration="950000" />
       <workItem from="1642078788426" duration="186000" />
       <workItem from="1642078988176" duration="230000" />
-      <workItem from="1642079233743" duration="9862000" />
+      <workItem from="1642079233743" duration="9895000" />
+      <workItem from="1642155370825" duration="7543000" />
     </task>
     <servers />
   </component>

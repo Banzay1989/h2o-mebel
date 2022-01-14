@@ -225,7 +225,6 @@
                 return is_shown;
             },
             addToCart() {
-                console.log('buy');
                 this.$store.dispatch('addToCart', {
                     product: this.product,
                     quantity: this.quantity,
