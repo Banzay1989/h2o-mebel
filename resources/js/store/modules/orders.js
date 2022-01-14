@@ -1,29 +1,29 @@
 export default {
     actions: {
-        // /**
-        //  * @description запрос на получение данных о Заказах
-        //  * @param ctx
-        //  * @param params
-        //  * @return {Promise<void>}
-        //  */
-        // async getOrders(ctx, params = {}) {
-        //     await axios.get(`/api/orders`, {
-        //         params: params
-        //     }).then(response => {
-        //         ctx.commit('updateAllOrders', response.data.orders);
-        //     });
-        // },
-        //
-        // /**
-        //  * @description запрос на получение данных о константах Заказа
-        //  * @param ctx
-        //  * @return {Promise<void>}
-        //  */
-        // async getOrderConst(ctx) {
-        //     await axios.get('/api/orders/const').then(response => {
-        //         ctx.commit('updateAllOrderConst', response.data.order_const)
-        //     });
-        // },
+        /**
+         * @description запрос на получение данных о Заказах
+         * @param ctx
+         * @param params
+         * @return {Promise<void>}
+         */
+        async getOrders(ctx, params = {}) {
+            await axios.get(`/api/orders`, {
+                params: params
+            }).then(response => {
+                ctx.commit('updateAllOrders', response.data.orders);
+            });
+        },
+
+        /**
+         * @description запрос на получение данных о константах Заказа
+         * @param ctx
+         * @return {Promise<void>}
+         */
+        async getOrderConst(ctx) {
+            await axios.get('/api/orders/const').then(response => {
+                ctx.commit('updateAllOrderConst', response.data.order_const)
+            });
+        },
         //
         // /**
         //  * @description Запрос на редактирование данных Заказа
@@ -65,14 +65,14 @@ export default {
     },
     mutations: {
 
-        // /**
-        //  * @description наполнение массива Заказов данными
-        //  * @param state
-        //  * @param orders
-        //  */
-        // updateAllOrders(state, orders) {
-        //     state.orders = orders;
-        // },
+        /**
+         * @description наполнение массива Заказов данными
+         * @param state
+         * @param orders
+         */
+        updateAllOrders(state, orders) {
+            state.orders = orders;
+        },
 
         // /**
         //  * @description добавление нового заказа к массиву Заказов
@@ -100,14 +100,14 @@ export default {
         //     }
         // },
 
-        // /**
-        //  * @description наполнение массива констант Заказов данными
-        //  * @param state
-        //  * @param order_const
-        //  */
-        // updateAllOrderConst(state, order_const) {
-        //     state.order_const = order_const;
-        // },
+        /**
+         * @description наполнение массива констант Заказов данными
+         * @param state
+         * @param order_const
+         */
+        updateAllOrderConst(state, order_const) {
+            state.order_const = order_const;
+        },
     },
     state: {
         orders: [], //Заказы (items,count)

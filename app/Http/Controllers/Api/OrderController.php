@@ -25,6 +25,35 @@ class OrderController {
     }
 
     /**
+     * @description загрузка данных Заказа на основании данных из запроса (пагинация, сортировка)
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse {
+        // $limit = $request->input('limit', 10);
+        // $orderBy = $request->input('orderBy', 'id');
+        // $orderDirection = $request->input('orderDirection', 'asc');
+        // $pagination = $request->input('pagination', 0);
+
+        // $builder = Order::offset((int)$pagination)
+        //     ->take((int)$limit);
+        // if ($orderDirection === 'asc') {
+        //     $builder->orderBy($orderBy);
+        // } else {
+        //     $builder->orderByDesc($orderBy);
+        // }
+
+        $orders = Order::with('order_products.product')->get();
+
+        return response()->json([
+            // 'orders' => [
+                'orders' => $orders,
+                // 'count' => Order::count(),
+            // ]
+        ]);
+    }
+
+    /**
      * @description создание нового Заказа на основании данных из запроса
      * @param Request $request
      * @return JsonResponse

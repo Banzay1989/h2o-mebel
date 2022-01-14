@@ -23,4 +23,16 @@ class OrderProduct extends Model {
             'price' => 'required|numeric', //Стоимость - обязательное в формате цены "XXXX.XX"
         ];
     }
+
+    // protected $appends = [
+    //     'product',
+    // ];
+    //
+    // public function getProductAttribute() {
+    //     return $this->BelongsTo(Product::class);
+    // }
+
+    public function product() {
+        return $this->BelongsTo(Product::class);
+    }
 }
