@@ -81,7 +81,14 @@ class ProductController {
         }
 
         $product->update($product_data);
+
         $product->attachFiles(collect($request->file('new_files')));
+
+        foreach($product->getMedia(Product::MEDIA_SOURCE_COLLECTION)->whereIn('id', $product_data['deletable_files']) as $file){
+            unlink($file->getPath());
+            $file->delete();
+        }
+
         return response()->json([
             'new_product' => $product,
         ]);
@@ -107,11 +114,23 @@ class ProductController {
                     'errors' => $validator->errors()
                 ], 500);
         }
-        dd($product_data);
         $product = Product::create($product_data);
         $product->attachFiles(collect($request->file('new_files')));
         return response()->json([
             'new_product' => $product,
+        ]);
+    }
+
+    /**
+     * @description удаление Продукта
+     * @param Product $product
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function delete(Product $product):JsonResponse {
+        $result = $product->delete();
+        return response()->json([
+            'result' => (bool)$result,
         ]);
     }
 

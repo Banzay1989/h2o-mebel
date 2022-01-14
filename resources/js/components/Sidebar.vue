@@ -2,6 +2,7 @@
     <v-col cols="12">
         <h1 class="my-4">Категории</h1>
         <admin-buttons
+            v-if="isAdmin()"
             add
         >
             <template v-slot:add>
@@ -23,7 +24,9 @@
                 :items="categories"
                 @update:active=stopActivate();
             >
-                <template v-slot:append="{item}">
+                <template v-slot:append="{item}"
+                    v-if="isAdmin()"
+                >
                     <admin-buttons
                         edit
                         remove
@@ -52,6 +55,7 @@
 <script>
     import AdminButtons from "./AdminButtons";
     import CategoryEditor from "./CategoryEditor";
+    import isAdmin from "../mixins/isAdmin";
 
     export default {
         name: "Sidebar",
@@ -59,6 +63,9 @@
             CategoryEditor,
             AdminButtons,
         },
+        mixins: [
+            isAdmin,
+        ],
         data() {
             return {
                 active: [],

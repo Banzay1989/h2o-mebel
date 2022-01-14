@@ -76,6 +76,7 @@
                 </v-row>
                 <v-row pa="0" ma="0" wrap class="products">
                     <v-col
+                        v-if="isAdmin()"
                         cols="12"
                         :md="sidebar ? 4 : 3"
                         class="col admin_placeholder first_col"
@@ -84,7 +85,7 @@
                             add
                         >
                             <template v-slot:add>
-                                <product-editor/>
+                                <product-editor />
                             </template>
                         </admin-buttons>
                     </v-col>
@@ -95,35 +96,36 @@
                         :key="item.id"
                         :class="'col product_col'+isLast(index)+isFirst(index)"
                     >
-                        <a :href="'/product/'+item.id">
-                            <v-img
-                                class="image"
-                                :src="getImage(item)"
-                                :aspect-ratio="278/318"
-                                height="318"
-                            >
-                                <template v-slot:placeholder>
-                                    <v-row
-                                        class="fill-height ma-0"
-                                        align="center"
-                                        justify="center"
-                                    >
-                                        <v-img src="/images/gold_logo.png"
-                                               class="image"
-                                               :aspect-ratio="278/318"
-                                               height="318"
-                                        />
-                                    </v-row>
-                                </template>
-                            </v-img>
-                        </a>
+                        <v-img
+                            class="image"
+                            :src="getImage(item)"
+                            :aspect-ratio="278/318"
+                            height="318"
+                            @click="$router.push(`/product/${item.id}`)"
+                        >
+                            <template v-slot:placeholder>
+                                <v-row
+                                    class="fill-height ma-0"
+                                    align="center"
+                                    justify="center"
+                                >
+                                    <v-img src="/images/gold_logo.png"
+                                           class="image"
+                                           :aspect-ratio="278/318"
+                                           height="318"
+                                    />
+                                </v-row>
+                            </template>
+                        </v-img>
                         <p>{{ item.name }}</p>
                         <p>₽{{ item.price }}</p>
-                        <p>
+                        <p
+                            v-if="isAdmin()"
+                        >
                             <admin-buttons
                                 edit
                                 remove
-                                @click_remove="$store.dispatch('deleteProduct', item.id)"
+                                @click_remove="$store.dispatch('deleteProduct', item)"
                             >
                                 <template v-slot:edit>
                                     <product-editor
@@ -138,7 +140,7 @@
                     v-if="sidebar"
                 >
                     <v-col>
-<!--                        Тут будут кнопки пагинации-->
+                        <!--                        Тут будут кнопки пагинации-->
                     </v-col>
                     <v-col
                         class="right"
@@ -166,6 +168,7 @@
     import Sidebar from "./Sidebar";
     import AdminButtons from "./AdminButtons";
     import ProductEditor from "./ProductEditor";
+    import isAdmin from "../mixins/isAdmin";
 
     export default {
         name: "Products",
@@ -174,7 +177,9 @@
             Sidebar,
             ProductEditor,
         },
-        mixins: [],
+        mixins: [
+            isAdmin,
+        ],
         props: {
             header: {
                 type: String,
@@ -227,7 +232,7 @@
                 };
             },
             pages() {
-                return Math.ceil(this.products_count/this.number);
+                return Math.ceil(this.products_count / this.number);
             }
         },
         watch: {
@@ -251,8 +256,7 @@
              * @return {string}
              */
             isLast(index) {
-                // return ((index + 1) * 3 % this.product_cols) === 0 ? ' last_col' : '';
-                return ((index + 2) * 3 % this.product_cols) === 0 ? ' last_col' : '';
+                return this.isAdmin() ? (((index + 2) * 3 % this.product_cols) === 0 ? ' last_col' : '') : (((index + 1) * 3 % this.product_cols) === 0 ? ' last_col' : '');
             },
 
             /**
@@ -261,12 +265,12 @@
              * @return {string}
              */
             isFirst(index) {
-                // return ((index+3) * 3 % this.product_cols) === 0 ? ' first_col' : '';
-                return ((index + 4) * 3 % this.product_cols) === 0 ? ' first_col' : '';
+                // ;
+                return this.isAdmin() ? (((index + 4) * 3 % this.product_cols) === 0 ? ' first_col' : '') : (((index + 3) * 3 % this.product_cols) === 0 ? ' first_col' : '');
             },
 
-            getImage(item){
-                return item?.files?.[0] ?? null;
+            getImage(item) {
+                return item?.images?.[0]?.url ?? null;
             },
         },
     }
@@ -334,7 +338,7 @@
         justify-content: center;
     }
 
-    .top_selectors{
+    .top_selectors {
         display: flex;
         justify-content: space-between;
     }

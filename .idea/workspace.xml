@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="87f00ec9-7122-42b5-bf2a-1b88968cbbdc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/ProductEditor.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Navbar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Products.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Products.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/Product.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Product.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/categories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/products.js" afterDir="false" />
-    </list>
+    <list default="true" id="87f00ec9-7122-42b5-bf2a-1b88968cbbdc" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="min_dev" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -159,6 +150,7 @@
       <path value="$PROJECT_DIR$/vendor/spatie/temporary-directory" />
       <path value="$PROJECT_DIR$/vendor/maennchen/zipstream-php" />
       <path value="$PROJECT_DIR$/vendor/league/glide" />
+      <path value="$PROJECT_DIR$/vendor/laravel/sanctum" />
     </include_path>
   </component>
   <component name="ProjectId" id="1g7swXg5tNJsYdkZL3P6fCizfdj" />
@@ -175,7 +167,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -189,11 +181,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="S:\OpenServer\domains\h2o-mebel\resources\js\components" />
-      <recent name="S:\OpenServer\domains\h2o-mebel\resources\js\store\modules" />
-      <recent name="S:\OpenServer\domains\h2o-mebel\app\Http\Controllers\Api" />
-      <recent name="S:\OpenServer\domains\h2o-mebel\routes\api_routes" />
+      <recent name="S:\OpenServer\domains\h2o-mebel\app" />
+      <recent name="S:\OpenServer\domains\h2o-mebel\database\migrations" />
       <recent name="S:\OpenServer\domains\h2o-mebel\resources\js\pages" />
+      <recent name="S:\OpenServer\domains\h2o-mebel\resources\js\store\modules" />
+      <recent name="S:\OpenServer\domains\h2o-mebel\resources\js\components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="S:\OpenServer\domains\orders\resources\js" />
@@ -255,7 +247,16 @@
       <workItem from="1641223768472" duration="7130000" />
       <workItem from="1641231885949" duration="710000" />
       <workItem from="1641292204074" duration="4668000" />
-      <workItem from="1641302038658" duration="4005000" />
+      <workItem from="1641302038658" duration="4293000" />
+      <workItem from="1641555545766" duration="3397000" />
+      <workItem from="1641915681725" duration="6645000" />
+      <workItem from="1642001255508" duration="6708000" />
+      <workItem from="1642008123485" duration="128000" />
+      <workItem from="1642077817291" duration="950000" />
+      <workItem from="1642078788426" duration="186000" />
+      <workItem from="1642078988176" duration="230000" />
+      <workItem from="1642079233743" duration="9895000" />
+      <workItem from="1642155370825" duration="14332000" />
     </task>
     <servers />
   </component>

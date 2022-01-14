@@ -29,24 +29,32 @@
                 md="4"
                 class="header_block right"
             >
-                <v-icon
-                    class="header_icon"
-                    color="white"
+<!--                <v-icon-->
+<!--                    class="header_icon"-->
+<!--                    color="white"-->
+<!--                >-->
+<!--                    mdi-magnify-->
+<!--                </v-icon>-->
+                    <v-icon
+                        class="header_icon"
+                        color="white"
+                        @click="$router.push('/account')"
+                    >
+                        mdi-account-outline
+                    </v-icon>
+
+                <v-badge
+                    overlap
+                    :content="buying_products.length"
                 >
-                    mdi-magnify
-                </v-icon>
-                <v-icon
-                    class="header_icon"
-                    color="white"
-                >
-                    mdi-account-outline
-                </v-icon>
-                <v-icon
-                    class="header_icon"
-                    color="white"
-                >
-                    mdi-cart-outline
-                </v-icon>
+                    <v-icon
+                        class="header_icon"
+                        color="white"
+                        @click="$router.push('/cart')"
+                    >
+                        mdi-cart-outline
+                    </v-icon>
+                </v-badge>
             </v-col>
         </v-row>
     </v-container>
@@ -54,6 +62,11 @@
 <script>
     export default {
         name: 'Header',
+        computed:{
+            buying_products() {
+                return this.$store.getters.getBuyingProducts;
+            },
+        },
     }
 </script>
 <style scoped>

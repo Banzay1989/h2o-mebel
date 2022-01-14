@@ -5,6 +5,8 @@ import menu from './modules/menu'
 import categories from './modules/categories'
 import products from './modules/products'
 import brands from "./modules/brands";
+import role from "./modules/role";
+import buying from "./modules/buying";
 
 Vue.use(Vuex);
 
@@ -15,5 +17,7 @@ export default new Vuex.Store({
         categories,
         products,
         brands,
+        role,
+        buying,
     }
 });

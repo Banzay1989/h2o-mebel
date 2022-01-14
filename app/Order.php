@@ -3,50 +3,44 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Order extends Model implements HasMedia {
-    use InteractsWithMedia;
+class Order extends Model {
 
     //Набор предопределенных статусов заказа
     const STATUSES = [
-        'Open',
-        'Needs offer',
-        'Offered',
-        'Approved',
-        'In progress',
-        'Ready',
-        'Verified',
-        'Closed',
+        'Создан',
+        'Открыт',
+        'Подтвержден клиентом',
+        'Отменен',
+        'Оплачен',
+        'Доставлен',
+        'Завершен',
+        'Взят в работу',
     ];
 
     //Заполняемые параметры
     protected $fillable = [
         'name',
-        'description',
-        'completion_date',
+        'phone',
+        'email',
+        'address',
+        'comment',
         'status',
     ];
-
-    //Файлы, прикрепленные к заказу
-    protected $appends = ['files'];
 
     //Правила заполнения данных заказа
     public static function rules(): array {
         return [
             'name' => 'required|string', //Имя - обязательное строковое
-            'description' => 'required|string', //Описание - обязательное строковое
-            'completion_date' => 'required|after_or_equal:date', //Дата завершения - обязательное, дата больше или равная сегодня
+            'phone' => 'required|string', //Телефон - обязательное строковое
+            'email' => 'required|string', //E-mail - обязательное строковое
+            'address' => 'required|string', //Адрес - обязательное строковое
+            'comment' => 'required|string', //Комментарий - обязательное строковое
             'status' => 'required|string|in:' . implode(',', self::STATUSES), //Статус - обязательное, соответствовать константе статусов
         ];
     }
 
-    /**
-     * @description получим файлы с данными
-     * @return array
-     */
-    public function getFilesAttribute(): array {
-        return $this->getMedia('orders_files')->all();
+    public function order_products() {
+        return $this->hasMany(OrderProduct::class);
     }
 }
