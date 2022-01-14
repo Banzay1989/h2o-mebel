@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// require_once 'api_routes/order.php';
+require_once 'api_routes/order.php';
 require_once 'api_routes/product.php';
 require_once 'api_routes/menu.php';
 require_once 'api_routes/categories.php';

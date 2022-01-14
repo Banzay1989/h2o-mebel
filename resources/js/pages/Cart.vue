@@ -218,7 +218,7 @@
                 </v-card>
                 <v-btn
                     dark
-                    @click=""
+                    @click="buy()"
                 >
                     Оформить заказ
                 </v-btn>
@@ -274,6 +274,13 @@
                     this.stepper = 3;
                 }
             },
+
+            buy(){
+                this.$store.dispatch('newOrder', {
+                    products: this.buying_products,
+                    credential: this.credential,
+                })
+            }
         }
 
     }

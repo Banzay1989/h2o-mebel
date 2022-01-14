@@ -20,7 +20,11 @@ export default {
 
         changeCredentials(ctx, params) {
             ctx.commit('changeCredentials', params);
-        }
+        },
+
+        clearBuyingProducts(ctx){
+            ctx.commit('clearBuyingProducts');
+        },
 
     },
     mutations: {
@@ -46,6 +50,10 @@ export default {
         },
         changeCredentials(state, params){
             state.credential[params.index] = params.value;
+        },
+
+        clearBuyingProducts(state){
+            state.products = [];
         }
 
     },

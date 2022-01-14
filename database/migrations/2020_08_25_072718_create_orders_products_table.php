@@ -14,7 +14,7 @@ class CreateOrdersProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders_products', function (Blueprint $table) {
+        Schema::create('order_products', function (Blueprint $table) {
             $table->id()->comment('Уникальный ключ таблицы');
             $table->foreignId('order_id')->comment('ID заказа');
             $table->foreign('order_id')->references('id')->on('orders');
@@ -33,6 +33,6 @@ class CreateOrdersProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders_products');
+        Schema::dropIfExists('order_products');
     }
 }

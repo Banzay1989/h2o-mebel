@@ -4514,6 +4514,12 @@ __webpack_require__.r(__webpack_exports__);
       if (this.$refs.credentials.validate()) {
         this.stepper = 3;
       }
+    },
+    buy: function buy() {
+      this.$store.dispatch('newOrder', {
+        products: this.buying_products,
+        credential: this.credential
+      });
     }
   }
 });
@@ -49152,7 +49158,14 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-btn",
-                { attrs: { dark: "" }, on: { click: function($event) {} } },
+                {
+                  attrs: { dark: "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.buy()
+                    }
+                  }
+                },
                 [_vm._v("\n                Оформить заказ\n            ")]
               ),
               _vm._v(" "),
@@ -112184,6 +112197,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     changeCredentials: function changeCredentials(ctx, params) {
       ctx.commit('changeCredentials', params);
+    },
+    clearBuyingProducts: function clearBuyingProducts(ctx) {
+      ctx.commit('clearBuyingProducts');
     }
   },
   mutations: {
@@ -112207,6 +112223,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     changeCredentials: function changeCredentials(state, params) {
       state.credential[params.index] = params.value;
+    },
+    clearBuyingProducts: function clearBuyingProducts(state) {
+      state.products = [];
     }
   },
   state: {
@@ -112652,90 +112671,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   actions: {
-    /**
-     * @description запрос на получение данных о Заказах
-     * @param ctx
-     * @param params
-     * @return {Promise<void>}
-     */
-    getOrders: function getOrders(ctx) {
-      var _arguments = arguments;
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var params;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                params = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : {};
-                _context.next = 3;
-                return axios.get("/api/orders", {
-                  params: params
-                }).then(function (response) {
-                  ctx.commit('updateAllOrders', response.data.orders);
-                });
-
-              case 3:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-
-    /**
-     * @description запрос на получение данных о константах Заказа
-     * @param ctx
-     * @return {Promise<void>}
-     */
-    getOrderConst: function getOrderConst(ctx) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return axios.get('/api/orders/const').then(function (response) {
-                  ctx.commit('updateAllOrderConst', response.data.order_const);
-                });
-
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-
-    /**
-     * @description Запрос на редактирование данных Заказа
-     * @param ctx
-     * @param params
-     * @return {Promise<void>}
-     */
-    updateOrder: function updateOrder(ctx, params) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return axios.post("/api/orders/".concat(params.id), params.order_object).then(function (response) {
-                  ctx.commit('deleteOrder', response.data.new_order);
-                  ctx.commit('newOrder', response.data.new_order);
-                })["catch"](function (errors) {
-                  return console.log(errors);
-                });
-
-              case 2:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
+    // /**
+    //  * @description запрос на получение данных о Заказах
+    //  * @param ctx
+    //  * @param params
+    //  * @return {Promise<void>}
+    //  */
+    // async getOrders(ctx, params = {}) {
+    //     await axios.get(`/api/orders`, {
+    //         params: params
+    //     }).then(response => {
+    //         ctx.commit('updateAllOrders', response.data.orders);
+    //     });
+    // },
+    //
+    // /**
+    //  * @description запрос на получение данных о константах Заказа
+    //  * @param ctx
+    //  * @return {Promise<void>}
+    //  */
+    // async getOrderConst(ctx) {
+    //     await axios.get('/api/orders/const').then(response => {
+    //         ctx.commit('updateAllOrderConst', response.data.order_const)
+    //     });
+    // },
+    //
+    // /**
+    //  * @description Запрос на редактирование данных Заказа
+    //  * @param ctx
+    //  * @param params
+    //  * @return {Promise<void>}
+    //  */
+    // async updateOrder(ctx, params) {
+    //     await axios.post(`/api/orders/${params.id}`, params.order_object).then(response => {
+    //         ctx.commit('deleteOrder', response.data.new_order);
+    //         ctx.commit('newOrder', response.data.new_order);
+    //     }).catch(errors => console.log(errors));
+    // },
 
     /**
      * @description Запрос на создание нового Заказа
@@ -112744,103 +112716,78 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * @return {Promise<void>}
      */
     newOrder: function newOrder(ctx, order_object) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                _context4.next = 2;
+                _context.next = 2;
                 return axios.post("/api/orders", order_object).then(function (response) {
-                  ctx.commit('newOrder', response.data.new_order);
+                  ctx.dispatch('clearBuyingProducts');
                 })["catch"](function (errors) {
                   return console.log(errors);
                 });
 
               case 2:
               case "end":
-                return _context4.stop();
+                return _context.stop();
             }
           }
-        }, _callee4);
+        }, _callee);
       }))();
-    },
+    } // /**
+    //  * @description Запрос на удаление Заказа
+    //  * @param ctx
+    //  * @param item
+    //  * @return {Promise<void>}
+    //  */
+    // async deleteOrder(ctx, item) {
+    //     await axios.delete(`/api/orders/${item.id}`).then(response => {
+    //         ctx.commit('deleteOrder', item);
+    //     }).catch(errors => console.log(errors));
+    // },
 
-    /**
-     * @description Запрос на удаление Заказа
-     * @param ctx
-     * @param item
-     * @return {Promise<void>}
-     */
-    deleteOrder: function deleteOrder(ctx, item) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _context5.next = 2;
-                return axios["delete"]("/api/orders/".concat(item.id)).then(function (response) {
-                  ctx.commit('deleteOrder', item);
-                })["catch"](function (errors) {
-                  return console.log(errors);
-                });
-
-              case 2:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }))();
-    }
   },
-  mutations: {
-    /**
-     * @description наполнение массива Заказов данными
-     * @param state
-     * @param orders
-     */
-    updateAllOrders: function updateAllOrders(state, orders) {
-      state.orders = orders;
-    },
-
-    /**
-     * @description добавление нового заказа к массиву Заказов
-     * @param state
-     * @param order_object
-     */
-    newOrder: function newOrder(state, order_object) {
-      state.orders.count++;
-      state.orders.items.unshift(order_object);
-    },
-
-    /**
-     * @description удаление заказа из массива Заказов
-     * @param state
-     * @param item
-     */
-    deleteOrder: function deleteOrder(state, item) {
-      state.orders.count--;
-      var deletable_order = state.orders.items.find(function (order) {
-        return order.id === item.id;
-      });
-
-      if (deletable_order !== undefined) {
-        var index = state.orders.items.indexOf(deletable_order);
-
-        if (index !== -1) {
-          state.orders.items.splice(index, 1);
-        }
-      }
-    },
-
-    /**
-     * @description наполнение массива констант Заказов данными
-     * @param state
-     * @param order_const
-     */
-    updateAllOrderConst: function updateAllOrderConst(state, order_const) {
-      state.order_const = order_const;
-    }
+  mutations: {// /**
+    //  * @description наполнение массива Заказов данными
+    //  * @param state
+    //  * @param orders
+    //  */
+    // updateAllOrders(state, orders) {
+    //     state.orders = orders;
+    // },
+    // /**
+    //  * @description добавление нового заказа к массиву Заказов
+    //  * @param state
+    //  * @param order_object
+    //  */
+    // newOrder(state, order_object) {
+    //     state.orders.count++;
+    //     state.orders.items.unshift(order_object);
+    // },
+    // /**
+    //  * @description удаление заказа из массива Заказов
+    //  * @param state
+    //  * @param item
+    //  */
+    // deleteOrder(state, item){
+    //     state.orders.count--;
+    //     const deletable_order = state.orders.items.find(order => order.id === item.id);
+    //     if (deletable_order !== undefined){
+    //         const index = state.orders.items.indexOf(deletable_order);
+    //         if (index !== -1){
+    //             state.orders.items.splice(index, 1);
+    //         }
+    //     }
+    // },
+    // /**
+    //  * @description наполнение массива констант Заказов данными
+    //  * @param state
+    //  * @param order_const
+    //  */
+    // updateAllOrderConst(state, order_const) {
+    //     state.order_const = order_const;
+    // },
   },
   state: {
     orders: [],

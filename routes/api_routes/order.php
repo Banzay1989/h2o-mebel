@@ -5,13 +5,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api')->group(static function () {
     Route::prefix('orders')->group(function () {
-        Route::get('', [OrderController::class, 'index']);
-        Route::get('const', [OrderController::class, 'getConsts']);
+        // Route::get('', [OrderController::class, 'index']);
+        // Route::get('const', [OrderController::class, 'getConsts']);
         Route::post('', [OrderController::class, 'store']);
-        Route::prefix('{order}')->group(function () {
-            Route::get('', [OrderController::class, 'get']);
-            Route::post('', [OrderController::class, 'update']);
-            Route::delete('', [OrderController::class, 'delete']);
-        });
+        // Route::prefix('{order}')->group(function () {
+        //     Route::get('', [OrderController::class, 'get']);
+        //     Route::post('', [OrderController::class, 'update']);
+        //     Route::delete('', [OrderController::class, 'delete']);
+        // });
     });
 });
