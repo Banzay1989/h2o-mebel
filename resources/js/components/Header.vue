@@ -9,6 +9,7 @@
                 md="4"
                 class="header_block left"
             >
+                <p>+7 (968) 973-67-83</p>
 <!--                Место для соцсетей-->
             </v-col>
             <v-col
