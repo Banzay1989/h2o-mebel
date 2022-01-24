@@ -53,7 +53,7 @@
                         :key="image.id"
                     >
                         <v-img
-                            :src="image_src"
+                            :src="image.url"
                             :aspect-ratio="1"
                             :class="isSelected(image)"
                             @click="active_img = i"
@@ -146,7 +146,7 @@
                     dark
                     v-if="block==='description'"
                 >
-                    {{ product.description }}
+                    <span v-html="product.description"></span>
                 </v-sheet>
                 <v-sheet
                     dark
