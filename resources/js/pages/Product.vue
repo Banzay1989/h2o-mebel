@@ -216,8 +216,8 @@
                 let is_shown = false;
                 if (i >= this.active_img && i <= this.active_img + max_on_view) {
                     is_shown = true;
-                } else if (this.active_img + max_on_view > last_index) {
-                    if (i <= ((this.active_img + max_on_view) - last_index-1)) {
+                } else if (this.active_img + max_on_view >= last_index) {
+                    if (i <= ((this.active_img + max_on_view) - last_index)) {
                         is_shown = true;
                     }
                 }
