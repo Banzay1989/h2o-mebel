@@ -14,7 +14,6 @@
                         <v-img
                             class="image"
                             :src="image_src"
-                            :aspect-ratio="278/318"
                             height="520"
                         >
                             <template v-slot:placeholder>
