@@ -3,7 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="87f00ec9-7122-42b5-bf2a-1b88968cbbdc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Products.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Products.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/Cart.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Cart.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/Product.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Product.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/orders.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/orders.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -263,6 +269,8 @@
       <workItem from="1642424054678" duration="2049000" />
       <workItem from="1643038845562" duration="1564000" />
       <workItem from="1643044972937" duration="1948000" />
+      <workItem from="1643049126471" duration="316000" />
+      <workItem from="1643122255972" duration="8943000" />
     </task>
     <servers />
   </component>

@@ -3,18 +3,25 @@
         fluid
         class="thin_container"
     >
-        <v-row>
+        <v-row
+            class="pt-16"
+        >
             <v-col
                 cols="12"
                 md="5"
-                class="col image_col"
+                class="col image_col py-0"
             >
-                <v-row>
-                    <v-col cols="12">
+                <v-row
+                    class="py-0"
+                >
+                    <v-col cols="12"
+                           class="py-0"
+                    >
                         <v-img
                             class="image"
                             :src="image_src"
                             height="520"
+                            @click="photo=true"
                         >
                             <template v-slot:placeholder>
                                 <v-row
@@ -106,7 +113,7 @@
                 <v-row class="buy">
                     <v-text-field
                         dark
-                        class="page_selector"
+                        class="page_selector quantity"
                         v-model="quantity"
                         type="number"
                         min="1"
@@ -117,6 +124,8 @@
                     </v-text-field>
                     <v-btn
                         dark
+                        tile
+                        class="ml-5"
                         @click="addToCart()"
                     >
                         Купить
@@ -140,7 +149,10 @@
                 <!--                <p>-</p>-->
                 <!--                <p>Специальные</p>-->
             </v-col>
-            <v-col cols="12">
+            <v-col
+                class="description"
+                cols="12"
+            >
                 <v-sheet
                     dark
                     v-if="block==='description'"
@@ -155,6 +167,74 @@
                 </v-sheet>
             </v-col>
         </v-row>
+        <v-dialog
+            v-model="photo"
+            fullscreen
+            @click="photo=false"
+        >
+            <v-row
+                @click="photo=false"
+            >
+                <v-spacer />
+                <v-btn
+                    title="Закрыть"
+                    icon
+                    color="error"
+                >
+                    <v-icon
+                        color="white"
+                    >
+                        mdi-close
+                    </v-icon>
+                </v-btn>
+            </v-row>
+            <v-row
+                class="photo_prew"
+            >
+                <v-col
+                    cols="1"
+                >
+                    <v-icon
+                        dark
+                        color="white"
+                        class="arrow left-arrow"
+                        @click="changeImage(-1)"
+                    >
+                        &#5130
+                    </v-icon>
+                </v-col>
+                <v-col
+                    cols="10"
+
+                >
+                    <v-img
+                        :src="image_src"
+                        class="image_full"
+                        contain
+                        :max-height="max_height"
+                    >
+                        <template v-slot:placeholder>
+                                <v-img
+                                    contain
+                                    :max-height="max_height"
+                                    src="/images/gold_logo.png"
+                                />
+                        </template>
+                    </v-img>
+                </v-col>
+                <v-col cols="1">
+                    <v-icon
+                        dark
+                        color="white"
+                        class="arrow right-arrow"
+                        icon
+                        @click="changeImage(1)"
+                    >
+                        &#5125;
+                    </v-icon>
+                </v-col>
+            </v-row>
+        </v-dialog>
     </v-container>
 </template>
 
@@ -170,6 +250,7 @@
                 is_aviable: true,
                 active_img: 0,
                 block: 'description',
+                photo: false,
             }
         },
         computed: {
@@ -180,6 +261,9 @@
             in_stock() {
                 return this.product?.deleted_at ? 'Не продаётся' : 'В продаже';
             },
+            max_height() {
+                return window.innerHeight - 100;
+            }
         },
 
         async mounted() {
@@ -222,6 +306,14 @@
                     }
                 }
                 return is_shown;
+            },
+            changeImage(direction){
+                this.active_img += direction;
+                if (this.active_img === -1){
+                    this.active_img = this.product.images.length - 1;
+                } else if (this.active_img === this.product.images.length){
+                    this.active_img = 0;
+                }
             },
             addToCart() {
                 this.$store.dispatch('addToCart', {
@@ -277,5 +369,49 @@
 
     .buy {
         align-items: baseline;
+    }
+
+    .description {
+        padding: 25px;
+        border: 1px solid #37302e;
+        text-align: left;
+    }
+
+    >>> .quantity .v-text-field__slot {
+        opacity: 1;
+        background: #404040 !important;
+    }
+
+    >>> .quantity .v-input__slot:before {
+        border-style: none !important;
+    }
+
+    >>> .quantity .v-input__prepend-outer {
+        margin-top: 10px;
+    }
+
+    >>> .quantity input {
+        padding: 18px 0;
+        text-align: right;
+    }
+    .photo_prew > .col{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .photo_prew {
+        height: 85%;
+    }
+    .image_full {
+        height: 100%;
+    }
+    .arrow {
+        font-size: 10vh;
+    }
+    .arrow:focus {
+        background-color: transparent;
+    }
+    >>>.v-dialog {
+        background-color: #00000075;
     }
 </style>
