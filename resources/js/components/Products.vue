@@ -307,6 +307,10 @@
         justify-content: center;
     }
 
+    .product_col p{
+        text-align: center;
+    }
+
     .last_col {
         padding-right: 0 !important;
         padding-left: 8px !important;
