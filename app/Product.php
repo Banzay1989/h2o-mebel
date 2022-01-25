@@ -36,7 +36,7 @@ class Product extends Model implements HasMedia {
     public static function rules(): array {
         return [
             'name' => 'required|string', //Имя - обязательное строковое
-            'article' => 'required|string', //Артикул - обязательное строковое
+            'article' => 'string', //Артикул - строковое
             // 'article' => 'required|string|unique:App\Product,article', //Артикул - обязательное строковое
             'description' => 'required|string', //Описание - обязательное строковое
             'category_id' => 'required|integer', //Ссылка на категорию - обязательное целочисленное

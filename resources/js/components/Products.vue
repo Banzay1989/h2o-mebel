@@ -3,7 +3,7 @@
         fluid
         class="thin_container"
     >
-        <v-row v-if="header !== ''">
+        <v-row v-if="false">
             <v-col
                 cols="12"
                 class="header_block"
@@ -95,13 +95,13 @@
                         v-for="(item, index) in products"
                         :key="item.id"
                         :class="'col product_col'+isLast(index)+isFirst(index)"
+                        @click="$router.push(`/product/${item.id}`)"
                     >
                         <v-img
                             class="image"
                             :src="getImage(item)"
                             :aspect-ratio="278/318"
                             height="318"
-                            @click="$router.push(`/product/${item.id}`)"
                         >
                             <template v-slot:placeholder>
                                 <v-row
@@ -342,4 +342,12 @@
         display: flex;
         justify-content: space-between;
     }
+    >>>.number_selector .v-select__slot, >>>.order_selector .v-select__slot {
+        opacity: 1;
+        background: #404040 !important;
+        padding-left: 10px;
+    }
+    >>>.number_selector .v-input__slot:before, >>>.order_selector .v-input__slot:before {
+          border-style: none !important;
+      }
 </style>

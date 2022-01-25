@@ -47,6 +47,7 @@ export default {
         async newOrder(ctx, order_object) {
             await axios.post(`/api/orders`, order_object).then(response => {
                 ctx.dispatch('clearBuyingProducts');
+                this.$router.push(`/`);
             }).catch(errors => console.log(errors));
         },
 

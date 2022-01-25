@@ -136,8 +136,8 @@
                             v-model="credential.name"
                             :rules="[rules.required, rules.min_10]"
                             label="ФИО"
+                            class="px-3"
                             hint="Не менее 10 символов"
-                            counter
                             @change="$store.dispatch('changeCredentials', {
                                 index: 'name',
                                 value: credential.name,
@@ -147,8 +147,8 @@
                             v-model="credential.phone"
                             :rules="[rules.required, rules.min_12]"
                             label="Номер телефона"
-                            hint="Не менее 10 символов"
-                            counter
+                            class="px-3"
+                            hint="Не менее 12 символов"
                             @change="$store.dispatch('changeCredentials', {
                                 index: 'phone',
                                 value: credential.phone,
@@ -158,7 +158,7 @@
                             v-model="credential.email"
                             :rules="[rules.required, rules.email]"
                             label="E-mail"
-                            counter
+                            class="px-3"
                             @change="$store.dispatch('changeCredentials', {
                                 index: 'email',
                                 value: credential.email,
@@ -168,8 +168,8 @@
                             v-model="credential.address"
                             :rules="[rules.required, rules.min_10]"
                             label="Адрес"
+                            class="px-3"
                             hint="Не менее 10 символов"
-                            counter
                             @change="$store.dispatch('changeCredentials', {
                                 index: 'address',
                                 value: credential.address,
@@ -178,6 +178,7 @@
                         <v-textarea
                             v-model="credential.comment"
                             label="Комментарий к заказу"
+                            class="px-3"
                             @change="$store.dispatch('changeCredentials', {
                                 index: 'comment',
                                 value: credential.comment,
@@ -275,11 +276,11 @@
                 }
             },
 
-            buy(){
-                this.$store.dispatch('newOrder', {
+            async buy(){
+                await this.$store.dispatch('newOrder', {
                     products: this.buying_products,
                     credential: this.credential,
-                })
+                });
             }
         }
 

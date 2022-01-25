@@ -118,7 +118,7 @@
 
     .top_menu {
         display: flex;
-        width: 100% !important;
+        width: 1200px !important;
         flex-direction: row;
         align-items: center;
         justify-content: center;
@@ -126,6 +126,7 @@
         height: auto !important;
         align-self: center;
         background: transparent !important;
+        border-bottom: 1px solid #37302e;
     }
 
     .submenu {

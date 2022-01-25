@@ -73,7 +73,7 @@
         align-items: center;
     }
 
-    a:hover, p:hover, h1:hover, h2:hover, i:hover {
+    a:hover, h1:hover, h2:hover, i:hover {
         color: #a9a9a9 !important;
         cursor: pointer;
     }
