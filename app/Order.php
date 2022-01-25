@@ -35,7 +35,7 @@ class Order extends Model {
             'phone' => 'required|string', //Телефон - обязательное строковое
             'email' => 'required|string', //E-mail - обязательное строковое
             'address' => 'required|string', //Адрес - обязательное строковое
-            'comment' => 'required|string', //Комментарий - обязательное строковое
+            'comment' => 'string', //Комментарий - строковое
             'status' => 'required|string|in:' . implode(',', self::STATUSES), //Статус - обязательное, соответствовать константе статусов
         ];
     }
